@@ -32,7 +32,7 @@
   boot.loader.systemd-boot.consoleMode = "0";
 
   # Define your hostname.
-  networking.hostName = "dev";
+  networking.hostName = "Workstation";
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";

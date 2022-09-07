@@ -1,0 +1,8 @@
+#!/bin/bash
+dir=~/.local/share/applications
+searchQuery=$(basename $BASH_SOURCE)
+searchQuery='slack'
+
+appid=$(grep -rni --exclude-dir={bundles,dist,node_modules,bower_components} $dir -e $searchQuery | awk -F '-' '{print $2}' | head -n 1)
+
+google-chrome --password-store=gnome --app-id=$appid

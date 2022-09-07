@@ -1,0 +1,17 @@
+#!/bin/bash
+
+BASE_VOLUME='30%'
+VOLUME=$arg1
+
+if [ "$1" == "level" ]; then
+  for SINK in `pactl list sinks | grep 'Sink #' | cut -b7-`
+  do
+    pactl set-sink-volume $SINK $BASE_VOLUME #Set all sinks to BASE_VOLUME
+  done
+  exit 1
+fi
+
+for SINK in `pactl list sinks | grep 'Sink #' | cut -b7-`
+  do
+    pactl set-sink-volume $SINK $1
+done

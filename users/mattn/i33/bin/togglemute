@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for SINK in `pactl list sinks | grep 'Sink #' | cut -b7-`
+do
+  pactl set-sink-mute $SINK toggle
+done

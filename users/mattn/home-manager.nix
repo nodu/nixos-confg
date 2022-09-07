@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let sources = import ../../nix/sources.nix; in {
+let
+  inherit (pkgs)
+    fetchFromBitbucket
+    ;
+   sources = import ../../nix/sources.nix; in {
   xdg.enable = true;
 
   #---------------------------------------------------------------------
@@ -26,10 +30,12 @@ let sources = import ../../nix/sources.nix; in {
 
     pkgs.go
     pkgs.gopls
-    pkgs.zig-master
+    #MRNotes Same Zig issue
+    #pkgs.zig-master
 
     pkgs.tlaplusToolbox
     pkgs.tetex
+    pkgs.redshift
   ];
 
   #---------------------------------------------------------------------
@@ -47,6 +53,15 @@ let sources = import ../../nix/sources.nix; in {
 
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
+
+  home.file.".config/aliases".source = ./aliases;
+
+  home.file.".config/defaults".source = fetchFromBitbucket {
+    owner = "nodu";
+    repo = "defaults";
+    rev = "62941ea";
+    sha256 = "NCC+hDN5mNqtOIlFxQPCQaIkQzN7h+jvnrKFCgatA6o=";
+  };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
   xdg.configFile."rofi/config.rasi".text = builtins.readFile ./rofi;
@@ -101,6 +116,58 @@ let sources = import ../../nix/sources.nix; in {
     };
   };
 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
+    autocd= true;
+    history.expireDuplicatesFirst = true;
+    history.extended = true;
+    #completionInit
+
+    shellAliases = {
+      ga = "git add";
+      gc = "git commit";
+      gco = "git checkout";
+      gcp = "git cherry-pick";
+      gdiff = "git diff";
+      gl = "git prettylog";
+      gp = "git push";
+      gs = "git status";
+      gst = "git status";
+      gt = "git tag";
+
+      # Two decades of using a Mac has made this such a strong memory
+      # that I'm just going to keep it consistent.
+      pbcopy = "xclip";
+      pbpaste = "xclip -o";
+      nixupdate = "cd ~/nixos-config/ && make switch && cd -";
+    };
+
+    history = {
+      size = 10000;
+      path = "${config.xdg.dataHome}/zsh/history";
+    };
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "thefuck" "z"];
+      theme = "robbyrussell";
+    };
+
+    initExtraBeforeCompInit = ''
+    '';
+
+    initExtraFirst = ''
+    '';
+
+    initExtra = ''
+      source $HOME/.config/aliases
+      source $HOME/.config/defaults/basic
+    '';
+  };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" [
@@ -140,24 +207,35 @@ let sources = import ../../nix/sources.nix; in {
 
   programs.git = {
     enable = true;
-    userName = "Mitchell Hashimoto";
-    userEmail = "mitchell.hashimoto@gmail.com";
+    userName = "Matt Nodurfth";
+    userEmail = "mnodurft@gmail.com";
     signing = {
-      key = "523D5DC389D273BC";
-      signByDefault = true;
+      key = "";
+      signByDefault = false;
     };
     aliases = {
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       root = "rev-parse --show-toplevel";
     };
     extraConfig = {
-      branch.autosetuprebase = "always";
-      color.ui = true;
+      core = {
+        editor = "nvim";
+      };
       core.askPass = ""; # needs to be empty to use terminal for ask pass
       credential.helper = "store"; # want to make this more secure
-      github.user = "mitchellh";
+      branch.autosetuprebase = "always";
+      color.ui = true;
+      github.user = "nodu";
       push.default = "tracking";
       init.defaultBranch = "main";
+      url = {
+        "git@bitbucket.com:" = {
+          insteadOf = "https://bitbucket.com/";
+        };
+        "git@github.com:" = {
+          insteadOf = "https://github.com/";
+        };
+      };
     };
   };
 

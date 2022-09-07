@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+# https://www.reddit.com/r/i3wm/comments/75k5eq/add_tiling_direction_indicator_to_i3bar/
+# sudo apt-get -y install python3-pip
+# pip3 install i3ipc
+import i3ipc
+
+i3          = i3ipc.Connection()
+splitv_text = '↓'
+splith_text = '→'
+split_none  = '•'
+parent      = i3.get_tree().find_focused().parent
+
+if parent.layout   == 'splitv' :
+    print( splitv_text )
+elif parent.layout == 'splith' :
+    print( splith_text )
+else                           :
+    print( split_none  )
