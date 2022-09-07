@@ -8,10 +8,10 @@ let sources = import ../../nix/sources.nix; in rec {
       src = sources.vim-cue;
     };
 
-    vim-fish = vimUtils.buildVimPlugin {
-      name = "vim-fish";
-      src = sources.vim-fish;
-    };
+    #vim-fish = vimUtils.buildVimPlugin {
+    #  name = "vim-fish";
+    #  src = sources.vim-fish;
+    #};
 
     vim-fugitive = vimUtils.buildVimPlugin {
       name = "vim-fugitive";

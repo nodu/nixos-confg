@@ -54,9 +54,9 @@ let
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
 
-  home.file.".config/aliases".source = ./aliases;
+  xdg.configFile."aliases".text = builtins.readFile ./aliases;
 
-  home.file.".config/defaults".source = fetchFromBitbucket {
+  xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
     rev = "62941ea";
@@ -310,7 +310,7 @@ let
 
     plugins = with pkgs; [
       customVim.vim-cue
-      customVim.vim-fish
+      #customVim.vim-fish
       customVim.vim-fugitive
       customVim.vim-glsl
       customVim.vim-misc
