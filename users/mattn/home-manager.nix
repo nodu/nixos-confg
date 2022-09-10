@@ -35,7 +35,9 @@ let
 
     pkgs.tlaplusToolbox
     pkgs.tetex
+
     pkgs.redshift
+    pkgs.wget
   ];
 
   #---------------------------------------------------------------------
@@ -137,6 +139,7 @@ let
       gs = "git status";
       gst = "git status";
       gt = "git tag";
+      znix = "nix-shell --run zsh";
 
       # Two decades of using a Mac has made this such a strong memory
       # that I'm just going to keep it consistent.
@@ -152,7 +155,7 @@ let
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" "z"];
+      plugins = [ "git" "thefuck" "z" "fzf"];
       theme = "robbyrussell";
     };
 
@@ -165,6 +168,7 @@ let
     initExtra = ''
       source $HOME/.config/aliases
       source $HOME/.config/defaults/basic
+      eval "$(direnv hook zsh)"
     '';
   };
 
