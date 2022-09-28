@@ -282,7 +282,7 @@ alias whereami-country='curl ipinfo.io/country'
 alias whereami='curl ipinfo.io/json'
 
 alias switch-to-windows='~/dotenv/switch-to-windows.sh'
-alias aws='docker run --rm -it -v ~/dotenv/aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
+#alias aws='docker run --rm -it -v ~/dotenv/aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
 
 alias aws-sync-chromeosdownloads-delete-dry='aws --profile backup-cali s3 sync ~/Downloads s3://nodu-backup/ChromeOSDownloads --delete --dryrun'
 alias aws-sync-chromeosdownloads-delete='aws --profile backup-cali s3 sync ~/Downloads s3://nodu-backup/ChromeOSDownloads --delete'
