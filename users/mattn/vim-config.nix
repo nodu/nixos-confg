@@ -68,7 +68,6 @@ require'nvim-treesitter.configs'.setup {
 }
 
 EOF
-''
 
 " Install vim-plug
 "if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -357,4 +356,5 @@ require('telescope').setup{
 --  require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })
 EOF
 "au VimEnter * if isdirectory(argv(0)) | exec 'Telescope find_files cwd=' . argv(0) | endif
-endif
+  endif
+''

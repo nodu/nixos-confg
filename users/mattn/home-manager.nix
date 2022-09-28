@@ -310,18 +310,18 @@ let
         { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
       ];
 
-      # Colors (Solarized Light)
+      # Colors (Solarized Dark)
       colors= {
         # Default colors
         primary= {
-          #background= "#002b36"; # base3
-          background= "#011318"; # base3
-          foreground= "#839496"; # base00
+          background= "#002b36"; # original
+          #background= "#011318"; # black
+          foreground= "#839496"; # base0
         };
         # Cursor colors
         cursor= {
           text=   "#002b36"; # base3
-          cursor= "#839496"; # base00
+          cursor= "#839496"; # base0
         };
         # Normal colors
         normal= {
