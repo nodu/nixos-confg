@@ -36,8 +36,15 @@ let
     pkgs.tlaplusToolbox
     pkgs.tetex
 
+    pkgs.xfce.thunar
     pkgs.redshift
     pkgs.wget
+    pkgs.kubectl
+    pkgs.terraform
+    pkgs.awscli2
+    pkgs.azure-cli
+    pkgs.google-cloud-sdk
+    pkgs.buildkit
   ];
 
   #---------------------------------------------------------------------
@@ -139,6 +146,7 @@ let
       gs = "git status";
       gst = "git status";
       gt = "git tag";
+      V = "nvim .";
       znix = "nix-shell --run zsh";
 
       # Two decades of using a Mac has made this such a strong memory
@@ -168,6 +176,7 @@ let
     initExtra = ''
       source $HOME/.config/aliases
       source $HOME/.config/defaults/basic
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bold,underline"
       eval "$(direnv hook zsh)"
     '';
   };
@@ -275,14 +284,68 @@ let
     settings = {
       env.TERM = "xterm-256color";
 
+      font = {
+        size = 14.0;
+        #use_thin_strokes = true;
+
+        #normal.family = "Monaco for Powerline";
+        #bold.family = "FuraCode Nerd Font";
+        #italic.family = "FuraCode Nerd Font";
+      };
+
+      cursor.style = "Block";
+      dynamic_title = true;
+      decorations = "transparent";
+      #padding.y = 27;
+
       key_bindings = [
         { key = "K"; mods = "Command"; chars = "ClearHistory"; }
         { key = "V"; mods = "Command"; action = "Paste"; }
         { key = "C"; mods = "Command"; action = "Copy"; }
         { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
         { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Subtract"; mods = "Command"; action = "DecreaseFontSize"; }
+        { key = "Plus"; mods = "Command"; action = "IncreaseFontSize"; }
+        { key = "NumpadAdd"; mods = "Command"; action = "IncreaseFontSize"; }
+        { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
+        { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
       ];
+
+      # Colors (Solarized Light)
+      colors= {
+        # Default colors
+        primary= {
+          #background= "#002b36"; # base3
+          background= "#011318"; # base3
+          foreground= "#839496"; # base00
+        };
+        # Cursor colors
+        cursor= {
+          text=   "#002b36"; # base3
+          cursor= "#839496"; # base00
+        };
+        # Normal colors
+        normal= {
+          black=   "#073642"; # base02
+          red=     "#dc322f"; # red
+          green=   "#859900"; # green
+          yellow=  "#b58900"; # yellow
+          blue=    "#268bd2"; # blue
+          magenta= "#d33682"; # magenta
+          cyan=    "#2aa198"; # cyan
+          white=   "#eee8d5"; # base2
+        };
+        # Bright colors
+        bright= {
+          black=   "#002b36"; # base03
+          red=     "#cb4b16"; # orange
+          green=   "#586e75"; # base01
+          yellow=  "#657b83"; # base00
+          blue=    "#839496"; # base0
+          magenta= "#6c71c4"; # violet
+          cyan=    "#93a1a1"; # base1
+          white=   "#fdf6e3"; # base3
+        };
+      };
     };
   };
 
@@ -341,6 +404,9 @@ let
       vimPlugins.vim-markdown
       vimPlugins.vim-nix
       vimPlugins.typescript-vim
+      vimPlugins.vim-visual-multi
+      vimPlugins.vim-surround
+      vimPlugins.vim-colors-solarized
     ];
 
     extraConfig = (import ./vim-config.nix) { inherit sources; };
