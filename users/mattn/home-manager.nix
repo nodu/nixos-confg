@@ -45,6 +45,7 @@ let
     pkgs.azure-cli
     pkgs.google-cloud-sdk
     pkgs.buildkit
+    pkgs.krew
   ];
 
   #---------------------------------------------------------------------
@@ -64,6 +65,7 @@ let
   home.file.".inputrc".source = ./inputrc;
 
   xdg.configFile."aliases".text = builtins.readFile ./aliases;
+  xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
 
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
@@ -163,7 +165,7 @@ let
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" "z" "fzf"];
+      plugins = [ "git" "thefuck" "z" "fzf" "kubectl" "kube-ps1"];
       theme = "robbyrussell";
     };
 
@@ -176,7 +178,8 @@ let
     initExtra = ''
       source $HOME/.config/aliases
       source $HOME/.config/defaults/basic
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bold,underline"
+      source $HOME/dotenv/shortcuts/work
+      source $HOME/.config/shellConfig
       eval "$(direnv hook zsh)"
     '';
   };
