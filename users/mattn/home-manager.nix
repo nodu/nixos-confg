@@ -288,7 +288,7 @@ let
       env.TERM = "xterm-256color";
 
       font = {
-        size = 14.0;
+        size = 12.0;
         #use_thin_strokes = true;
 
         #normal.family = "Monaco for Powerline";
@@ -383,7 +383,7 @@ let
       #customVim.vim-fish
       customVim.vim-fugitive
       customVim.vim-glsl
-      customVim.vim-misc
+      #customVim.vim-misc
       customVim.vim-pgsql
       customVim.vim-tla
       customVim.vim-zig
