@@ -1,5 +1,301 @@
 { sources }:
 ''
+scriptencoding utf-8
+set encoding=utf-8
+
+let g:vim_home_path = "~/.vim"
+"----------------------------------------------------------------------
+" Basic Options
+"----------------------------------------------------------------------
+set backspace=2           " Makes backspace behave like you'd expect
+set colorcolumn=80        " Highlight 80 character limit
+set hidden                " Allow buffers to be backgrounded without being saved
+set laststatus=2          " Always show the status bar
+set list                  " Show invisible characters
+set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
+set number
+set ruler                 " Show the line number and column in the status bar
+set t_Co=256              " Use 256 colors
+"set scrolloff=999         " Keep the cursor centered in the screen
+set scrolloff=5           " Keep a couple lines of buffer
+set showmatch             " Highlight matching braces
+set showmode              " Show the current mode on the open buffer
+set splitbelow            " Splits show up below by default
+set splitright            " Splits go to the right by default
+set title                 " Set the title for gvim
+set visualbell            " Use a visual bell to notify us
+
+" Customize session options. Namely, I don't want to save hidden and
+" unloaded buffers or empty windows.
+set sessionoptions="curdir,folds,help,options,tabpages,winsize"
+
+if !has("win32")
+    set showbreak=↪           " The character to put to show a line has been wrapped
+end
+
+syntax on                 " Enable filetype detection by syntax
+
+" Backup settings
+execute "set directory=" . g:vim_home_path . "/swap"
+execute "set backupdir=" . g:vim_home_path . "/backup"
+execute "set undodir=" . g:vim_home_path . "/undo"
+set backup
+set undofile
+set writebackup
+
+" Search settings
+set hlsearch   " Highlight results
+set ignorecase " Ignore casing of searches
+set incsearch  " Start showing results as you type
+set smartcase  " Be smart about case sensitivity when searching
+
+" Tab settings
+set expandtab     " Expand tabs to the proper type and size
+set tabstop=4     " Tabs width in spaces
+set softtabstop=4 " Soft tab width in spaces
+set shiftwidth=4  " Amount of spaces when shifting
+
+" Tab completion settings
+set wildmode=list:longest     " Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn " Ignore version control repos
+set wildignore+=*.6           " Ignore Go compiled files
+set wildignore+=*.pyc         " Ignore Python compiled files
+set wildignore+=*.rbc         " Ignore Rubinius compiled files
+set wildignore+=*.swp         " Ignore vim backups
+
+" GUI settings
+
+" This is required to force 24-bit color since I use a modern terminal.
+set termguicolors
+
+if !has("gui_running")
+    " vim hardcodes background color erase even if the terminfo file does
+    " not contain bce (not to mention that libvte based terminals
+    " incorrectly contain bce in their terminfo files). This causes
+    " incorrect background rendering when using a color theme with a
+    " background color.
+    "
+    " see: https://github.com/kovidgoyal/kitty/issues/108
+    let &t_ut=""
+endif
+
+set guioptions=cegmt
+if has("win32")
+    set guifont=Inconsolata:h11
+else
+    set guifont=Monaco\ for\ Powerline:h12
+endif
+
+if exists("&fuopt")
+    set fuopt+=maxhorz
+endif
+
+"----------------------------------------------------------------------
+" Key Mappings
+"----------------------------------------------------------------------
+" Remap a key sequence in insert mode to kick me out to normal
+" mode. This makes it so this key sequence can never be typed
+" again in insert mode, so it has to be unique.
+inoremap jj <esc>
+inoremap jJ <esc>
+inoremap Jj <esc>
+inoremap JJ <esc>
+inoremap jk <esc>
+inoremap jK <esc>
+inoremap Jk <esc>
+inoremap JK <esc>
+
+" Make j/k visual down and up instead of whole lines. This makes word
+" wrapping a lot more pleasent.
+map j gj
+map k gk
+
+" cd to the directory containing the file in the buffer. Both the local
+" and global flavors.
+nmap <leader>cd :cd %:h<CR>
+nmap <leader>lcd :lcd %:h<CR>
+
+" Shortcut to edit the vimrc
+if has("nvim")
+    nmap <silent> <leader>vimrc :e ~/nvim/init.vim<CR>
+else
+    nmap <silent> <leader>vimrc :e ~/.vimrc<CR>
+endif
+
+" Shortcut to edit the vimmisc
+nmap <silent> <leader>vimmisc :execute "e " . g:vim_home_path . "/plugged/vim-misc/vimrc.vim"<CR>
+
+" Make navigating around splits easier
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+if has('nvim')
+  " We have to do this to fix a bug with Neovim on OS X where C-h
+  " is sent as backspace for some reason.
+  nnoremap <BS> <C-W>h
+endif
+
+" Navigating tabs easier
+map <D-S-{> :tabprevious
+map <D-S-}> :tabprevious
+
+" Shortcut to yanking to the system clipboard
+map <leader>y "+y
+map <leader>p "+p
+
+" Get rid of search highlights
+noremap <silent><leader>/ :nohlsearch<cr>
+
+" Command to write as root if we dont' have permission
+cmap w!! %!sudo tee > /dev/null %
+
+" Expand in command mode to the path of the currently open file
+cnoremap %% <C-R>=expand('%:h').'/'<CR>
+
+" Buffer management
+nnoremap <leader>d   :bd<cr>
+
+" Terminal mode
+if has("nvim")
+    tnoremap <esc> <C-\><C-n>
+    tnoremap jj <C-\><C-n>
+    tnoremap jJ <C-\><C-n>
+    tnoremap Jj <C-\><C-n>
+    tnoremap JJ <C-\><C-n>
+    tnoremap jk <C-\><C-n>
+    tnoremap jK <C-\><C-n>
+    tnoremap Jk <C-\><C-n>
+    tnoremap JK <C-\><C-n>
+    nnoremap <Leader>c :terminal <CR>
+endif
+
+" Tabs
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-c> :tabclose<CR>
+nnoremap <C-[> :tabprevious<CR>
+nnoremap <C-]> :tabnext<CR>
+
+"----------------------------------------------------------------------
+" Autocommands
+"----------------------------------------------------------------------
+" Clear whitespace at the end of lines automatically
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Don't fold anything.
+autocmd BufWinEnter * set foldlevel=999999
+
+"----------------------------------------------------------------------
+" Helpers
+"----------------------------------------------------------------------
+
+" SyncStack shows the current syntax highlight group stack.
+nmap <leader>sp :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+    echo map(synstack(line('.'), col('.')), 'synIDattr(synIDtrans(v:val), "name")')
+endfunc
+
+"----------------------------------------------------------------------
+" Plugin settings
+"----------------------------------------------------------------------
+" Airline
+let g:airline_powerline_fonts = 1
+" Don't need to set this since Dracula includes a powerline theme
+" let g:airline_theme = "powerlineish"
+
+" JavaScript & JSX
+let g:jsx_ext_required = 0
+
+" JSON
+let g:vim_json_syntax_conceal = 0
+
+" Default SQL type to PostgreSQL
+let g:sql_type_default = 'pgsql'
+
+
+
+
+
+
+
+lua << EOF
+--[[
+-- Notes:
+--
+-- When updating TreeSitter, you'll want to update the parsers using
+-- :TSUpdate manually. Or, you can call :TSInstall to install new parsers.
+-- Run :checkhealth nvim_treesitter to see what parsers are setup.
+--]]
+---------------------------------------------------------------------
+-- LSP Clients
+---------------------------------------------------------------------
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "gopls" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+
+---------------------------------------------------------------------
+-- Treesitter
+---------------------------------------------------------------------
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+
+---------------------------------------------------------------------
+-- Comment.nvim
+---------------------------------------------------------------------
+require('Comment').setup()
+EOF
+
+
+
+
+
+
+
+
+
+
 "--------------------------------------------------------------------
 " Fix vim paths so we load the vim-misc directory
 let g:vim_home_path = "~/.vim"
@@ -69,27 +365,6 @@ require'nvim-treesitter.configs'.setup {
 
 EOF
 
-" Install vim-plug
-"if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-"  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-"endif
-
-" vim-plug plugins; Start vim and execute :PlugInstall to install
-"call plug#begin('~/.local/share/nvim/plugged')
-"Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-"Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-surround'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'chrisbra/Colorizer'
-""Plug 'sheerun/vim-polyglot' "Syntax highlighting
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'nvim-telescope/telescope.nvim'
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"call plug#end()
-
 " Default vim-multiple-cursors mapping
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_start_word_key      = '<C-n>'
@@ -101,16 +376,10 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-  colorscheme default
-
 " vim settings
-set number
-set noswapfile
+"set noswapfile
 set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
-set hlsearch
 set mouse=n " Allow mouse resizing via drag
-set ignorecase
-set smartcase
 
 " Move Lines Up/Down: https://vim.fandom.com/wiki/Moving_lines_up_or_down
 nnoremap <C-j> :m .+1<CR>==
@@ -154,12 +423,6 @@ let g:netrw_winsize = 75
 " Sort: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
 
-" CtrlP !
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_show_hidden = 1
-
 au BufRead,BufNewFile *.md   syntax match StrikeoutMatch /\~\~.*\~\~/
 hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=darkblue guifg=blue
 hi link StrikeoutMatch StrikeoutColor
@@ -176,7 +439,6 @@ function! s:CombineSelection(line1, line2, cp)
   execute 'let char = "\u'.a:cp.'"'
   execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/ge'
 endfunction
-
 
 set autochdir
 
@@ -198,9 +460,6 @@ set statusline=%F%m%r%<\ %=%l,%v\ [%L]\ %p%%
 " Change the highlighting so it stands out
 "hi statusline ctermbg=white ctermfg=black
 
-" Make sure it always shows
-set laststatus=2
-
 " Set underline for cursor's line
 set cursorline
 set cursorcolumn
@@ -210,7 +469,7 @@ highlight CursorColumn cterm=none term=none
 "autocmd WinEnter * setlocal cursorline
 "autocmd WinLeave * setlocal nocursorline
 "highlight CursorLine   guibg=#303000 ctermbg=lightred
-"highlight CursorColumn guibg=darkred ctermbg=darkgrey
+highlight CursorColumn guibg=darkred ctermbg=lightgrey
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 "Highlighting that stays after cursor moves
@@ -235,8 +494,8 @@ endif
 " https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)
 inoremap <Tab> <C-n>
 
+colorscheme default
 " 'altercation/vim-colors-solarized'
-syntax enable
 set background=dark
 
 " set bold, underline and italic enable
@@ -249,43 +508,23 @@ let g:solarized_visibility = "high"
 colorscheme solarized
 " 'altercation/vim-colors-solarized'
 
-"https://github.com/chrisbra/Colorizer/issues/77
-"let g:colorizer_auto_filetype='css,html,config'
-"let g:colorizer_auto_color = 1
+"colorscheme onehalfdark
 
-"augroup auto_colorize
-"  autocmd!
-"  autocmd
-"        \ BufNewFile,BufRead,BufEnter,BufLeave,WinEnter,WinLeave,WinNew
-"        \ *.js,*.css,*.scss,*.sass,i3.config
-"        \ ColorHighlight
-"augroup END
-"
-"
-  let mapleader=";"
- set scrolloff=5
 
 " ==================== telescope.nvim ====================
 if has('nvim')
-  " let g:which_key_map.f = { 'name' : '+telescope find' }
-  " nnoremap <leader>ff <cmd>Telescope find_files<CR>
-  " let g:which_key_map.f.f = 'telescope find files'
-  " nnoremap <leader>fg <cmd>Telescope live_grep<CR>
-  " let g:which_key_map.f.g = 'telescope live grep'
-  " nnoremap <leader>fb <cmd>Telescope buffers<CR>
-  " let g:which_key_map.f.b = 'telescope buffers'
-  nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-  " let g:which_key_map.f.h = 'telescope help tags'
-
   " Make Ctrl-p work for telescope since we know those keybindings so well.
   nnoremap <C-p> <cmd>Telescope find_files<CR>
   nnoremap <C-t> <cmd>Telescope live_grep<CR>
   nnoremap <C-b> <cmd>Telescope git_branches<CR>
+  nnoremap <C-g> <cmd>Telescope commands<CR>
+  nnoremap <C-h> <cmd>Telescope help_tags<CR>
   nnoremap <C-?> <cmd>Telescope keymaps<CR>
   nnoremap <leader>b <cmd>Telescope buffers<CR>
   nnoremap <leader>e <cmd>Telescope lsp_document_diagnostics<CR>
   nnoremap <leader>ca <cmd>Telescope lsp_code_actions<CR>
   xnoremap <leader>ca <cmd>Telescope lsp_range_code_actions<CR>
+
 
   if !executable('rg')
     echo "You might want to install ripgrep: https://github.com/BurntSushi/ripgrep#installation"
@@ -324,37 +563,78 @@ require('telescope').setup{
   },
   extensions = {
   }
-  }
-  local TelescopePrompt = {
-    TelescopePromptNormal = {
-        bg = '#2d3149',
-    },
-    TelescopePromptBorder = {
-        bg = '#2d3149',
-    },
-    TelescopePromptTitle = {
-        fg = '#2d3149',
-        bg = '#2d3149',
-    },
-    TelescopePreviewTitle = {
-        fg = '#1F2335',
-        bg = '#1F2335',
-    },
-    TelescopeResultsTitle = {
-        fg = '#1F2335',
-        bg = '#1F2335',
-    },
 }
---for hl, col in pairs(TelescopePrompt) do
-  --vim.api.nvim_set_hl(0, hl, col)
---end
-
---if vim.fn.isdirectory(vim.v.argv[2]) == 1 then
- -- vim.api.nvim_set_current_dir(vim.v.argv[2])
---end
-
---  require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })
 EOF
-"au VimEnter * if isdirectory(argv(0)) | exec 'Telescope find_files cwd=' . argv(0) | endif
+
+  lua << EOF
+  local utils = require "telescope.utils"
+
+project_files = function()
+  local _, ret, stderr = utils.get_os_command_output {
+    "git",
+    "rev-parse",
+    "--is-inside-work-tree",
+  }
+
+  local gopts = {}
+  local fopts = {}
+
+  gopts.prompt_title = "Find"
+  gopts.prompt_prefix = " "
+  gopts.results_title = "Repo Files"
+
+  fopts.hidden = true
+  fopts.file_ignore_patterns = {
+    ".vim/",
+    ".local/",
+    ".cache/",
+    ".git/",
+    "Library/.*",
+  }
+
+  if ret == 0 then
+    require("telescope.builtin").git_files(gopts)
+  else
+    fopts.results_title = "CWD: " .. vim.fn.getcwd()
+    require("telescope.builtin").find_files(fopts)
+  end
+end
+
+
+  local key_map = vim.api.nvim_set_keymap
+
+  -- find files with gitfiles & fallback on find_files
+  key_map("n", ",<space>", [[<Cmd>lua project_files()<CR>]], { noremap = true, silent = true })
+
+  -- grep word under cursor
+  key_map("n", "<leader>g", [[<Cmd>lua require'telescope.builtin'.grep_string()<CR>]], { noremap = true, silent = true })
+ -- grep word under cursor - case-sensitive (exact word) - made for use with Replace All - see <leader>ra
+   key_map(
+     "n",
+     "<leader>G",
+     [[<Cmd>lua require'telescope.builtin'.grep_string({word_match='-w'})<CR>]],
+     { noremap = true, silent = true }
+   )
+
+   -- LSP!
+   -- show LSP implementations
+  key_map(
+     "n",
+     "<leader>ti",
+     [[<Cmd>lua require'telescope.builtin'.lsp_implementations()<CR>]],
+     { noremap = true, silent = true }
+   )
+
+   -- show LSP definitions
+   key_map(
+     "n",
+     "<leader>td",
+     [[<Cmd>lua require'telescope.builtin'.lsp_definitions({layout_config = { preview_width = 0.50, width = 0.92 }, path_displa      ↪y = { "shorten" }, results_title='Definitions'})<CR>]],
+     { noremap = true, silent = true }
+   )
+
+EOF
+
+
   endif
 ''
