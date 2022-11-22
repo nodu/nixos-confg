@@ -30,8 +30,6 @@ let
 
     pkgs.go
     pkgs.gopls
-    #MRNotes Same Zig issue
-    #pkgs.zig-master
 
     pkgs.tlaplusToolbox
     pkgs.tetex
@@ -46,6 +44,11 @@ let
     pkgs.google-cloud-sdk
     pkgs.buildkit
     pkgs.krew
+    pkgs.nodePackages.pyright
+    pkgs.nodePackages.typescript-language-server
+    pkgs.python3Minimal
+    pkgs.zip
+    pkgs.obsidian
   ];
 
   #---------------------------------------------------------------------
@@ -155,7 +158,8 @@ let
       # that I'm just going to keep it consistent.
       pbcopy = "xclip";
       pbpaste = "xclip -o";
-      nixupdate = "cd ~/nixos-config/ && make switch && cd -";
+      nx-update = "cd ~/nixos-config/ && make switch && cd -";
+      nx-search = "nix search nixpkgs";
     };
 
     history = {
@@ -311,6 +315,7 @@ let
         { key = "NumpadAdd"; mods = "Command"; action = "IncreaseFontSize"; }
         { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
         { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
+        { key = "F"; mods = "Command"; action = "SearchBackward"; }
       ];
 
       # Colors (Solarized Dark)
@@ -379,18 +384,14 @@ let
     package = pkgs.neovim-nightly;
 
     plugins = with pkgs; [
-      customVim.vim-cue
-      #customVim.vim-fish
       customVim.vim-fugitive
       customVim.vim-glsl
-      #customVim.vim-misc
       customVim.vim-pgsql
       customVim.vim-tla
       customVim.vim-zig
       customVim.pigeon
       customVim.AfterColors
 
-      customVim.vim-nord
       customVim.nvim-comment
       customVim.nvim-lspconfig
       customVim.nvim-plenary # required for telescope
