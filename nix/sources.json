@@ -215,42 +215,6 @@
         "url": "https://github.com/mitchellh/tree-sitter-proto/archive/42d82fa18f8afe59b5fc0b16c207ee4f84cb185f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "vim-cue": {
-        "branch": "master",
-        "description": "cuelang/cue syntax highlighting plugin for vim, derived from google/vim-jsonnet",
-        "homepage": null,
-        "owner": "jjo",
-        "repo": "vim-cue",
-        "rev": "bd1a62303d096aa24fe4160a475645087f8770b3",
-        "sha256": "01f89ki0w2j58pfdvb8w0sf1x5nqgqh3bldinifpd4pysnqhniai",
-        "type": "tarball",
-        "url": "https://github.com/jjo/vim-cue/archive/bd1a62303d096aa24fe4160a475645087f8770b3.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-dracula": {
-        "branch": "master",
-        "description": "🧛🏻‍♂️ Dark theme for Vim",
-        "homepage": "https://draculatheme.com/vim",
-        "owner": "dracula",
-        "repo": "vim",
-        "rev": "d7723a842a6cfa2f62cf85530ab66eb418521dc2",
-        "sha256": "1qzil8rwpdzf64gq63ds0cf509ldam77l3fz02g1mia5dry75r02",
-        "type": "tarball",
-        "url": "https://github.com/dracula/vim/archive/d7723a842a6cfa2f62cf85530ab66eb418521dc2.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-fish": {
-        "branch": "master",
-        "description": "Vim support for editing fish scripts",
-        "homepage": null,
-        "owner": "dag",
-        "repo": "vim-fish",
-        "rev": "50b95cbbcd09c046121367d49039710e9dc9c15f",
-        "sha256": "1yvjlm90alc4zsdsppkmsja33wsgm2q6kkn9dxn6xqwnq4jw5s7h",
-        "type": "tarball",
-        "url": "https://github.com/dag/vim-fish/archive/50b95cbbcd09c046121367d49039710e9dc9c15f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "vim-fugitive": {
         "branch": "master",
         "description": "fugitive.vim: A Git wrapper so awesome, it should be illegal",
@@ -263,42 +227,6 @@
         "url": "https://github.com/tpope/vim-fugitive/archive/b7287bd5421da62986d9abf9131509b2c9f918e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "vim-glsl": {
-        "branch": "master",
-        "description": "Vim runtime files for OpenGL Shading Language",
-        "homepage": null,
-        "owner": "tikhomirov",
-        "repo": "vim-glsl",
-        "rev": "28a6dfbcd96095226bee90985b7f12c5679dbbb6",
-        "sha256": "051f0q5bkgp77pz0izh5mvqsmxy0rzlvriwq4j7qzslqk7i850p2",
-        "type": "tarball",
-        "url": "https://github.com/tikhomirov/vim-glsl/archive/28a6dfbcd96095226bee90985b7f12c5679dbbb6.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-misc": {
-        "branch": "master",
-        "description": "My Vim configuration files.",
-        "homepage": null,
-        "owner": "mitchellh",
-        "repo": "vim-misc",
-        "rev": "1205bd43e9b692d253572eddaf784977ae46f35b",
-        "sha256": "1n6dsgppzgy95inq6mbqmphgbv7s97aslfmwdgasd8zy8grbd623",
-        "type": "tarball",
-        "url": "https://github.com/mitchellh/vim-misc/archive/1205bd43e9b692d253572eddaf784977ae46f35b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-nord": {
-        "branch": "develop",
-        "description": "An arctic, north-bluish clean and elegant Vim theme.",
-        "homepage": "https://www.nordtheme.com/ports/vim",
-        "owner": "crispgm",
-        "repo": "nord-vim",
-        "rev": "cc5b0e9f472bdcbdaa701c94302796fb1e64e8d4",
-        "sha256": "0zb4a0xmk6q7ha8x0b28xb02vk390aypn82kcqy3ilv1l43pxly0",
-        "type": "tarball",
-        "url": "https://github.com/crispgm/nord-vim/archive/cc5b0e9f472bdcbdaa701c94302796fb1e64e8d4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "vim-pgsql": {
         "branch": "master",
         "description": "The best PostgreSQL plugin for Vim!",
@@ -309,42 +237,6 @@
         "sha256": "18bz65llksdj0yvafnifvs74g0qhar9vg0xx3s46q4iq6zr6cybv",
         "type": "tarball",
         "url": "https://github.com/lifepillar/pgsql.vim/archive/d5ed1475088e85654281902a08637a632ff7409c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-pigeon": {
-        "branch": "master",
-        "description": "Vim syntax for https://github.com/mna/pigeon, a parser generator built for Go.",
-        "homepage": "",
-        "owner": "jasontbradshaw",
-        "repo": "pigeon.vim",
-        "rev": "a7f149c99b7259437032af45db57c53d4c41e68b",
-        "sha256": "079krbw1z4bjwa7qfz33fwjy5h0fry0i2a02wnvqkrqnxmzq5dxs",
-        "type": "tarball",
-        "url": "https://github.com/jasontbradshaw/pigeon.vim/archive/a7f149c99b7259437032af45db57c53d4c41e68b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-tla": {
-        "branch": "master",
-        "description": "Vim plugin for TLA+ and PlusCal",
-        "homepage": null,
-        "owner": "hwayne",
-        "repo": "tla.vim",
-        "rev": "0d6d453a401542ce1db247c6fd139ac99b8a5add",
-        "sha256": "1bfxnvx3g5679jan7v5prh7zk0f77m81g8c9ngq75nxdn20ihl7l",
-        "type": "tarball",
-        "url": "https://github.com/hwayne/tla.vim/archive/0d6d453a401542ce1db247c6fd139ac99b8a5add.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "vim-zig": {
-        "branch": "master",
-        "description": "Vim configuration for Zig",
-        "homepage": null,
-        "owner": "ziglang",
-        "repo": "zig.vim",
-        "rev": "1cb9cd521cab91e39cf162b50b7a095fd12361d3",
-        "sha256": "10flq5dm6aa5ay3rb2rn5y9ih8z66iq6lw2rl2489qxi605bxqs7",
-        "type": "tarball",
-        "url": "https://github.com/ziglang/zig.vim/archive/1cb9cd521cab91e39cf162b50b7a095fd12361d3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
