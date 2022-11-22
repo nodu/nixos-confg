@@ -7,6 +7,7 @@ let g:vim_home_path = "~/.vim"
 "----------------------------------------------------------------------
 " Basic Options
 "----------------------------------------------------------------------
+let mapleader=";"
 set backspace=2           " Makes backspace behave like you'd expect
 set colorcolumn=80        " Highlight 80 character limit
 set hidden                " Allow buffers to be backgrounded without being saved
@@ -390,22 +391,24 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " https://vim.fandom.com/wiki/Highlight_unwanted_spaces
-:autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 " Show trailing whitespace:
-:match ExtraWhitespace /\s\+$/
+match ExtraWhitespace /\s\+$/
 
 set spell spelllang=en_us
-set spellfile=~/.vim/spell/en.utf-8.add
+set spellfile=~/dotenv/en.utf-8.add
 hi clear SpellBad
 hi clear SpellLocal
 hi clear SpellRare
 hi clear SpellCap
-"hi SpellBad   cterm=underline ctermbg=Red ctermfg=Black
-hi SpellBad   cterm=underline
-hi SpellLocal cterm=underline ctermbg=Green ctermfg=Black
-hi SpellRare  cterm=underline ctermbg=Yellow ctermfg=Black
-hi SpellCap   cterm=underline ctermbg=DarkMagenta ctermfg=Black
+hi SpellBad   gui=underline guibg=Red guifg=Black
+hi SpellLocal gui=underline guibg=LightGreen guifg=Black
+hi SpellRare  gui=underline guibg=Yellow guifg=Black
+hi SpellCap   gui=underline guibg=Magenta guifg=Black
+noremap zg zg]s
+noremap zn ]s
+set spell
 
 let g:netrw_liststyle = 3 " Explorer 1:details; 3:tree
 let g:netrw_banner = 0 " Remove directory banner
@@ -422,12 +425,6 @@ let g:netrw_winsize = 75
 
 " Sort: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
-
-au BufRead,BufNewFile *.md   syntax match StrikeoutMatch /\~\~.*\~\~/
-hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=darkblue guifg=blue
-hi link StrikeoutMatch StrikeoutColor
-
-let @s = "I~~\<ESC>A~~\<ESC>:m$"
 
 " modify selected text using combining diacritics
 command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')
@@ -468,9 +465,25 @@ highlight CursorLine cterm=none term=none
 highlight CursorColumn cterm=none term=none
 "autocmd WinEnter * setlocal cursorline
 "autocmd WinLeave * setlocal nocursorline
-"highlight CursorLine   guibg=#303000 ctermbg=lightred
-highlight CursorColumn guibg=darkred ctermbg=lightgrey
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+highlight CursorLine   guibg=white
+highlight CursorColumn guibg=white
+highlight ColorColumn guibg=white
+" nnoremap <Leader>c :set cursorline! cursorcolumn! colorcolumn!<CR>
+let w:cursorColumnHighightOn = 1
+
+nnoremap <Leader>c :call<SID>ToggleHighlight()<cr>
+fun! s:ToggleHighlight()
+ set cursorline! cursorcolumn!
+
+ if !exists('w:cursorColumnHighightOn')
+  let w:cursorColumnHighightOn = 1
+  highlight ColorColumn guibg=lightgrey
+ else
+  unl w:cursorColumnHighightOn
+  highlight ColorColumn NONE
+ endif
+endfunction
+
 
 "Highlighting that stays after cursor moves
 " \l to mark, 'l to return to mark
@@ -494,21 +507,28 @@ endif
 " https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)
 inoremap <Tab> <C-n>
 
-colorscheme default
-" 'altercation/vim-colors-solarized'
-set background=dark
+au BufRead,BufNewFile *.md   syntax match StrikeoutMatch /\~\~.*\~\~/
+hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=darkblue guifg=blue
+hi link StrikeoutMatch StrikeoutColor
 
-" set bold, underline and italic enable
-let g:solarized_bold = 1
-let g:solarized_underline = 1
-let g:solarized_italic = 1
-let g:solarized_visibility = "high"
+let @s = "I~~\<ESC>A~~\<ESC>:m$"
 
+"""""" Colors
+"colorscheme default
+"set background=dark
+"" set bold, underline and italic enable
+"let g:solarized_bold = 1
+"let g:solarized_underline = 1
+"let g:solarized_italic = 1
+"let g:solarized_visibility = "high"
 " Make sure the terminal app is using Solarized
-colorscheme solarized
 " 'altercation/vim-colors-solarized'
 
-"colorscheme onehalfdark
+"  colorscheme solarized
+  "colorscheme onehalfdark
+  highlight LineNr guifg=#050505
+  highlight LineNr ctermfg=grey
+"""""" Colors
 
 
 " ==================== telescope.nvim ====================
@@ -633,6 +653,9 @@ end
      { noremap = true, silent = true }
    )
 
+  -- LSP setup
+  require'lspconfig'.pyright.setup{}
+  require'lspconfig'.tsserver.setup{}
 EOF
 
 
