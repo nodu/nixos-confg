@@ -385,11 +385,7 @@ let
 
     plugins = with pkgs; [
       customVim.vim-fugitive
-      customVim.vim-glsl
       customVim.vim-pgsql
-      customVim.vim-tla
-      customVim.vim-zig
-      customVim.pigeon
       customVim.AfterColors
 
       customVim.nvim-comment

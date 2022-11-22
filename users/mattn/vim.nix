@@ -8,24 +8,9 @@ let sources = import ../../nix/sources.nix; in rec {
       src = sources.vim-fugitive;
     };
 
-    vim-glsl = vimUtils.buildVimPlugin {
-      name = "vim-glsl";
-      src = sources.vim-glsl;
-    };
-
     vim-pgsql = vimUtils.buildVimPlugin {
       name = "vim-pgsql";
       src = sources.vim-pgsql;
-    };
-
-    vim-tla = vimUtils.buildVimPlugin {
-      name = "tla.vim";
-      src = sources.vim-tla;
-    };
-
-    pigeon = vimUtils.buildVimPlugin {
-      name = "pigeon.vim";
-      src = sources.vim-pigeon;
     };
 
     AfterColors = vimUtils.buildVimPlugin {
@@ -73,11 +58,6 @@ let sources = import ../../nix/sources.nix; in rec {
       # We have to do this because the build phase runs tests which require
       # git and I don't know how to get git into here.
       buildPhase = ":";
-    };
-
-    nvim-lspinstall = vimUtils.buildVimPlugin {
-      name = "nvim-lspinstall";
-      src = sources.nvim-lspinstall;
     };
 
     nvim-treesitter-textobjects = vimUtils.buildVimPlugin {
