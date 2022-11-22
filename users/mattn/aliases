@@ -356,6 +356,7 @@ alias edit-zsh="v ~/dotenv/.zshrc"
 alias edit-alias="v ~/dotenv/shortcuts/aliases.sh"
 alias edit-alias="v ~/dotenv/shortcuts/aliases.sh"
 alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
+alias edit-home-manager="nvim ~/nixos-config/users/mattn/home-manager.nix"
 
 alias spud-start='az vm start --resource-group Matt --name SPUD'
 alias spud-stop='az vm stop --resource-group Matt --name SPUD && az vm deallocate --resource-group MATT --name SPUD'
@@ -435,3 +436,6 @@ function sleep-schedule() {
   echo "stop wakeup:
   sudo pmset schedule cancel #"
 }
+
+alias git-uncommit-last='git reset --soft HEAD~1'
+alias git-unstage-file='git reset HEAD'
