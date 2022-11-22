@@ -1,6 +1,6 @@
 ! URXVT FONT SETTINGS
 !------------------------------------------------
-Xft.dpi: 110
+Xft.dpi: 180
 Xft.autohint: true
 Xft.antialias: true
 Xft.hinting: true
@@ -46,3 +46,6 @@ Xft.lcdfilter: lcddefault
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
+
+! TODO
+! remove this xresrouces in favor of solarized dark or one half
