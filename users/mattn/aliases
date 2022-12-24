@@ -20,12 +20,21 @@ alias t='v ~/notes/todo.md'
 ta() { # 'ta * new note to add'
   sed -i "3i$1" ~/notes/todo.md
 }
-tu() { # diff/upload todo.md
+tl() { # pull todo
+  cd ~/notes
+  git pull
+  cd -
+}
+tp() { # diff/upload todo.md
+  cd ~/notes
+  git push origin master
+  cd -
+}
+tc() { #commit todos
   cd ~/notes
   git diff todo.md
   git add todo.md
-  git commit -m "Update To do"
-  git push origin master
+  git commit -m "Update Todo $(date)"
   cd -
 }
 td() { # diff todo.md
@@ -167,6 +176,69 @@ time-zones-game() {
 }
 
 alias time-zones='timedatectl list-timezones --no-pager'
+meet () {
+  #!/usr/bin/env bash
+  # ./meet.sh || meet.sh 09/22
+  # ig20180122 - displays meeting options in other time zones
+  # ml20220712 - Linux GNU date compatible
+  # https://superuser.com/questions/164339/timezone-conversion-by-command-line
+  # https://stackoverflow.com/questions/53075017/how-can-i-do-bash-arithmetic-with-variables-that-are-numbers-with-leading-zeroes
+  # set the following variable to the start and end of your working day
+  # start and end time, with one space
+  daystart=8
+  dayend=24
+  # set the local TZ
+  myplace='America/Los_Angeles'
+  # set the most common places
+  place[1]='America/Chicago'
+  place[2]='Europe/London'
+  place[3]='Asia/Hong_Kong'
+  # add cities using place[5], etc.
+  # set the date format for search
+  dfmt="%m/%d" # date format for meeting date
+  # New format so It can be used as argument
+  hfmt="+%B %e, %Y" # date format for the header
+  # no need to change onwards
+  format1="%-12s " # Increase if your cities names are long
+  format2="%02d "
+  mdate=$1
+  if [[ "$1" == "" ]]; then mdate=`date +"$dfmt"`; fi
+  # date -j -f "$dfmt" "$hfmt" "$mdate"
+  date -d $mdate "$hfmt" # GNU linux compliant
+  here=`TZ=$myplace date -d $mdate +%z` # Same Here
+  here=$((`printf "%g" $here` / 100))
+  printf "$format1" ${myplace/*\//} #"Here"
+  printf "$format2" `seq $daystart $dayend`
+  printf "\n"
+  for i in `seq 1 "${#place[*]}"`
+  do
+      there=`TZ=${place[$i]} date -d "$mdate" +%z` # same here
+      there=$((`printf "%g" $there` / 100))
+      city[$i]=${place[$i]/*\//}
+      tdiff[$i]=$(($there - $here))
+      printf "$format1" ${city[$i]}
+      for j in `seq $daystart $dayend`
+      do
+        sub=$(($j+${tdiff[$i]}))
+        if [[ $sub > 24 ]]; then sub="$((sub-24))"; fi
+        #if [[ 10#$sub > 12 ]]; then sub="$((10#$sub-12))"; fi
+        printf "$format2" $sub
+      done
+      printf "(%+d)\n" ${tdiff[$i]}
+  done
+}
+
+overtime () {
+  cd /tmp
+  nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
+  cd overtime-cli; \
+  npm install; \
+  node index.js show America/Los_Angeles America/Chicago Asia/Hong_Kong Europe/London; \
+  exit; \
+  "
+  cd -
+
+}
 
 localTimeHK () {
   if [ -z "$1" ]; then
@@ -195,10 +267,6 @@ timings() {
 }
 alias b-split-horizontal="byobu split-window -h"
 alias b-split-vertical="byobu split-window -v"
-
-help-vimCheatSheet() {
-  cat ~/dotenv/shortcuts/vimCheatSheet
-}
 
 setupGravityWorkspace() {
   byobu rename-window Gravity
@@ -250,7 +318,7 @@ echo ""
 echo "F motivation and want: discipline"
 
 function dsf() { diff -u $1 $2 | diff-so-fancy; }
-alias httpstat='python3 /usr/local/bin/httpstat.py'
+#alias httpstat='python3 /usr/local/bin/httpstat.py'
 
 alias weather-sf='curl wttr.in/sanfrancisco\?u'
 alias weather-chicago='curl wttr.in/chicago\?u'
@@ -350,13 +418,21 @@ function vault-list() {
   vault kv list secret/$1
 }
 
-alias edit-i3="v ~/dotenv/i3/i3.config"
-alias edit-vim="v ~/dotenv/.vimrc"
-alias edit-zsh="v ~/dotenv/.zshrc"
-alias edit-alias="v ~/dotenv/shortcuts/aliases.sh"
-alias edit-alias="v ~/dotenv/shortcuts/aliases.sh"
-alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
+
+alias edit-vim="v ~/nixos-config/users/mattn/vim-config.nix"
+alias edit-alias="v ~/nixos-config/users/mattn/aliases"
+alias edit-i3="v ~/nixos-config/users/mattn/i3"
 alias edit-home-manager="nvim ~/nixos-config/users/mattn/home-manager.nix"
+
+alias edit-zsh="v ~/dotenv/.zshrc"
+alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
+
+#TODO - Move all cheatsheets to notes repo
+alias edit-vimCheatSheet="nvim ~/dotenv/shortcuts/vimCheatSheet"
+
+help-vimCheatSheet() {
+  cat ~/dotenv/shortcuts/vimCheatSheet
+}
 
 alias spud-start='az vm start --resource-group Matt --name SPUD'
 alias spud-stop='az vm stop --resource-group Matt --name SPUD && az vm deallocate --resource-group MATT --name SPUD'

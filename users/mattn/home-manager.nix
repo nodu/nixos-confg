@@ -11,9 +11,6 @@ let
   # Packages
   #---------------------------------------------------------------------
 
-  # Packages I always want installed. Most packages I install using
-  # per-project flakes sourced with direnv and nix-shell, so this is
-  # not a huge list.
   home.packages = [
     pkgs.bat
     pkgs.fd
@@ -31,9 +28,6 @@ let
     pkgs.go
     pkgs.gopls
 
-    pkgs.tlaplusToolbox
-    pkgs.tetex
-
     pkgs.xfce.thunar
     pkgs.redshift
     pkgs.wget
@@ -49,6 +43,7 @@ let
     pkgs.python3Minimal
     pkgs.zip
     pkgs.obsidian
+    pkgs.httpstat
   ];
 
   #---------------------------------------------------------------------

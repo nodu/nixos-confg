@@ -285,7 +285,7 @@ require'nvim-treesitter.configs'.setup {
 ---------------------------------------------------------------------
 -- Comment.nvim
 ---------------------------------------------------------------------
-require('Comment').setup()
+require('Comment').setup({})
 EOF
 
 
@@ -408,7 +408,7 @@ hi SpellRare  gui=underline guibg=Yellow guifg=Black
 hi SpellCap   gui=underline guibg=Magenta guifg=Black
 noremap zg zg]s
 noremap zn ]s
-set spell
+set nospell
 
 let g:netrw_liststyle = 3 " Explorer 1:details; 3:tree
 let g:netrw_banner = 0 " Remove directory banner
@@ -484,6 +484,18 @@ fun! s:ToggleHighlight()
  endif
 endfunction
 
+nnoremap <Leader>s :call<SID>toggleSpelling()<cr>
+fun! s:toggleSpelling()
+  "set spell
+
+ if !exists('w:spellingOn')
+  let w:spellingOn  = 1
+  set spell
+ else
+  unl w:spellingOn
+  set nospell
+ endif
+endfunction
 
 "Highlighting that stays after cursor moves
 " \l to mark, 'l to return to mark
