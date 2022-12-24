@@ -176,7 +176,7 @@ time-zones-game() {
 }
 
 alias time-zones='timedatectl list-timezones --no-pager'
-meet () {
+mn-time-meet () {
   #!/usr/bin/env bash
   # ./meet.sh || meet.sh 09/22
   # ig20180122 - displays meeting options in other time zones
@@ -227,8 +227,7 @@ meet () {
       printf "(%+d)\n" ${tdiff[$i]}
   done
 }
-
-overtime () {
+mn-time-overtime () {
   cd /tmp
   nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
   cd overtime-cli; \
@@ -513,5 +512,7 @@ function sleep-schedule() {
   sudo pmset schedule cancel #"
 }
 
-alias git-uncommit-last='git reset --soft HEAD~1'
-alias git-unstage-file='git reset HEAD'
+alias mn-git-lpull='git pull'
+alias mn-git-push='git push'
+alias mn-git-uncommit-last='git reset --soft HEAD~1'
+alias mn-git-unstage-file='git reset HEAD'
