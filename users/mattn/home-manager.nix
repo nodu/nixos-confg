@@ -4,7 +4,12 @@ let
   inherit (pkgs)
     fetchFromBitbucket
     ;
-   sources = import ../../nix/sources.nix; in {
+  sources = import ../../nix/sources.nix; in {
+
+  # Home-manager 22.11 requires this be set. We never set it so we have
+  # to use the old state version.
+  home.stateVersion = "18.09";
+
   xdg.enable = true;
 
   #---------------------------------------------------------------------
@@ -164,7 +169,7 @@ let
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" "z" "fzf" "kubectl" "kube-ps1"];
+      plugins = [ "git" "z" "fzf" "kubectl" "kube-ps1"];
       theme = "robbyrussell";
     };
 
