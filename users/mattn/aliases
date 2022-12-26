@@ -16,29 +16,34 @@ alias gotop='cd ~/Code/PPS/'
 #cd ~/Code
 
 #TODO Notes
-alias t='v ~/notes/todo.md'
+alias t='v ~/todo/todo.md'
+
 ta() { # 'ta * new note to add'
-  sed -i "3i$1" ~/notes/todo.md
+  sed -i "3i$1" ~/todo/todo.md
 }
-tl() { # pull todo
-  cd ~/notes
+
+tpull() { # pull todo
+  cd ~/todo
   git pull
   cd -
 }
-tp() { # diff/upload todo.md
-  cd ~/notes
+
+tpush() { # diff/upload todo.md
+  cd ~/todo
   git push origin master
   cd -
 }
-tc() { #commit todos
-  cd ~/notes
+
+tcommit() { #commit todos
+  cd ~/todo
   git diff todo.md
   git add todo.md
   git commit -m "Update Todo $(date)"
   cd -
 }
-td() { # diff todo.md
-  cd ~/notes
+
+tdiff() { # diff todo.md
+  cd ~/todo
   git diff todo.md
   cd -
 }
@@ -50,13 +55,13 @@ function pause {
   printf '\n'
 }
 
-quickcommit() {
+mn-git-quickcommit() {
   git status
   git diff
   git commit -m "Update"
   git push origin master
 }
-quickcommit-all() {
+mn-git-quickcommit-all() {
   git status
   git diff
   #pause()
