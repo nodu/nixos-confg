@@ -406,7 +406,7 @@ let g:netrw_browse_split = 3
 "3 - open files in a new tab
 "4 - open in previous window
 
-let g:netrw_winsize = 75
+let g:netrw_winsize = 30
 
 " Sort: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
@@ -448,15 +448,12 @@ set cursorcolumn
 
 highlight CursorLine cterm=none term=none
 highlight CursorColumn cterm=none term=none
-"autocmd WinEnter * setlocal cursorline
-"autocmd WinLeave * setlocal nocursorline
-highlight CursorLine   guibg=white
-highlight CursorColumn guibg=white
-highlight ColorColumn guibg=white
-" nnoremap <Leader>c :set cursorline! cursorcolumn! colorcolumn!<CR>
-let w:cursorColumnHighightOn = 1
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
 
 nnoremap <Leader>c :call<SID>ToggleHighlight()<cr>
+let w:cursorColumnHighightOn = 1
+
 fun! s:ToggleHighlight()
  set cursorline! cursorcolumn!
 
@@ -471,7 +468,6 @@ endfunction
 
 nnoremap <Leader>s :call<SID>toggleSpelling()<cr>
 fun! s:toggleSpelling()
-  "set spell
 
  if !exists('w:spellingOn')
   let w:spellingOn  = 1
@@ -483,10 +479,9 @@ fun! s:toggleSpelling()
 endfunction
 
 "Highlighting that stays after cursor moves
-" \l to mark, 'l to return to mark
+" ;l to mark, 'l to return to mark
 " :match to clear
 nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-
 
 "Folding
 "zf (in visual) - create fold
@@ -507,7 +502,6 @@ inoremap <Tab> <C-n>
 au BufRead,BufNewFile *.md   syntax match StrikeoutMatch /\~\~.*\~\~/
 hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=darkblue guifg=blue
 hi link StrikeoutMatch StrikeoutColor
-
 let @s = "I~~\<ESC>A~~\<ESC>:m$"
 
 """""" Colors

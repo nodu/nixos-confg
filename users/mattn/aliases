@@ -423,10 +423,10 @@ function vault-list() {
 }
 
 
-alias edit-vim="v ~/nixos-config/users/mattn/vim-config.nix"
-alias edit-alias="v ~/nixos-config/users/mattn/aliases"
-alias edit-i3="v ~/nixos-config/users/mattn/i3"
-alias edit-home-manager="nvim ~/nixos-config/users/mattn/home-manager.nix"
+alias mn-edit-vim="v ~/nixos-config/users/mattn/vim-config.nix"
+alias mn-edit-alias="v ~/nixos-config/users/mattn/aliases"
+alias mn-edit-i3="v ~/nixos-config/users/mattn/i3"
+alias mn-edit-home-manager="nvim ~/nixos-config/users/mattn/home-manager.nix"
 
 alias edit-zsh="v ~/dotenv/.zshrc"
 alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
