@@ -504,21 +504,13 @@ hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=darkblue guifg=
 hi link StrikeoutMatch StrikeoutColor
 let @s = "I~~\<ESC>A~~\<ESC>:m$"
 
-"""""" Colors
-"colorscheme default
-"set background=dark
-"" set bold, underline and italic enable
-"let g:solarized_bold = 1
-"let g:solarized_underline = 1
-"let g:solarized_italic = 1
-"let g:solarized_visibility = "high"
+  """""" Colors
+set termguicolors
+set background=dark
+colorscheme NeoSolarized
 " Make sure the terminal app is using Solarized
-" 'altercation/vim-colors-solarized'
 
-"  colorscheme solarized
-  "colorscheme onehalfdark
-  highlight LineNr guifg=#050505
-  highlight LineNr ctermfg=grey
+
 """""" Colors
 
 

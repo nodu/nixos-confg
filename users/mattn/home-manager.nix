@@ -406,7 +406,7 @@ let
       vimPlugins.typescript-vim
       vimPlugins.vim-visual-multi
       vimPlugins.vim-surround
-      vimPlugins.vim-colors-solarized
+      vimPlugins.NeoSolarized
     ];
 
     extraConfig = (import ./vim-config.nix) { inherit sources; };
