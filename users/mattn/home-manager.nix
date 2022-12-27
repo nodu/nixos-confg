@@ -407,6 +407,9 @@ let
       vimPlugins.vim-visual-multi
       vimPlugins.vim-surround
       vimPlugins.NeoSolarized
+      vimPlugins.sonokai
+      vimPlugins.edge
+      vimPlugins.gruvbox-material
     ];
 
     extraConfig = (import ./vim-config.nix) { inherit sources; };

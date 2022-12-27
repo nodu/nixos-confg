@@ -66,9 +66,6 @@ set wildignore+=*.swp         " Ignore vim backups
 
 " GUI settings
 
-" This is required to force 24-bit color since I use a modern terminal.
-set termguicolors
-
 if !has("gui_running")
     " vim hardcodes background color erase even if the terminfo file does
     " not contain bce (not to mention that libvte based terminals
@@ -505,11 +502,19 @@ hi link StrikeoutMatch StrikeoutColor
 let @s = "I~~\<ESC>A~~\<ESC>:m$"
 
   """""" Colors
+" This is required to force 24-bit color for modern terminals.
 set termguicolors
+
+"---Solarized
+" Make sure the terminal app is using Solarized, maybe
 set background=dark
 colorscheme NeoSolarized
-" Make sure the terminal app is using Solarized
+"---Solarized
 
+" colorscheme edge
+" colorscheme gruvbox-material
+" colorscheme sonokai
+" help sonokai.txt, edge.txt, gruvbox-material.txt
 
 """""" Colors
 
