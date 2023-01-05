@@ -3,9 +3,6 @@ echo 'aliases.sh sourced.'
 alias azd="docker run -it mcr.microsoft.com/azure-cli az"
 # azd --version
 
-alias st='subl'
-alias stt='subl .'
-
 # Tunnel traffic
 alias tunnel='ssh -D 8080 -C -N pi@me -v; echo "Change location to Tunnel SOCKS 8080"'
 # took out option -q, quiet mode and -f background mode.  -D port, -N do not execute remote command, -C compression
@@ -19,7 +16,10 @@ alias gotop='cd ~/Code/PPS/'
 alias t='v ~/todo/todo.md'
 
 ta() { # 'ta * new note to add'
-  sed -i "3i$1" ~/todo/todo.md
+  # Add to beginning of file
+  # sed -i "1i$1" ~/todo/todo.md
+  # sed -i -e "$a $1" ~/todo/todo.md
+  echo "- [ ] $1" >> ~/todo/todo.md
 }
 
 tpull() { # pull todo
