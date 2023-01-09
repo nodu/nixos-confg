@@ -48,6 +48,13 @@ tdiff() { # diff todo.md
   cd -
 }
 
+tcleanup() {
+  cd ~/todo
+  grep "\- \[x\]" todo.md >> done.md
+  sed -i -e '/- \[x]/ d' todo.md
+  cd -
+}
+
 function pause {
   >/dev/tty printf '%s' "${*:-Press any key to continue... }"
   [[ $ZSH_VERSION ]] && read -krs  # Use -u0 to read from STDIN
@@ -297,7 +304,7 @@ nvimNewSplit () {
 #alias bat='docker run -it --rm -e BAT_THEME -e BAT_STYLE -e BAT_TABS -v "$(pwd):/myapp" danlynn/bat'
 
 # Startup items:
-motivate
+#motivate
 cd ~/notes && echo "" && echo "Notes Repo" && git status && cd -
 cd ~/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
 
@@ -422,6 +429,7 @@ function vault-list() {
   vault kv list secret/$1
 }
 
+alias mn-source-alias="source ~/nixos-config/users/mattn/aliases"
 
 alias mn-edit-vim="v ~/nixos-config/users/mattn/vim-config.nix"
 alias mn-edit-alias="v ~/nixos-config/users/mattn/aliases"
