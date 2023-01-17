@@ -62,6 +62,10 @@ function pause {
   printf '\n'
 }
 
+function mn () {
+  echo "My Global var/command"
+}
+
 mn-git-quickcommit() {
   git status
   git diff
