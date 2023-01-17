@@ -70,7 +70,7 @@ mn-git-quickcommit() {
   git status
   git diff
   git commit -m "Update"
-  git push origin master
+  git push
 }
 mn-git-quickcommit-all() {
   git status
@@ -79,7 +79,7 @@ mn-git-quickcommit-all() {
   #read -p 'Press any key to continue...'
   git add -A :/
   git commit -m "Update"
-  git push origin master
+  git push
 }
 
 # Kubernetes/Azure
