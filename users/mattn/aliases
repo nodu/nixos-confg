@@ -66,6 +66,14 @@ function mn () {
   echo "My Global var/command"
 }
 
+mn-function-definition () {
+ declare -f $1
+}
+
+mn-function-where () {
+type -a $1
+}
+
 mn-git-quickcommit() {
   git status
   git diff
