@@ -37,6 +37,7 @@ let
     pkgs.redshift
     pkgs.wget
     pkgs.kubectl
+    pkgs.krew
     pkgs.terraform
     pkgs.awscli2
     pkgs.azure-cli
