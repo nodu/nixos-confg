@@ -350,6 +350,8 @@ EOF
 
 " https://github.com/mg979/vim-visual-multi/wiki/Mappings#full-mappings-list
 let g:VM_leader = "\\"
+let g:VM_maps = {}
+
 let g:VM_maps['Find Under']                  = '<C-n>'
 let g:VM_maps["Visual Cursors"]              = '\\c'
 
