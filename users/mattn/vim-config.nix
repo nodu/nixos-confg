@@ -348,16 +348,22 @@ require'nvim-treesitter.configs'.setup {
 
 EOF
 
-" Default vim-multiple-cursors mapping
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+" https://github.com/mg979/vim-visual-multi/wiki/Mappings#full-mappings-list
+let g:VM_leader = "\\"
+let g:VM_maps['Find Under']                  = '<C-n>'
+let g:VM_maps["Visual Cursors"]              = '\\c'
+
+let g:VM_maps['Find Subword Under']          = '<C-n>'
+let g:VM_maps["Select All"]                  = '\\A'
+let g:VM_maps["Add Cursor Down"]             = '<C-Down>'
+let g:VM_maps["Add Cursor Up"]               = '<C-Up>'
+let g:VM_maps["Add Cursor At Pos"]           = '\\\'
+
+let g:VM_maps["Visual Regex"]                = '\\/'
+let g:VM_maps["Visual All"]                  = '\\A'
+let g:VM_maps["Visual Add"]                  = '\\a'
+let g:VM_maps["Visual Find"]                 = '\\f'
+
 
 " vim settings
 "set noswapfile

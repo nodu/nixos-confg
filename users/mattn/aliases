@@ -148,7 +148,7 @@ decrypt() {
 # tcpdump host 192.168.1.3 -n | grep SOMETHING
 
 
-help-byobuKeys() {
+mn-help-byobuKeys() {
   echo ""
   echo "Byobu Cheat Sheet"
   echo ""
@@ -320,7 +320,7 @@ nvimNewSplit () {
 cd ~/notes && echo "" && echo "Notes Repo" && git status && cd -
 cd ~/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
 
-help-myHelpers() {
+mn-help-myHelpers() {
    grep -E "() {" ~/dotenv/shortcuts/aliases.sh
    grep -E "() {" ~/dotenv/.zshrc
    grep -E "alias" ~/dotenv/shortcuts/aliases.sh
@@ -332,9 +332,9 @@ echo ""
 echo "
 CheatSheets:
 
-help-byobuKeys
-help-vimCheatSheet
-help-myHelpers
+mn-help-byobuKeys
+mn-help-vimCheatSheet
+mn-help-myHelpers
 "
 echo ""
 
@@ -454,7 +454,7 @@ alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
 #TODO - Move all cheatsheets to notes repo
 alias edit-vimCheatSheet="nvim ~/dotenv/shortcuts/vimCheatSheet"
 
-help-vimCheatSheet() {
+mn-help-vimCheatSheet() {
   cat ~/dotenv/shortcuts/vimCheatSheet
 }
 
