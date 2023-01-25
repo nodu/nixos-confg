@@ -50,6 +50,7 @@ let
     pkgs.zip
     pkgs.obsidian
     pkgs.httpstat
+    pkgs.dotnetCorePackages.sdk_6_0
   ];
 
   #---------------------------------------------------------------------
