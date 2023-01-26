@@ -217,6 +217,7 @@ mn-time-meet () {
   place[1]='America/Chicago'
   place[2]='Europe/London'
   place[3]='Asia/Hong_Kong'
+  place[4]='Asia/Kolkata'
   # add cities using place[5], etc.
   # set the date format for search
   dfmt="%m/%d" # date format for meeting date
@@ -251,6 +252,7 @@ mn-time-meet () {
       printf "(%+d)\n" ${tdiff[$i]}
   done
 }
+
 mn-time-overtime () {
   cd /tmp
   nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
@@ -260,7 +262,13 @@ mn-time-overtime () {
   exit; \
   "
   cd -
+}
 
+mn-time-time.is () {
+  firefox "https://time.is/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
+}
+mn-time-time.is-table () {
+  firefox "https://time.is/compare/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
 }
 
 localTimeHK () {
