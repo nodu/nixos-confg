@@ -23,6 +23,13 @@ test:
 list:
 	sudo nix-env --list-generations -p /nix/var/nix/profiles/system
 
+clean:
+	sudo nix-collect-garbage --delete-older-than 30d
+
+#https://www.reddit.com/r/NixOS/comments/10107km/how_to_delete_old_generations_on_nixos/
+switch-to-boot-to-clean-boot-partition:
+	sudo /run/current-system/bin/switch-to-configuration boot
+
 set-current:
 	sudo nix-env -p /nix/var/nix/profiles/system --switch-generation $(gen)
 

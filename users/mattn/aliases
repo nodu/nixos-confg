@@ -172,7 +172,7 @@ mn-help-byobuKeys() {
 
 alias saveScrollBack='cat $BYOBU_RUN_DIR/printscreen > ~/Code/scrollback-$(date -I)-$(date +%s).txt'
 
-time-global() {
+mn-time-global() {
   echo 'Current:          ' `date`
   echo 'UTC:              ' `date -u`
   echo '              '
@@ -182,24 +182,24 @@ time-global() {
   echo 'Hong Kong: (+8)   ' `TZ='Asia/Hong_Kong' date`
 }
 
-time-zones-gravity() {
+mn-time-zones-gravity() {
   overtime show UTC America/Los_Angeles Asia/Hong_Kong Europe/London Europe/Brussels Australia/Melbourne America/Chicago Asia/Kolkata
 }
 
-time-zones-e20() {
+mn-time-zones-e20() {
   overtime show UTC America/Los_Angeles Australia/Melbourne
 }
 
-time-zones-bod() {
+mn-time-zones-bod() {
   #overtime show America/New_York America/Los_Angeles Asia/Hong_Kong Europe/London
   overtime show America/Los_Angeles Asia/Hong_Kong Europe/London
 }
 
-time-zones-game() {
+mn-time-zones-game() {
   overtime show America/Los_Angeles America/New_York Asia/Hong_Kong Asia/Ho_Chi_Minh
 }
 
-alias time-zones='timedatectl list-timezones --no-pager'
+alias mn-time-zones='timedatectl list-timezones --no-pager'
 mn-time-meet () {
   #!/usr/bin/env bash
   # ./meet.sh || meet.sh 09/22
