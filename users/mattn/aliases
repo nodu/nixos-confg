@@ -502,7 +502,7 @@ install_spotify()
 # --exclude 'file or dir'
 # --info=progress2 try if too verbose also remove -v
 
-alias mv-rsync="rsync -rltgD --recursive --human-readable --progress -v --remove-sent-files"
+alias mv-rsync="rsync -rltgD --recursive --human-readable --progress -v --remove-source-files"
 alias cp-rsync="rsync -rltgD --recursive --human-readable --progress -v"
 
 alias backup-aws-to-chia="cp-rsync ~/Downloads/aws /Volumes/Chia/"
