@@ -8,8 +8,8 @@ MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
 # MRNOTE not vm-intel, fully arm
-NIXNAME ?= vm-intel
-# NIXNAME ?= vm-aarch64
+#NIXNAME ?= vm-intel
+NIXNAME ?= vm-aarch64
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
@@ -93,10 +93,10 @@ vm/bootstrap:
 vm/secrets:
 	# GPG keyring
 	#rsync -av -e 'ssh $(SSH_OPTIONS)' \
-		--exclude='.#*' \
-		--exclude='S.*' \
-		--exclude='*.conf' \
-		$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
+	#	--exclude='.#*' \
+	#	--exclude='S.*' \
+	#	--exclude='*.conf' \
+	#	$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
 	# SSH keys
 	# MRNOTE Added L as currently they're symlinks
 	rsync -avL -e 'ssh $(SSH_OPTIONS)' \
@@ -115,6 +115,8 @@ vm/copy:
 
 # run the nixos-rebuild switch command. This does NOT copy files so you
 # have to run vm/copy before.
+#if it complains about error upgrading system... use the --install-bootloader flag
+#sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --install-bootloader --flake \"/nix-config#${NIXNAME}\" \
 vm/switch:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
 		sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#${NIXNAME}\" \
