@@ -43,6 +43,7 @@ in {
     pkgs.xfce.thunar
     pkgs.redshift
     pkgs.wget
+    pkgs.nmap
     pkgs.kubectl
     pkgs.krew
     pkgs.terraform
@@ -58,6 +59,7 @@ in {
     pkgs.obsidian
     pkgs.httpstat
     pkgs.dotnetCorePackages.sdk_6_0
+    pkgs.yt-dlp
   ];
 
   #---------------------------------------------------------------------
@@ -82,8 +84,8 @@ in {
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "62941ea";
-    sha256 = "NCC+hDN5mNqtOIlFxQPCQaIkQzN7h+jvnrKFCgatA6o=";
+    rev = "811e684";
+    sha256 = "NtGim+J48DSRPhbdVc0kRFOcJxW8awf6vn6N9QPyqic=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
