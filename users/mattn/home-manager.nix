@@ -84,8 +84,8 @@ in {
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "811e684";
-    sha256 = "NtGim+J48DSRPhbdVc0kRFOcJxW8awf6vn6N9QPyqic=";
+    rev = "89cca28";
+    sha256 = "mHvsIpdD0xVOQBjoRogG/H7V87kVSV9hgMZNhhvBkUk=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
