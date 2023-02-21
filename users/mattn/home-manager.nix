@@ -9,10 +9,11 @@ let
     # For our MANPAGER env var
     # https://github.com/sharkdp/bat/issues/1145
     manpager = (pkgs.writeShellScriptBin "manpager" ''
-      cat "$1" | col -bx | bat --language man --style plain
+      col -bx < "$1" | bat --language man -p
     '');
 in {
 
+  #cat "$1" | col -bx | bat --language man --style plain
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
   home.stateVersion = "18.09";
@@ -421,6 +422,8 @@ in {
       vimPlugins.sonokai
       vimPlugins.edge
       vimPlugins.gruvbox-material
+      vimPlugins.nvim-cmp
+      vimPlugins.cmp-nvim-lsp
     ];
 
     extraConfig = (import ./vim-config.nix) { inherit sources; };

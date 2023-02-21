@@ -656,4 +656,22 @@ EOF
 
 
   endif
+
+  " mn#functionName sets these to autoload, only including them when required, but the script name must also be mn.lua or mn.vim
+if !exists('*Save_and_exec')
+  function! Save_and_exec() abort
+    if &filetype == 'vim'
+      :silent! write
+      :source %
+    elseif &filetype == 'lua'
+      :silent! write
+      :luafile %
+    endif
+
+    return
+  endfunction
+endif
+
+nnoremap <leader><leader>x :call Save_and_exec()<CR>
+
 ''
