@@ -8,6 +8,7 @@ let
 
     # For our MANPAGER env var
     # https://github.com/sharkdp/bat/issues/1145
+    # MN - not needed, but keeping in case of future breakage
     manpager = (pkgs.writeShellScriptBin "manpager" ''
       col -bx < "$1" | bat --language man -p
     '');
@@ -73,8 +74,9 @@ in {
     LC_ALL = "en_US.UTF-8";
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
-    MANPAGER = "${manpager}/bin/manpager";
+    MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
   };
+    #MANPAGER = "${manpager}/bin/manpager";
 
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
