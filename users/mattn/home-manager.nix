@@ -396,39 +396,44 @@ in {
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
+    viAlias = true;
+    vimAlias = true;
 
     plugins = with pkgs; [
-      customVim.vim-fugitive
-      customVim.vim-pgsql
-      customVim.AfterColors
+      #customVim.vim-fugitive
+      #customVim.vim-pgsql
+      #customVim.AfterColors
 
-      customVim.nvim-comment
-      customVim.nvim-lspconfig
-      customVim.nvim-plenary # required for telescope
-      customVim.nvim-telescope
-      customVim.nvim-treesitter
-      customVim.nvim-treesitter-playground
-      customVim.nvim-treesitter-textobjects
+      #customVim.nvim-comment
+      #customVim.nvim-lspconfig
+      #customVim.nvim-plenary # required for telescope
+      #customVim.nvim-telescope
+      #customVim.nvim-treesitter
+      #customVim.nvim-treesitter-playground
+      #customVim.nvim-treesitter-textobjects
 
-      vimPlugins.vim-airline
-      vimPlugins.vim-airline-themes
-      vimPlugins.vim-eunuch
-      vimPlugins.vim-gitgutter
+      #vimPlugins.vim-airline
+      #vimPlugins.vim-airline-themes
+      #vimPlugins.vim-eunuch
+      #vimPlugins.vim-gitgutter
 
-      vimPlugins.vim-markdown
-      vimPlugins.vim-nix
-      vimPlugins.typescript-vim
-      vimPlugins.vim-visual-multi
-      vimPlugins.vim-surround
-      vimPlugins.NeoSolarized
-      vimPlugins.sonokai
-      vimPlugins.edge
-      vimPlugins.gruvbox-material
-      vimPlugins.nvim-cmp
-      vimPlugins.cmp-nvim-lsp
+      #vimPlugins.vim-markdown
+      #vimPlugins.vim-nix
+      #vimPlugins.typescript-vim
+      #vimPlugins.vim-visual-multi
+      #vimPlugins.vim-surround
+      #vimPlugins.NeoSolarized
+      #vimPlugins.sonokai
+      #vimPlugins.edge
+      #vimPlugins.gruvbox-material
+      #vimPlugins.nvim-cmp
+      #vimPlugins.cmp-nvim-lsp
     ];
 
-    extraConfig = (import ./vim-config.nix) { inherit sources; };
+    #extraConfig = (import ./vim-config.nix) { inherit sources; };
+    extraConfig = ''
+      source ~/dotenv/vimrc.vim
+    '';
   };
 
   services.gpg-agent = {
