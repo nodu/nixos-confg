@@ -41,6 +41,9 @@ in {
 
     pkgs.go
     pkgs.gopls
+    pkgs.nodejs-18_x
+    pkgs.dotnetCorePackages.sdk_6_0
+    pkgs.python3Minimal
 
     pkgs.xfce.thunar
     pkgs.redshift
@@ -56,13 +59,18 @@ in {
     pkgs.krew
     pkgs.nodePackages.pyright
     pkgs.nodePackages.typescript-language-server
-    pkgs.python3Minimal
     pkgs.zip
     pkgs.obsidian
     pkgs.httpstat
-    pkgs.dotnetCorePackages.sdk_6_0
     pkgs.yt-dlp
+
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    pkgs.gcc
+    pkgs.unzip
+    pkgs.lazygit
   ];
+
+  fonts.fontconfig.enable = true;
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
@@ -309,9 +317,9 @@ in {
         size = 12.0;
         #use_thin_strokes = true;
 
-        #normal.family = "Monaco for Powerline";
-        #bold.family = "FuraCode Nerd Font";
-        #italic.family = "FuraCode Nerd Font";
+        normal.family = "FiraCode Nerd Font";
+        bold.family = "FiraCode Nerd Font";
+        italic.family = "FiraCode Nerd Font";
       };
 
       cursor.style = "Block";
@@ -432,7 +440,7 @@ in {
 
     #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
-      source ~/dotenv/vimrc.vim
+      source ~/.config/nvim/bs.init.lua
     '';
   };
 
