@@ -29,6 +29,7 @@ in {
     pkgs.bat
     pkgs.fd
     pkgs.firefox
+    pkgs.chromium
     pkgs.fzf
     pkgs.git-crypt
     pkgs.htop
@@ -38,6 +39,7 @@ in {
     pkgs.tree
     pkgs.watch
     pkgs.zathura
+    pkgs.tealdeer
 
     pkgs.go
     pkgs.gopls
@@ -441,6 +443,7 @@ in {
     #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
       source ~/.config/nvim/bs.init.lua
+      source ~/dotenv/vimwip.lua
     '';
   };
 

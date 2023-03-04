@@ -549,3 +549,5 @@ alias mn-git-lpull='git pull'
 alias mn-git-push='git push'
 alias mn-git-uncommit-last='git reset --soft HEAD~1'
 alias mn-git-unstage-file='git reset HEAD'
+
+alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
