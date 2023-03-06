@@ -47,6 +47,8 @@ in {
     pkgs.dotnetCorePackages.sdk_6_0
     pkgs.python3Minimal
 
+    pkgs.postgresql_11
+
     pkgs.xfce.thunar
     pkgs.redshift
     pkgs.wget

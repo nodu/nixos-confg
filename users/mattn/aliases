@@ -62,10 +62,6 @@ function pause {
   printf '\n'
 }
 
-function mn () {
-  echo "My Global var/command"
-}
-
 mn-function-definition () {
  declare -f $1
 }
@@ -551,3 +547,17 @@ alias mn-git-uncommit-last='git reset --soft HEAD~1'
 alias mn-git-unstage-file='git reset HEAD'
 
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
+
+function mn-list-alias-functions() {
+  # TODO list full definitions, then only paste func name/alias to command line
+  echo
+  echo -e "\033[1;4;32m""Functions:""\033[0;34m"
+  compgen -A function
+  echo
+  echo -e "\033[1;4;32m""Aliases:""\033[0;34m"
+  compgen -A alias
+  echo
+  echo -e "\033[0m"
+}
+
+alias mn='print -z -- $(mn-list-alias-functions | fzf)'
