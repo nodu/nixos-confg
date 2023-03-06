@@ -560,4 +560,8 @@ function mn-list-alias-functions() {
   echo -e "\033[0m"
 }
 
-alias mn='print -z -- $(mn-list-alias-functions | fzf)'
+alias mn='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
+alias m='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
+alias a='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
+
+alias mn-source-gcp='source functions_gcp'
