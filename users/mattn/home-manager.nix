@@ -39,6 +39,9 @@ in {
     pkgs.tree
     pkgs.watch
     pkgs.zathura
+
+    pkgs.gum
+    pkgs.yt-dlp
     pkgs.tealdeer
 
     pkgs.go
@@ -66,7 +69,6 @@ in {
     pkgs.zip
     pkgs.obsidian
     pkgs.httpstat
-    pkgs.yt-dlp
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     pkgs.gcc
