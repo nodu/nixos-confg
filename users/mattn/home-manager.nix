@@ -58,7 +58,7 @@ in {
     pkgs.terraform
     pkgs.awscli2
     pkgs.azure-cli
-    pkgs.google-cloud-sdk
+    (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
     pkgs.buildkit
     pkgs.krew
     pkgs.nodePackages.pyright
