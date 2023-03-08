@@ -565,3 +565,4 @@ alias m='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
 alias a='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
 
 alias mn-source-gcp='source functions_gcp'
+alias x='xrandr-auto'
