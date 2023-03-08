@@ -74,6 +74,11 @@ in {
     pkgs.gcc
     pkgs.unzip
     pkgs.lazygit
+
+    /* nvim stuff */
+    pkgs.sumneko-lua-language-server
+    pkgs.rnix-lsp
+    pkgs.stylua
   ];
 
   fonts.fontconfig.enable = true;
@@ -446,7 +451,8 @@ in {
 
     #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
-      source ~/.config/nvim/bs.init.lua
+      source ~/.config/nvim/bootstrap.init.lua
+
       source ~/dotenv/vimwip.lua
     '';
   };
