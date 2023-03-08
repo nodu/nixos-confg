@@ -51,7 +51,6 @@ floating_modifier $mod
 bindsym $mod+o exec rofi -show run
 
 # start a terminal
-#bindsym $mod+n exec kitty
 bindsym $mod+n exec alacritty
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
@@ -60,7 +59,10 @@ bindsym $mod+Shift+d split v
 bindsym $mod+Shift+n exec /home/mattn/bin/devtty --config-file=/home/mattn/.config/devtty/config
 
 # kill focused window
-bindsym $mod+w kill
+bindsym $mod+Shift+q kill
+bindsym $mod+F4 kill
+#bindsym $mod+w kill window
+bindsym $mod+q kill window
 
 # change focus
 bindsym $mod+h focus left
@@ -76,6 +78,12 @@ bindsym $mod+Shift+l move right
 
 # enter fullscreen mode for the focused container
 bindsym $mod+Shift+f fullscreen toggle
+
+# Icons: https://fontawesome.com/cheatsheet/free/solid
+set $workspace1 "1: Home "
+set $workspace2 "2 Workspace "
+set $workspace3 "3: Communication "
+set $workspace6 "6: Audio  "
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+Shift+s layout stacking
@@ -136,6 +144,26 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
+# floating placement
+set $screen-width 3440
+set $screen-height 1440
+set $width-by-3 1146
+set $top-border 20
+set $height-minus-border 1420
+set $height-minus-border-by-2 710
+
+bindsym $mod+y fullscreen disable; floating toggle; resize set $width-by-3 $height-minus-border; move window to position $width-by-3 25; sticky disable
+bindsym $mod+Shift+y fullscreen disable; floating toggle; resize set 1911 $height-minus-border; move window to position 764 25; sticky disable
+bindsym $mod+u fullscreen disable; floating enable; resize set $width-by-3 $height-minus-border-by-2; move window to position $width-by-3 25; sticky disable
+bindsym $mod+t sticky toggle
+
+bindsym $mod+Ctrl+1 move window to position 1 25
+bindsym $mod+Ctrl+2 move window to position 1146 25
+bindsym $mod+Ctrl+3 move window to position 2292 25
+bindsym $mod+Ctrl+4 move window to position 1 735
+bindsym $mod+Ctrl+5 move window to position 1146 735
+bindsym $mod+Ctrl+6 move window to position 2292 735
 
 #----------------------------------------------------------------------
 # Resize Mode
