@@ -79,6 +79,8 @@ in {
     pkgs.sumneko-lua-language-server
     pkgs.rnix-lsp
     pkgs.stylua
+
+    pkgs.ffmpeg
   ];
 
   fonts.fontconfig.enable = true;
