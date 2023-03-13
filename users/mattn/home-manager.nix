@@ -453,7 +453,6 @@ in {
     #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
       source ~/.config/nvim/bootstrap.init.lua
-
       source ~/dotenv/nix/vimwip.lua
     '';
   };
