@@ -99,7 +99,8 @@ vm/secrets:
 	#	$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
 	# SSH keys
 	# MRNOTE Added L as currently they're symlinks
-	rsync -avL -e 'ssh $(SSH_OPTIONS)' \
+	#rsync -avL -e 'ssh $(SSH_OPTIONS)' \
+	rsync -av -e 'ssh $(SSH_OPTIONS)' \
 		--exclude='environment' \
 		$(HOME)/.ssh/ $(NIXUSER)@$(NIXADDR):~/.ssh
 
@@ -113,10 +114,11 @@ vm/copy:
 		--rsync-path="sudo rsync" \
 		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nix-config
 
-# run the nixos-rebuild switch command. This does NOT copy files so you
 # have to run vm/copy before.
+# run the nixos-rebuild switch command. This does NOT copy files so you
 #if it complains about error upgrading system... use the --install-bootloader flag
 #sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --install-bootloader --flake \"/nix-config#${NIXNAME}\" \
+
 vm/switch:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
 		sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#${NIXNAME}\" \

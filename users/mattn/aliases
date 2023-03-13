@@ -51,7 +51,9 @@ tdiff() { # diff todo.md
 tcleanup() {
   cd ~/todo
   grep "\- \[x\]" todo.md >> done.md
+  grep "\- \[n\]" todo.md >> no.md
   sed -i -e '/- \[x]/ d' todo.md
+  sed -i -e '/- \[n]/ d' todo.md
   cd -
 }
 

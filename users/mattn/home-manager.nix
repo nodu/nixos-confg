@@ -224,7 +224,7 @@ in {
   };
 
   programs.fish = {
-    enable = true;
+    enable = false;
     interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" [
       "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
       "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
@@ -393,7 +393,7 @@ in {
   };
 
   programs.kitty = {
-    enable = true;
+    enable = false;
     extraConfig = builtins.readFile ./kitty;
   };
 
