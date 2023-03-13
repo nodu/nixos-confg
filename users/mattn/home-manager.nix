@@ -454,7 +454,7 @@ in {
     extraConfig = ''
       source ~/.config/nvim/bootstrap.init.lua
 
-      source ~/dotenv/vimwip.lua
+      source ~/dotenv/nix/vimwip.lua
     '';
   };
 
