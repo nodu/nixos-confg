@@ -13,29 +13,29 @@ alias gotop='cd ~/Code/PPS/'
 #cd ~/Code
 
 #TODO Notes
-alias t='v ~/todo/todo.md'
+alias t='v ~/repos/todo/todo.md'
 
 ta() { # 'ta * new note to add'
   # Add to beginning of file
-  # sed -i "1i$1" ~/todo/todo.md
-  # sed -i -e "$a $1" ~/todo/todo.md
-  echo "- [ ] $1" >> ~/todo/todo.md
+  # sed -i "1i$1" ~/repos/todo/todo.md
+  # sed -i -e "$a $1" ~/repos/todo/todo.md
+  echo "- [ ] $1" >> ~/repos/todo/todo.md
 }
 
 tpull() { # pull todo
-  cd ~/todo
+  cd ~/repos/todo
   git pull
   cd -
 }
 
 tpush() { # diff/upload todo.md
-  cd ~/todo
+  cd ~/repos/todo
   git push origin master
   cd -
 }
 
 tcommit() { #commit todos
-  cd ~/todo
+  cd ~/repos/todo
   git diff todo.md
   git add todo.md
   git commit -m "Update Todo $(date)"
@@ -43,13 +43,13 @@ tcommit() { #commit todos
 }
 
 tdiff() { # diff todo.md
-  cd ~/todo
+  cd ~/repos/todo
   git diff todo.md
   cd -
 }
 
 tcleanup() {
-  cd ~/todo
+  cd ~/repos/todo
   grep "\- \[x\]" todo.md >> done.md
   grep "\- \[n\]" todo.md >> no.md
   sed -i -e '/- \[x]/ d' todo.md
@@ -89,7 +89,7 @@ mn-git-quickcommit-all() {
 }
 
 # Kubernetes/Azure
-source ~/dotenv/shortcuts/kubernetes
+source ~/repos/sys/dotenv/shortcuts/kubernetes
 
 alias k='kubectl'
 alias kub='kubectl'
@@ -323,8 +323,11 @@ nvimNewSplit () {
 
 # Startup items:
 #motivate
-cd ~/notes && echo "" && echo "Notes Repo" && git status && cd -
-cd ~/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
+cd ~/repos/notes && echo "" && echo "Notes Repo" && git status && cd -
+cd ~/repos/todo && echo "" && echo "todo Repo" && git status && cd -
+cd ~/repos/sys/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
+cd ~/repos/sys/nixos-config && echo "" && echo "nixos-config Repo" && git status && cd -
+cd ~/.config/nvim/ && echo "" && echo "nvim Repo" && git status && cd -
 
 mn-help-myHelpers() {
    grep -E "() {" ~/dotenv/shortcuts/aliases.sh
@@ -447,21 +450,21 @@ function vault-list() {
   vault kv list secret/$1
 }
 
-alias mn-source-alias="source ~/nixos-config/users/mattn/aliases"
+alias mn-source-alias="source ~/repos/sys/nixos-config/users/mattn/aliases"
 
-alias mn-edit-vim="v ~/nixos-config/users/mattn/vim-config.nix"
-alias mn-edit-alias="v ~/nixos-config/users/mattn/aliases"
-alias mn-edit-i3="v ~/nixos-config/users/mattn/i3"
-alias mn-edit-home-manager="nvim ~/nixos-config/users/mattn/home-manager.nix"
+alias mn-edit-vim="v ~/repos/sys/nixos-config/users/mattn/vim-config.nix"
+alias mn-edit-alias="v ~/repos/sys/nixos-config/users/mattn/aliases"
+alias mn-edit-i3="v ~/repos/sys/nixos-config/users/mattn/i3"
+alias mn-edit-home-manager="nvim ~/repos/sys/nixos-config/users/mattn/home-manager.nix"
 
-alias edit-zsh="v ~/dotenv/.zshrc"
-alias edit-osx-alias="v ~/dotenv/shortcuts/macos_aliases.sh"
+alias edit-zsh="v ~/repos/sys/dotenv/.zshrc"
+alias edit-osx-alias="v ~/repos/sys/dotenv/shortcuts/macos_aliases.sh"
 
 #TODO - Move all cheatsheets to notes repo
-alias edit-vimCheatSheet="nvim ~/dotenv/shortcuts/vimCheatSheet"
+alias edit-vimCheatSheet="nvim ~/repos/sys/dotenv/shortcuts/vimCheatSheet"
 
 mn-help-vimCheatSheet() {
-  cat ~/dotenv/shortcuts/vimCheatSheet
+  cat ~/repos/sys/dotenv/shortcuts/vimCheatSheet
 }
 
 alias spud-start='az vm start --resource-group Matt --name SPUD'

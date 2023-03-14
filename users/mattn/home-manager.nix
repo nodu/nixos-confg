@@ -193,7 +193,7 @@ in {
       # that I'm just going to keep it consistent.
       pbcopy = "xclip";
       pbpaste = "xclip -o";
-      nx-update = "cd ~/nixos-config/ && make switch && cd -";
+      nx-update = "cd ~/repos/sys/nixos-config/ && make switch && cd -";
       nx-search = "nix search nixpkgs";
     };
 
@@ -216,7 +216,7 @@ in {
     initExtra = ''
       source $HOME/.config/aliases
       source $HOME/.config/defaults/basic
-      source $HOME/dotenv/shortcuts/work
+      source $HOME/repos/sys/dotenv/shortcuts/work
       source $HOME/.config/shellConfig
       eval "$(direnv hook zsh)"
     '';
@@ -453,7 +453,7 @@ in {
     #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
       source ~/.config/nvim/bootstrap.init.lua
-      source ~/dotenv/nix/vimwip.lua
+      source ~/repos/sys/dotenv/nix/vimwip.lua
     '';
   };
 
