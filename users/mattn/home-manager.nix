@@ -176,17 +176,7 @@ in {
     #completionInit
 
     shellAliases = {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
-      gdiff = "git diff";
-      gl = "git prettylog";
-      gp = "git push";
-      gs = "git status";
-      gst = "git status";
-      gt = "git tag";
-      V = "nvim .";
+      vv = "nvim .";
       znix = "nix-shell --run zsh";
 
       # Two decades of using a Mac has made this such a strong memory
