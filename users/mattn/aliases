@@ -16,76 +16,76 @@ alias gotop='cd ~/Code/PPS/'
 alias t='v ~/repos/todo/todo.md'
 
 ta() { # 'ta * new note to add'
-  # Add to beginning of file
-  # sed -i "1i$1" ~/repos/todo/todo.md
-  # sed -i -e "$a $1" ~/repos/todo/todo.md
-  echo "- [ ] $1" >> ~/repos/todo/todo.md
+	# Add to beginning of file
+	# sed -i "1i$1" ~/repos/todo/todo.md
+	# sed -i -e "$a $1" ~/repos/todo/todo.md
+	echo "- [ ] $1" >>~/repos/todo/todo.md
 }
 
 tpull() { # pull todo
-  cd ~/repos/todo
-  git pull
-  cd -
+	cd ~/repos/todo
+	git pull
+	cd -
 }
 
 tpush() { # diff/upload todo.md
-  cd ~/repos/todo
-  git push origin master
-  cd -
+	cd ~/repos/todo
+	git push origin master
+	cd -
 }
 
 tcommit() { #commit todos
-  cd ~/repos/todo
-  git diff todo.md
-  git add todo.md
-  git commit -m "Update Todo $(date)"
-  cd -
+	cd ~/repos/todo
+	git diff todo.md
+	git add todo.md
+	git commit -m "Update Todo $(date)"
+	cd -
 }
 
 tdiff() { # diff todo.md
-  cd ~/repos/todo
-  git diff todo.md
-  cd -
+	cd ~/repos/todo
+	git diff todo.md
+	cd -
 }
 
 tcleanup() {
-  cd ~/repos/todo
-  grep "\- \[x\]" todo.md >> done.md
-  grep "\- \[n\]" todo.md >> no.md
-  sed -i -e '/- \[x]/ d' todo.md
-  sed -i -e '/- \[n]/ d' todo.md
-  cd -
+	cd ~/repos/todo
+	grep "\- \[x\]" todo.md >>done.md
+	grep "\- \[n\]" todo.md >>no.md
+	sed -i -e '/- \[x]/ d' todo.md
+	sed -i -e '/- \[n]/ d' todo.md
+	cd -
 }
 
 function pause {
-  >/dev/tty printf '%s' "${*:-Press any key to continue... }"
-  [[ $ZSH_VERSION ]] && read -krs  # Use -u0 to read from STDIN
-  [[ $BASH_VERSION ]] && </dev/tty read -rsn1
-  printf '\n'
+	printf >/dev/tty '%s' "${*:-Press any key to continue... }"
+	[[ $ZSH_VERSION ]] && read -krs # Use -u0 to read from STDIN
+	[[ $BASH_VERSION ]] && read </dev/tty -rsn1
+	printf '\n'
 }
 
-mn-function-definition () {
- declare -f $1
+mn-function-definition() {
+	declare -f $1
 }
 
-mn-function-where () {
-type -a $1
+mn-function-where() {
+	type -a $1
 }
 
 mn-git-quickcommit() {
-  git status
-  git diff
-  git commit -m "Update"
-  git push
+	git status
+	git diff
+	git commit -m "Update"
+	git push
 }
 mn-git-quickcommit-all() {
-  git status
-  git diff
-  #pause()
-  #read -p 'Press any key to continue...'
-  git add -A :/
-  git commit -m "Update"
-  git push
+	git status
+	git diff
+	#pause()
+	#read -p 'Press any key to continue...'
+	git add -A :/
+	git commit -m "Update"
+	git push
 }
 
 # Kubernetes/Azure
@@ -98,16 +98,15 @@ alias kube='kubectl'
 # Load kubectl completions
 if [ /usr/local/bin/kubectl ] || [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
-  #-------- Color Manpages
-export LESS_TERMCAP_mb=$'\E[01;31m'             # begin blinking
-export LESS_TERMCAP_md=$'\E[01;31m'             # begin bold
-export LESS_TERMCAP_me=$'\E[0m'                 # end mode
-export LESS_TERMCAP_se=$'\E[0m'                 # end standout-mode
-export LESS_TERMCAP_so=$'\E[01;44;33m'          # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
-export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
+#-------- Color Manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blinking
+export LESS_TERMCAP_md=$'\E[01;31m'    # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # end mode
+export LESS_TERMCAP_se=$'\E[0m'        # end standout-mode
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'        # end underline
+export LESS_TERMCAP_us=$'\E[01;32m'    # begin underline
 #export MANPAGER="/usr/bin/most -s"             # color using most
-
 
 alias vi='nvim'
 alias vim='nvim'
@@ -124,199 +123,196 @@ alias wakeupbase='ssh duckdns.org -p 1422 /usr/bin/etherwake -D "70:8B:CD:55:FF:
 alias wakeupbase='ssh routerr /usr/bin/etherwake -D "70:8B:CD:55:FF:7E"'
 
 decodebase64() {
-  echo -n "$1" | base64 -d
+	echo -n "$1" | base64 -d
 }
 
 encodebase64() {
-  echo -n "$1" | base64
+	echo -n "$1" | base64
 }
 
 alias ping='ping -c 5'
 alias www='python -m SimpleHTTPServer 8000'
 
 encrypt() {
-  gpg -c $1
+	gpg -c $1
 }
 
 decrypt() {
-  gpg $1
+	gpg $1
 }
 
 # curl -P 104.45.159.118 ftp://40.71.174.122/vsftpd --user 'admin:password' -v
 # tcpdump host 192.168.1.3 -n | grep SOMETHING
 
-
 mn-help-byobuKeys() {
-  echo ""
-  echo "Byobu Cheat Sheet"
-  echo ""
-  echo "Shift+F11 - Full Screen Pane"
-  echo ""
-  echo "Shift-F2                     Create a horizontal split"
-  echo "Ctrl-F2                      Create a vertical split"
-  echo ""
-  echo "F3/F4                        Move focus among windows"
-  echo "Shift-F3/F4                  Move focus among splits"
-  echo ""
-  echo "Shift-Left/Right/Up/Down     Move focus among splits"
-  echo "Alt-Left/Right               Move focus among windows"
+	echo ""
+	echo "Byobu Cheat Sheet"
+	echo ""
+	echo "Shift+F11 - Full Screen Pane"
+	echo ""
+	echo "Shift-F2                     Create a horizontal split"
+	echo "Ctrl-F2                      Create a vertical split"
+	echo ""
+	echo "F3/F4                        Move focus among windows"
+	echo "Shift-F3/F4                  Move focus among splits"
+	echo ""
+	echo "Shift-Left/Right/Up/Down     Move focus among splits"
+	echo "Alt-Left/Right               Move focus among windows"
 
-  echo ""
-  echo "Just press Shift +F1 to get byobu command shortcuts"
+	echo ""
+	echo "Just press Shift +F1 to get byobu command shortcuts"
 
-  echo "You can search scroll back like vim! - '/' 'n'"
-  echo "Save scrollback with Shift+F7:  cat $BYOBU_RUN_DIR/printscreen > scrollback_history.txt"
+	echo "You can search scroll back like vim! - '/' 'n'"
+	echo "Save scrollback with Shift+F7:  cat $BYOBU_RUN_DIR/printscreen > scrollback_history.txt"
 }
 
 alias saveScrollBack='cat $BYOBU_RUN_DIR/printscreen > ~/Code/scrollback-$(date -I)-$(date +%s).txt'
 
 mn-time-global() {
-  echo 'Current:          ' `date`
-  echo 'UTC:              ' `date -u`
-  echo '              '
-  echo 'Los Angeles (-7): ' `TZ='America/Los_Angeles' date`
-  echo 'Chicago: (-5)     ' `TZ='America/Chicago' date`
-  echo 'London: (+1)      ' `TZ='Europe/London' date`
-  echo 'Hong Kong: (+8)   ' `TZ='Asia/Hong_Kong' date`
+	echo 'Current:          ' $(date)
+	echo 'UTC:              ' $(date -u)
+	echo '              '
+	echo 'Los Angeles (-7): ' $(TZ='America/Los_Angeles' date)
+	echo 'Chicago: (-5)     ' $(TZ='America/Chicago' date)
+	echo 'London: (+1)      ' $(TZ='Europe/London' date)
+	echo 'Hong Kong: (+8)   ' $(TZ='Asia/Hong_Kong' date)
 }
 
 mn-time-zones-gravity() {
-  overtime show UTC America/Los_Angeles Asia/Hong_Kong Europe/London Europe/Brussels Australia/Melbourne America/Chicago Asia/Kolkata
+	overtime show UTC America/Los_Angeles Asia/Hong_Kong Europe/London Europe/Brussels Australia/Melbourne America/Chicago Asia/Kolkata
 }
 
 mn-time-zones-e20() {
-  overtime show UTC America/Los_Angeles Australia/Melbourne
+	overtime show UTC America/Los_Angeles Australia/Melbourne
 }
 
 mn-time-zones-bod() {
-  #overtime show America/New_York America/Los_Angeles Asia/Hong_Kong Europe/London
-  overtime show America/Los_Angeles Asia/Hong_Kong Europe/London
+	#overtime show America/New_York America/Los_Angeles Asia/Hong_Kong Europe/London
+	overtime show America/Los_Angeles Asia/Hong_Kong Europe/London
 }
 
 mn-time-zones-game() {
-  overtime show America/Los_Angeles America/New_York Asia/Hong_Kong Asia/Ho_Chi_Minh
+	overtime show America/Los_Angeles America/New_York Asia/Hong_Kong Asia/Ho_Chi_Minh
 }
 
 alias mn-time-zones='timedatectl list-timezones --no-pager'
-mn-time-meet () {
-  #!/usr/bin/env bash
-  # ./meet.sh || meet.sh 09/22
-  # ig20180122 - displays meeting options in other time zones
-  # ml20220712 - Linux GNU date compatible
-  # https://superuser.com/questions/164339/timezone-conversion-by-command-line
-  # https://stackoverflow.com/questions/53075017/how-can-i-do-bash-arithmetic-with-variables-that-are-numbers-with-leading-zeroes
-  # set the following variable to the start and end of your working day
-  # start and end time, with one space
-  daystart=8
-  dayend=24
-  # set the local TZ
-  myplace='America/Los_Angeles'
-  # set the most common places
-  place[1]='America/Chicago'
-  place[2]='Europe/London'
-  place[3]='Asia/Hong_Kong'
-  place[4]='Asia/Kolkata'
-  # add cities using place[5], etc.
-  # set the date format for search
-  dfmt="%m/%d" # date format for meeting date
-  # New format so It can be used as argument
-  hfmt="+%B %e, %Y" # date format for the header
-  # no need to change onwards
-  format1="%-12s " # Increase if your cities names are long
-  format2="%02d "
-  mdate=$1
-  if [[ "$1" == "" ]]; then mdate=`date +"$dfmt"`; fi
-  # date -j -f "$dfmt" "$hfmt" "$mdate"
-  date -d $mdate "$hfmt" # GNU linux compliant
-  here=`TZ=$myplace date -d $mdate +%z` # Same Here
-  here=$((`printf "%g" $here` / 100))
-  printf "$format1" ${myplace/*\//} #"Here"
-  printf "$format2" `seq $daystart $dayend`
-  printf "\n"
-  for i in `seq 1 "${#place[*]}"`
-  do
-      there=`TZ=${place[$i]} date -d "$mdate" +%z` # same here
-      there=$((`printf "%g" $there` / 100))
-      city[$i]=${place[$i]/*\//}
-      tdiff[$i]=$(($there - $here))
-      printf "$format1" ${city[$i]}
-      for j in `seq $daystart $dayend`
-      do
-        sub=$(($j+${tdiff[$i]}))
-        if [[ $sub > 24 ]]; then sub="$((sub-24))"; fi
-        #if [[ 10#$sub > 12 ]]; then sub="$((10#$sub-12))"; fi
-        printf "$format2" $sub
-      done
-      printf "(%+d)\n" ${tdiff[$i]}
-  done
+mn-time-meet() {
+	#!/usr/bin/env bash
+	# ./meet.sh || meet.sh 09/22
+	# ig20180122 - displays meeting options in other time zones
+	# ml20220712 - Linux GNU date compatible
+	# https://superuser.com/questions/164339/timezone-conversion-by-command-line
+	# https://stackoverflow.com/questions/53075017/how-can-i-do-bash-arithmetic-with-variables-that-are-numbers-with-leading-zeroes
+	# set the following variable to the start and end of your working day
+	# start and end time, with one space
+	daystart=8
+	dayend=24
+	# set the local TZ
+	myplace='America/Los_Angeles'
+	# set the most common places
+	place[1]='America/Chicago'
+	place[2]='Europe/London'
+	place[3]='Asia/Hong_Kong'
+	place[4]='Asia/Kolkata'
+	# add cities using place[5], etc.
+	# set the date format for search
+	dfmt="%m/%d" # date format for meeting date
+	# New format so It can be used as argument
+	hfmt="+%B %e, %Y" # date format for the header
+	# no need to change onwards
+	format1="%-12s " # Increase if your cities names are long
+	format2="%02d "
+	mdate=$1
+	if [[ "$1" == "" ]]; then mdate=$(date +"$dfmt"); fi
+	# date -j -f "$dfmt" "$hfmt" "$mdate"
+	date -d $mdate "$hfmt"                 # GNU linux compliant
+	here=$(TZ=$myplace date -d $mdate +%z) # Same Here
+	here=$(($(printf "%g" $here) / 100))
+	printf "$format1" ${myplace/*\//} #"Here"
+	printf "$format2" $(seq $daystart $dayend)
+	printf "\n"
+	for i in $(seq 1 "${#place[*]}"); do
+		there=$(TZ=${place[$i]} date -d "$mdate" +%z) # same here
+		there=$(($(printf "%g" $there) / 100))
+		city[$i]=${place[$i]/*\//}
+		tdiff[$i]=$(($there - $here))
+		printf "$format1" ${city[$i]}
+		for j in $(seq $daystart $dayend); do
+			sub=$(($j + ${tdiff[$i]}))
+			if [[ $sub > 24 ]]; then sub="$((sub - 24))"; fi
+			#if [[ 10#$sub > 12 ]]; then sub="$((10#$sub-12))"; fi
+			printf "$format2" $sub
+		done
+		printf "(%+d)\n" ${tdiff[$i]}
+	done
 }
 
-mn-time-overtime () {
-  cd /tmp
-  nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
+mn-time-overtime() {
+	cd /tmp
+	nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
   cd overtime-cli; \
   npm install; \
   node index.js show America/Los_Angeles America/Chicago Asia/Hong_Kong Europe/London; \
   exit; \
   "
-  cd -
+	cd -
 }
 
-mn-time-time.is () {
-  firefox "https://time.is/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
+mn-time-time.is() {
+	firefox "https://time.is/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
 }
-mn-time-time.is-table () {
-  firefox "https://time.is/compare/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
+mn-time-time.is-table() {
+	firefox "https://time.is/compare/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
 }
 
-localTimeHK () {
-  if [ -z "$1" ]; then
-    echo "Not WORKING"
-    echo date --date='TZ="America/Los_Angeles" 09:00 next Fri'
-    echo date --date='TZ="Europe/London" 09:00 next Fri'
-    echo date --date='TZ="Asia/Hong_Kong" 09:00 next Fri'
-    echo date --date='TZ="" 09:00 next Fri'
-    return;
-  fi;
+localTimeHK() {
+	if [ -z "$1" ]; then
+		echo "Not WORKING"
+		echo date --date='TZ="America/Los_Angeles" 09:00 next Fri'
+		echo date --date='TZ="Europe/London" 09:00 next Fri'
+		echo date --date='TZ="Asia/Hong_Kong" 09:00 next Fri'
+		echo date --date='TZ="" 09:00 next Fri'
+		return
+	fi
 
-  date --date=`TZ="Asia/Hong_Kong" $1`
+	date --date=$(TZ="Asia/Hong_Kong" $1)
 }
 
 timingsUSA() {
-  echo "Local times: "
-  date --date='TZ="America/Los_Angeles" 09:00 today'
-  date --date='TZ="America/Los_Angeles" 18:00 today'
+	echo "Local times: "
+	date --date='TZ="America/Los_Angeles" 09:00 today'
+	date --date='TZ="America/Los_Angeles" 18:00 today'
 }
 
 timings() {
-  echo "Local times: "
-  date --date='TZ="Asia/Hong_Kong" 09:00 today'
-  date --date='TZ="Asia/Hong_Kong" 18:00 today'
+	echo "Local times: "
+	date --date='TZ="Asia/Hong_Kong" 09:00 today'
+	date --date='TZ="Asia/Hong_Kong" 18:00 today'
 
 }
 alias b-split-horizontal="byobu split-window -h"
 alias b-split-vertical="byobu split-window -v"
 
 setupGravityWorkspace() {
-  byobu rename-window Gravity
+	byobu rename-window Gravity
 
-  cd ~/Code/Gravity
-  byobu split-window -v
+	cd ~/Code/Gravity
+	byobu split-window -v
 
-  byobu send-keys 'cd ~/Code/Gravity/web' 'C-m'
-  byobu send-keys 'grunt serve'
-  byobu split-window -h
-  byobu send-keys 'cd ~/Code/Gravity/main' 'C-m'
-  byobu send-keys 'docker-compose up'
+	byobu send-keys 'cd ~/Code/Gravity/web' 'C-m'
+	byobu send-keys 'grunt serve'
+	byobu split-window -h
+	byobu send-keys 'cd ~/Code/Gravity/main' 'C-m'
+	byobu send-keys 'docker-compose up'
 }
 
-nvimNewSplit () {
-  rm -f ~/.nvim_current_dir
-  echo $PWD > ~/.nvim_current_dir
-  byobu split-window -$1
-  byobu send-keys 'cd $(cat ~/.nvim_current_dir)' 'C-m'
-  byobu send-keys 'rm -f ~/.nvim_current_dir' 'C-m'
-  byobu send-keys 'nvim .' 'C-m'
+nvimNewSplit() {
+	rm -f ~/.nvim_current_dir
+	echo $PWD >~/.nvim_current_dir
+	byobu split-window -$1
+	byobu send-keys 'cd $(cat ~/.nvim_current_dir)' 'C-m'
+	byobu send-keys 'rm -f ~/.nvim_current_dir' 'C-m'
+	byobu send-keys 'nvim .' 'C-m'
 }
 
 #alias bat='docker run -it --rm -e BAT_THEME -e BAT_STYLE -e BAT_TABS -v "$(pwd):/myapp" danlynn/bat'
@@ -330,11 +326,11 @@ cd ~/repos/sys/nixos-config && echo "" && echo "nixos-config Repo" && git status
 cd ~/.config/nvim/ && echo "" && echo "nvim Repo" && git status && cd -
 
 mn-help-myHelpers() {
-   grep -E "() {" ~/dotenv/shortcuts/aliases.sh
-   grep -E "() {" ~/dotenv/.zshrc
-   grep -E "alias" ~/dotenv/shortcuts/aliases.sh
-   grep -E "alias" ~/dotenv/.zshrc
-   ls -al /usr/local/bin
+	grep -E "() {" ~/dotenv/shortcuts/aliases.sh
+	grep -E "() {" ~/dotenv/.zshrc
+	grep -E "alias" ~/dotenv/shortcuts/aliases.sh
+	grep -E "alias" ~/dotenv/.zshrc
+	ls -al /usr/local/bin
 }
 
 echo ""
@@ -361,20 +357,20 @@ TRANS_USERPASS="user:pass"
 
 alias trans-ls="docker exec -it transmission transmission-remote -n $TRANS_USERPASS -l"
 
-function trans-add () {
-  docker exec -it transmission transmission-remote -n $TRANS_USERPASS -a $1
+function trans-add() {
+	docker exec -it transmission transmission-remote -n $TRANS_USERPASS -a $1
 }
 function trans-rm() {
-  docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -r
+	docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -r
 }
 function trans-stop() {
-  docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -S
+	docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -S
 }
 function trans-start() {
-  docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -s
+	docker exec -it transmission transmission-remote -n $TRANS_USERPASS -t $1 -s
 }
 function trans-start-all() {
-  docker exec -it transmission transmission-remote -n $TRANS_USERPASS --torrent all --start
+	docker exec -it transmission transmission-remote -n $TRANS_USERPASS --torrent all --start
 }
 
 alias whereami-latlong='curl ipinfo.io/loc'
@@ -408,17 +404,17 @@ alias dl-up-dry-delete='aws --profile nodu-dl s3 sync ~/Downloads/nodu-dl s3://n
 alias dl-up-delete='aws --profile nodu-dl s3 sync ~/Downloads/nodu-dl s3://nodu-dl/ --delete'
 
 dl-up-item() {
-  echo 'aws --profile nodu-dl s3 cp' $1 $3
-  aws --profile nodu-dl s3 cp $1 $3
+	echo 'aws --profile nodu-dl s3 cp' $1 $3
+	aws --profile nodu-dl s3 cp $1 $3
 }
 
 dl-ls() {
-  echo "example: aws-ls-dl sandman/"
-  aws --profile nodu-dl s3 ls --human-readable s3://nodu-dl/$1
+	echo "example: aws-ls-dl sandman/"
+	aws --profile nodu-dl s3 ls --human-readable s3://nodu-dl/$1
 }
 
 dl-mv() {
-  aws --profile nodu-dl s3 mv s3://nodu-dl/$1 s3://nodu-dl/$2
+	aws --profile nodu-dl s3 mv s3://nodu-dl/$1 s3://nodu-dl/$2
 }
 
 alias vpn-up='nmcli c up Office'
@@ -435,19 +431,19 @@ alias vlcc='vlc -I ncurses'
 alias vault-login-matt='vault login -method=userpass username=matt'
 
 function vault-get() {
-  # vault-get production/gravity/app-secret
-  vault kv get secret/$1
+	# vault-get production/gravity/app-secret
+	vault kv get secret/$1
 }
 
 function vault-dump() {
-  # vault-dump production/gravity/app-secret
-  OUTPUT=$(echo $1 | tr '/' '_')
-  vault kv get --format json secret/$1 | jq '.data.data' > $OUTPUT.json
+	# vault-dump production/gravity/app-secret
+	OUTPUT=$(echo $1 | tr '/' '_')
+	vault kv get --format json secret/$1 | jq '.data.data' >$OUTPUT.json
 }
 
 function vault-list() {
-  # vault-list production/gravity
-  vault kv list secret/$1
+	# vault-list production/gravity
+	vault kv list secret/$1
 }
 
 alias mn-source-alias="source ~/repos/sys/nixos-config/users/mattn/aliases"
@@ -464,7 +460,7 @@ alias edit-osx-alias="v ~/repos/sys/dotenv/shortcuts/macos_aliases.sh"
 alias edit-vimCheatSheet="nvim ~/repos/sys/dotenv/shortcuts/vimCheatSheet"
 
 mn-help-vimCheatSheet() {
-  cat ~/repos/sys/dotenv/shortcuts/vimCheatSheet
+	cat ~/repos/sys/dotenv/shortcuts/vimCheatSheet
 }
 
 alias spud-start='az vm start --resource-group Matt --name SPUD'
@@ -473,26 +469,23 @@ alias spud-stop='az vm stop --resource-group Matt --name SPUD && az vm deallocat
 alias pi-autoUploader='/home/pi/dotenv/Docker/t/config/pi-autoUploader.sh'
 
 mute-inputs() {
-  amixer -D pulse sset Capture toggle && amixer get Capture | grep '\[off\]' && notify-send "MIC switched OFF" || notify-send "MIC switched ON"
+	amixer -D pulse sset Capture toggle && amixer get Capture | grep '\[off\]' && notify-send "MIC switched OFF" || notify-send "MIC switched ON"
 }
 
-
-install_slack ()
-{
-  INSTALL_DIR=$(mktemp -d);
-  VERSION_SLACK=4.9.1;
-  curl -o $INSTALL_DIR/slack.deb -sSL https://downloads.slack-edge.com/linux_releases/slack-desktop-${VERSION_SLACK}-amd64.deb;
-  sudo dpkg -i $INSTALL_DIR/slack.deb
+install_slack() {
+	INSTALL_DIR=$(mktemp -d)
+	VERSION_SLACK=4.9.1
+	curl -o $INSTALL_DIR/slack.deb -sSL https://downloads.slack-edge.com/linux_releases/slack-desktop-${VERSION_SLACK}-amd64.deb
+	sudo dpkg -i $INSTALL_DIR/slack.deb
 }
 
-install_spotify()
-{
-  curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-  curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-  echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+install_spotify() {
+	curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-  sudo apt-get update
-  sudo apt-get install spotify-client
+	sudo apt-get update
+	sudo apt-get install spotify-client
 }
 
 # -a = -rlptgoD; removed -po
@@ -521,28 +514,28 @@ alias sshfs-mount-pihole2box='sshfs pihole2-remote:/mnt/box /home/matt/Downloads
 
 # Schedule sleep in X minutes, use like: sleep-in 60
 function sleep-in() {
-  local minutes=$1
-  sudo shutdown -s "+$minutes"
+	local minutes=$1
+	sudo shutdown -s "+$minutes"
 }
 function wake-in() {
-  local minutes=$1
-  local datetime=`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`
-  sudo pmset schedule wake "$datetime"
+	local minutes=$1
+	local datetime=$(date -v+${minutes}M +"%m/%d/%y %H:%M:%S")
+	sudo pmset schedule wake "$datetime"
 }
 function tomato() {
-  sleep-in 25
-  wake-in 30
+	sleep-in 25
+	wake-in 30
 }
 
 function sleep-schedule() {
-  ps aux |grep shutdown
-  echo ""
-  echo "stop shutdown:
+	ps aux | grep shutdown
+	echo ""
+	echo "stop shutdown:
   sudo killall shutdown"
-  echo ""
-  pmset -g sched
-  echo ""
-  echo "stop wakeup:
+	echo ""
+	pmset -g sched
+	echo ""
+	echo "stop wakeup:
   sudo pmset schedule cancel #"
 }
 
@@ -554,20 +547,30 @@ alias mn-git-unstage-file='git reset HEAD'
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 
 function mn-list-alias-functions() {
-  # TODO list full definitions, then only paste func name/alias to command line
-  echo
-  echo -e "\033[1;4;32m""Functions:""\033[0;34m"
-  compgen -A function
-  echo
-  echo -e "\033[1;4;32m""Aliases:""\033[0;34m"
-  compgen -A alias
-  echo
-  echo -e "\033[0m"
+	# TODO list full definitions, then only paste func name/alias to command line
+	echo
+	echo -e "\033[1;4;32m""Functions:""\033[0;34m"
+	compgen -A function
+	echo
+	echo -e "\033[1;4;32m""Aliases:""\033[0;34m"
+	compgen -A alias
+	echo
+	echo -e "\033[0m"
 }
 
-alias mn='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
-alias m='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
-alias a='print -z -- $(mn-list-alias-functions | fzf --preview "echo {1}")'
+function mn-show-def() {
+	item=$1
+	itemtype=$(whence -w $item | awk '{ print $2}')
+	echo "Type: $itemtype"
+	if [ "$itemtype" = "alias" ]; then
+		alias "$1"
+	else
+		mn-function-definition "$1"
+	fi
+}
+
+alias a='print -z -- $(mn-list-alias-functions | fzf --preview "source ~/repos/sys/nixos-config/users/mattn/aliases > /dev/null 2>&1 \
+  ; mn-show-def {1}")'
 
 alias mn-source-gcp='source functions_gcp'
 alias x='xrandr-auto'
