@@ -34,6 +34,7 @@ in {
     pkgs.git-crypt
     pkgs.htop
     pkgs.jq
+    pkgs.jqp
     pkgs.ripgrep
     pkgs.rofi
     pkgs.tree
