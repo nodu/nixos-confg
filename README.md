@@ -109,6 +109,7 @@ $ sudo su
 $ passwd
 # change to root
 ```
+sudo fdisk -l
 
 At this point, verify `/dev/nvme0n1` exists. This is the expected block device
 where the Makefile will install the OS. If you setup your VM to use NVMe,
@@ -142,6 +143,7 @@ Perform the initial bootstrap. This will install NixOS on the VM disk image
 but will not setup any other configurations yet. This prepares the VM for
 any NixOS customization:
 
+<!-- MUST USE UEFI, set it in VMWare Advanced settings -->
 ```
 $ make vm/bootstrap0
 ```
