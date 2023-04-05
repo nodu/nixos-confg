@@ -1,4 +1,5 @@
 # Connectivity info for Linux VM
+#export NIXADDR=192.168.0.175
 NIXADDR ?= unset
 NIXPORT ?= 22
 NIXUSER ?= mattn
@@ -41,6 +42,7 @@ cache:
 	nix build '.#nixosConfigurations.$(NIXNAME).config.system.build.toplevel' --json \
 		| jq -r '.[].outputs | to_entries[].value' \
 		| cachix push mitchellh-nixos-config
+		#| cachix push os
 
 # bootstrap a brand new VM. The VM should have NixOS ISO on the CD drive
 # and just set the password of the root user to "root". This will install
@@ -78,6 +80,8 @@ vm/bootstrap0:
 		nixos-install --no-root-passwd; \
 		reboot; \
 	"
+	# nix.binaryCaches = [\"https://os.cachix.org\"];\n \
+	# 	nix.binaryCachePublicKeys = [\"os.cachix.org-1:RlKUKtqxLUZK10qAltMfjGrHw7ZkRMK/UOwvZ4Lsnrg=\"];\n \
 
 # after bootstrap0, run this to finalize. After this, do everything else
 # in the VM unless secrets change.
