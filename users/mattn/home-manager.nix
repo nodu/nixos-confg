@@ -60,6 +60,7 @@ in {
     pkgs.kubectl
     pkgs.krew
     pkgs.terraform
+    pkgs.vault
     pkgs.awscli2
     pkgs.azure-cli
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
@@ -76,7 +77,7 @@ in {
     pkgs.unzip
     pkgs.lazygit
 
-    /* nvim stuff */
+    #nvim stuff
     pkgs.sumneko-lua-language-server
     pkgs.rnix-lsp
     pkgs.stylua
