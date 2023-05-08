@@ -345,12 +345,18 @@ in {
       ];
 
       # Colors (Solarized Dark)
+      # https://github.com/alacritty/alacritty-theme/tree/master/themes
       colors= {
         # Default colors
         primary= {
-          background= "#002b36"; # original
+          # Dark
           #background= "#011318"; # black
-          foreground= "#839496"; # base0
+          #background= "0x002b36"; #original
+          #foreground= "0x839496";
+
+          # Light
+          background= "0xfdf6e3";
+          foreground= "0x586e75";
         };
         # Cursor colors
         cursor= {
