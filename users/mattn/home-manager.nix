@@ -107,11 +107,13 @@ in {
   xdg.configFile."aliases".text = builtins.readFile ./aliases;
   xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
 
+  # After defaults repo is pushed; change the rev to commit hash
+  # Then nx-update; Then update sha256 from the failed build
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "2e11d1b";
-    sha256 = "Y4rQ3Jcfd7O5qd6U6hQqaSYHryyu4kz74xHORIICW7U=";
+    rev = "28d58b1";
+    sha256 = "AO3XTipXRlFhM6UcNWjJGknHZL3Lr93Ca8h+t9qt5eg=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
@@ -225,14 +227,7 @@ in {
     ]);
 
     shellAliases = {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
       gdiff = "git diff";
-      gl = "git prettylog";
-      gp = "git push";
-      gs = "git status";
       gt = "git tag";
 
       # Two decades of using a Mac has made this such a strong memory
