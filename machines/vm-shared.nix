@@ -22,6 +22,11 @@
     };
   };
 
+  # enable pulseaudio
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  sound.enable = true;
+
   # We expect to run the VM on hidpi machines.
   hardware.video.hidpi.enable = true;
 

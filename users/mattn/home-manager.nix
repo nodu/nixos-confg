@@ -30,6 +30,7 @@ in {
     pkgs.fd
     pkgs.firefox
     pkgs.chromium
+    pkgs.cmus
     pkgs.fzf
     pkgs.git-crypt
     pkgs.htop
