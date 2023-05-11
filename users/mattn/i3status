@@ -7,12 +7,23 @@ general {
     color_degraded = "#DE935F"
 }
 
+order += "volume master"
 order += "disk /"
 order += "run_watch DHCP"
 order += "run_watch VPN"
 order += "ethernet eth0"
 order += "load"
 order += "tztime local"
+
+volume master = {
+  position = 1
+  settings = {
+    mixer = "Master"
+    format = "♪ %volume"
+    format_muted = "♪ muted (%volume)"
+    device = "default"
+  }
+}
 
 ethernet eth0 {
         # if you use %speed, i3status requires root privileges

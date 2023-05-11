@@ -404,6 +404,15 @@ in {
       ipv6.enable = false;
       "wireless _first_".enable = false;
       "battery all".enable = false;
+      "volume master" = {
+        position = 1;
+        settings = {
+          mixer = "Master";
+          format = "♪ %volume";
+          format_muted = "♪ muted (%volume)";
+          device = "default";
+        };
+      };
     };
   };
 
