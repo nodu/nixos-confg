@@ -80,6 +80,10 @@ vm/bootstrap0:
 		nixos-install --no-root-passwd; \
 		reboot; \
 	"
+			# Maybe needed on fresh build:
+			# nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
+			# nix.settings.trusted-public-keys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
+
 	# nix.binaryCaches = [\"https://os.cachix.org\"];\n \
 	# 	nix.binaryCachePublicKeys = [\"os.cachix.org-1:RlKUKtqxLUZK10qAltMfjGrHw7ZkRMK/UOwvZ4Lsnrg=\"];\n \
 

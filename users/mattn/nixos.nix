@@ -4,12 +4,14 @@
   # https://github.com/nix-community/home-manager/pull/2408
   environment.pathsToLink = [ "/share/fish" "/libexec" "/share/zsh" ];
 
+  programs.zsh.enable = true;
+
   users.users.mattn = {
     isNormalUser = true;
     home = "/home/mattn";
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.zsh;
-    hashedPassword = "$5$iZMHfcJMdxMHXMYt$xe.6lr24i3sIInNE7exaKTOl4UE4STjJyuqxLfVrRk0";
+    hashedPassword = "$y$j9T$QnIZYAQV0aB2aSJBXjbjr/$u48oM7nqbbRihf52T4SpahBpniwDvUSVXjoDAhugE40";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAA/e7gyFJqNS4S0xlfrZLOaY mattn"
     ];

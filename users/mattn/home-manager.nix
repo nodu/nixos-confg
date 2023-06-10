@@ -113,8 +113,8 @@ in {
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "28d58b1";
-    sha256 = "AO3XTipXRlFhM6UcNWjJGknHZL3Lr93Ca8h+t9qt5eg=";
+    rev = "79f7c90";
+    sha256 = "nw7ZJaU3L9Z1D6ZoQpIE8eg4qMEsfZFGg95BqPuJK2U=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
@@ -189,6 +189,7 @@ in {
       pbcopy = "xclip";
       pbpaste = "xclip -o";
       nx-update = "cd ~/repos/sys/nixos-config/ && make switch && cd -";
+      nx-flake-update = "cd ~/repos/sys/nixos-config/ && nix flake update && cd -";
       nx-search = "nix search nixpkgs";
     };
 
