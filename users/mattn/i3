@@ -46,6 +46,7 @@ exec --no-startup-id xsetroot -solid "#1D1F21"
 # Keybindings
 #----------------------------------------------------------------------
 # Use Mouse+$mod to drag floating windows to their wanted position
+# This is actually $mod + Ctrl + mouse
 floating_modifier $mod
 
 bindsym $mod+o exec rofi -show run
@@ -91,10 +92,10 @@ bindsym $mod+Shift+w layout tabbed
 bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Ctrl+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Ctrl+Shift+f focus mode_toggle
 
 # focus the parent container
 bindsym $mod+Shift+a focus parent

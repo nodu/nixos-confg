@@ -26,9 +26,10 @@ in {
   #---------------------------------------------------------------------
 
   home.packages = [
+    pkgs.authy
+    #pkgs.google-chrome
     pkgs.bat
     pkgs.fd
-    pkgs.firefox
     pkgs.chromium
     pkgs.cmus
     pkgs.fzf
