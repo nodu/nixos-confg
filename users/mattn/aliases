@@ -131,7 +131,7 @@ encodebase64() {
 }
 
 alias ping='ping -c 5'
-alias www='python -m SimpleHTTPServer 8000'
+alias www='python3 -m http.server'
 
 mn-gpg-encrypt() {
 	gpg -c $1
