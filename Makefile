@@ -77,8 +77,7 @@ vm/bootstrap0:
 			services.openssh.permitRootLogin = \"yes\";\n \
 			users.users.root.initialPassword = \"root\";\n \
 		' /mnt/etc/nixos/configuration.nix; \
-		nixos-install --no-root-passwd; \
-		reboot; \
+                nixos-install --no-root-passwd && reboot; \
 	"
 			# Maybe needed on fresh build:
 			# nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
