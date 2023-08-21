@@ -400,20 +400,44 @@ in {
       color_good = "#8C9440";
       color_bad = "#A54242";
       color_degraded = "#DE935F";
+      interval = 5;
     };
 
     modules = {
       ipv6.enable = false;
       "wireless _first_".enable = false;
       "battery all".enable = false;
-      "volume master" = {
+      "disk /" = {
         position = 1;
+        settings = { format = "󰨣 %free (%avail)/ %total"; };
+      };
+      load = {
+        position = 2;
+        settings = { format = "󰝲 %1min"; };
+      };
+      memory = {
+         position = 3;
+         settings.format = "󰍛 F:%free A:%available (U:%used) / T:%total";
+      };
+      "ethernet _first_" = {
+        position = 4;
+        settings = {
+          format_up = "E: %ip (%speed)";
+          format_down = "E: down";
+        };
+      };
+      "volume master" = {
+        position = 5;
         settings = {
           mixer = "Master";
-          format = "♪ %volume";
+          format = " %volume";
           format_muted = "♪ muted (%volume)";
           device = "default";
         };
+      };
+      "tztime local" = {
+        position = 6;
+        settings = { format = "%Y-%m-%d %H:%M:%S"; };
       };
     };
   };
