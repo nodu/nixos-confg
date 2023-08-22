@@ -27,6 +27,7 @@ in {
     pkgs.authy
     #pkgs.google-chrome
     pkgs.bat
+    pkgs.speedtest-cli
     pkgs.fd
     pkgs.chromium
     pkgs.cmus
@@ -48,10 +49,10 @@ in {
     pkgs.go
     pkgs.gopls
     pkgs.nodejs-18_x
-    pkgs.dotnetCorePackages.sdk_6_0
+    #pkgs.dotnetCorePackages.sdk_6_0
     pkgs.python3Minimal
 
-    pkgs.postgresql_11
+    #pkgs.postgresql_11
 
     pkgs.xfce.thunar
     pkgs.redshift
@@ -59,11 +60,11 @@ in {
     pkgs.nmap
     pkgs.kubectl
     pkgs.krew
-    pkgs.terraform
-    pkgs.vault
-    pkgs.awscli2
-    pkgs.azure-cli
-    (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    #pkgs.terraform
+    #pkgs.vault
+    #pkgs.awscli2
+    #pkgs.azure-cli
+    #(pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
     pkgs.buildkit
     pkgs.krew
     pkgs.nodePackages.pyright
@@ -305,12 +306,12 @@ in {
         primary= {
           # Dark
           #background= "#011318"; # black
-          #background= "0x002b36"; #original
-          #foreground= "0x839496";
+          background= "0x002b36"; #original
+          foreground= "0x839496";
 
           # Light
-          background= "0xfdf6e3";
-          foreground= "0x586e75";
+          #background= "0xfdf6e3";
+          #foreground= "0x586e75";
         };
         # Cursor colors
         cursor= {
