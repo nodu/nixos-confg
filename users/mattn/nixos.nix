@@ -16,8 +16,4 @@
       "ssh-ed25519 AAAA/e7gyFJqNS4S0xlfrZLOaY mattn"
     ];
   };
-
-  nixpkgs.overlays = import ../../lib/overlays.nix ++ [
-    (import ./vim.nix)
-  ];
 }

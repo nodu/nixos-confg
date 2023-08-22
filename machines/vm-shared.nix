@@ -111,7 +111,6 @@
     cachix
     gnumake
     killall
-    niv
     rxvt_unicode
     xclip
 

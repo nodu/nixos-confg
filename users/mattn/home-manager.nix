@@ -4,8 +4,6 @@ let
   inherit (pkgs)
     fetchFromBitbucket
     ;
-    sources = import ../../nix/sources.nix;
-
     # For our MANPAGER env var
     # https://github.com/sharkdp/bat/issues/1145
     # MN - not needed, but keeping in case of future breakage
@@ -122,15 +120,6 @@ in {
   xdg.configFile."rofi/config.rasi".text = builtins.readFile ./rofi;
   xdg.configFile."devtty/config".text = builtins.readFile ./devtty;
 
-  # tree-sitter parsers
-  xdg.configFile."nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
-  xdg.configFile."nvim/queries/proto/folds.scm".source =
-    "${sources.tree-sitter-proto}/queries/folds.scm";
-  xdg.configFile."nvim/queries/proto/highlights.scm".source =
-    "${sources.tree-sitter-proto}/queries/highlights.scm";
-  xdg.configFile."nvim/queries/proto/textobjects.scm".source =
-    ./textobjects.scm;
-
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
@@ -219,36 +208,6 @@ in {
     '';
   };
 
-  programs.fish = {
-    enable = false;
-    interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" [
-      "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_title.fish"
-      (builtins.readFile ./config.fish)
-      "set -g SHELL ${pkgs.fish}/bin/fish"
-    ]);
-
-    shellAliases = {
-      gdiff = "git diff";
-      gt = "git tag";
-
-      # Two decades of using a Mac has made this such a strong memory
-      # that I'm just going to keep it consistent.
-      pbcopy = "xclip";
-      pbpaste = "xclip -o";
-    };
-
-    plugins = map (n: {
-      name = n;
-      src  = sources.${n};
-    }) [
-      "fish-fzf"
-      "fish-foreign-env"
-      "theme-bobthefish"
-    ];
-  };
-
   programs.git = {
     enable = true;
     userName = "Matt Nodurfth";
@@ -303,9 +262,6 @@ in {
       set -g @dracula-show-weather false
 
       bind -n C-k send-keys "clear"\; send-keys "Enter"
-
-      run-shell ${sources.tmux-pain-control}/pain_control.tmux
-      run-shell ${sources.tmux-dracula}/dracula.tmux
     '';
   };
 
@@ -385,11 +341,6 @@ in {
         };
       };
     };
-  };
-
-  programs.kitty = {
-    enable = false;
-    extraConfig = builtins.readFile ./kitty;
   };
 
   programs.i3status = {

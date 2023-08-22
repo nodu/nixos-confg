@@ -160,10 +160,3 @@ You should have a graphical functioning dev VM.
 At this point, I never use Mac terminals ever again. I clone this repository
 in my VM and I use the other Make tasks such as `make test`, `make switch`, etc.
 to make changes my VM.
-
-## FAQ
-
-### Why do you still use `niv`?
-
-I am still transitioning into a fully flaked setup. During this transition
-(which is indefinite, I'm in no rush), I'm using both.
