@@ -27,6 +27,8 @@ list:
 
 clean:
 	sudo nix-collect-garbage --delete-older-than 30d
+optimize:
+	nix-store --optimise
 
 #https://www.reddit.com/r/NixOS/comments/10107km/how_to_delete_old_generations_on_nixos/
 switch-to-boot-to-clean-boot-partition:
