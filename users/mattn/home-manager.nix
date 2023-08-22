@@ -180,7 +180,7 @@ in {
       pbcopy = "xclip";
       pbpaste = "xclip -o";
       nx-update = "cd ~/repos/sys/nixos-config/ && make switch && cd -";
-      nx-flake-update = "cd ~/repos/sys/nixos-config/ && nix flake update && cd -";
+      nx-update-flake = "cd ~/repos/sys/nixos-config/ && nix flake update && cd -";
       nx-search = "nix search nixpkgs";
     };
 
