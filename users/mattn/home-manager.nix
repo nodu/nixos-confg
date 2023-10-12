@@ -29,11 +29,13 @@ in {
     pkgs.bat
     pkgs.speedtest-cli
     pkgs.fd
+    pkgs.baobab
     pkgs.chromium
     pkgs.cmus
     pkgs.fzf
     pkgs.git-crypt
     pkgs.htop
+    pkgs.inetutils
     pkgs.jq
     pkgs.jqp
     pkgs.ripgrep
@@ -58,8 +60,8 @@ in {
     pkgs.redshift
     pkgs.wget
     pkgs.nmap
-    pkgs.kubectl
-    pkgs.krew
+    #pkgs.kubectl
+    #pkgs.krew
     #pkgs.terraform
     #pkgs.vault
     #pkgs.awscli2
@@ -83,7 +85,12 @@ in {
     pkgs.rnix-lsp
     pkgs.stylua
 
-    pkgs.ffmpeg
+    #pkgs.ffmpeg
+    #TODO Need to add this to Mason somehow...
+    #CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build
+    pkgs.rnix-lsp
+    #pkgs.omnisharp-roslyn
+    #pkgs.mono
   ];
 
   fonts.fontconfig.enable = true;
