@@ -574,3 +574,7 @@ alias a='print -z -- $(mn-list-alias-functions | fzf --preview "source ~/repos/s
 
 alias mn-source-gcp='source functions_gcp'
 alias x='xrandr-auto'
+
+function ffmpeg-reduce() {
+        ffmpeg -i $1 -vcodec libx265 -crf 28 $1_reduced.mp4
+}
