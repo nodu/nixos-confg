@@ -27,6 +27,14 @@ list:
 
 clean:
 	sudo nix-collect-garbage --delete-older-than 30d
+
+clean-hard:
+	sudo nix-collect-garbage --delete-old
+
+clean-generations:
+	# make clean-generations 1 2 3
+	nix-collect-garbage  --delete-generations
+
 optimize:
 	nix-store --optimise
 

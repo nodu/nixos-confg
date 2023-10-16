@@ -14,27 +14,28 @@ alias gotop='cd ~/Code/PPS/'
 
 #TODO Notes
 alias t='v ~/repos/todo/todo.md'
+alias tdb='v ~/repos/todo/backlog.md'
 
-ta() { # 'ta * new note to add'
+tda() { # 'ta * new note to add'
 	# Add to beginning of file
 	# sed -i "1i$1" ~/repos/todo/todo.md
 	# sed -i -e "$a $1" ~/repos/todo/todo.md
-	echo "- [ ] $1" >>~/repos/todo/todo.md
+	echo "- [ ] $1" >>~/repos/todo/backlog.md
 }
 
-tpull() { # pull todo
+tdpull() { # pull todo
 	cd ~/repos/todo
 	git pull
 	cd -
 }
 
-tpush() { # diff/upload todo.md
+tdpush() { # diff/upload todo.md
 	cd ~/repos/todo
 	git push origin master
 	cd -
 }
 
-tcommit() { #commit todos
+tdcommit() { #commit todos
 	cd ~/repos/todo
 	git diff todo.md
 	git add todo.md
@@ -42,18 +43,23 @@ tcommit() { #commit todos
 	cd -
 }
 
-tdiff() { # diff todo.md
+tddiff() { # diff todo.md
 	cd ~/repos/todo
 	git diff todo.md
 	cd -
 }
 
-tcleanup() {
+tdcleanup() {
 	cd ~/repos/todo
 	grep "\- \[x\]" todo.md >>done.md
 	grep "\- \[n\]" todo.md >>no.md
 	sed -i -e '/- \[x]/ d' todo.md
 	sed -i -e '/- \[n]/ d' todo.md
+
+        grep "\- \[x\]" backlog.md >>done.md
+	grep "\- \[n\]" backlog.md >>no.md
+	sed -i -e '/- \[x]/ d' backlog.md
+	sed -i -e '/- \[n]/ d' backlog.md
 	cd -
 }
 
