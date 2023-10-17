@@ -26,14 +26,10 @@ list:
 	sudo nix-env --list-generations -p /nix/var/nix/profiles/system
 
 clean:
-	sudo nix-collect-garbage --delete-older-than 30d
-
-clean-hard:
-	sudo nix-collect-garbage --delete-old
+	sudo nix-collect-garbage
 
 clean-generations:
-	# make clean-generations 1 2 3
-	nix-collect-garbage  --delete-generations
+	sudo nix-collect-garbage --delete-older-than 30d
 
 optimize:
 	nix-store --optimise
