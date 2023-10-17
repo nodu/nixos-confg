@@ -10,6 +10,19 @@ let
     manpager = (pkgs.writeShellScriptBin "manpager" ''
       col -bx < "$1" | bat --language man -p
     '');
+
+    # Note: Nix Search for package, click on platform to find binary build status
+# To get the sha256 hash:
+# nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
+# or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
+#
+    oldPkgs = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
+        sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
+    }) { system = "aarch64-linux"; };
+# where is system? inspect config...
+
+
 in {
 
   #cat "$1" | col -bx | bat --language man --style plain
@@ -24,18 +37,21 @@ in {
   #---------------------------------------------------------------------
 
   home.packages = [
+    #GUI Apps
     pkgs.authy
-    #pkgs.google-chrome
-    pkgs.bat
-    pkgs.speedtest-cli
-    pkgs.fd
+    #pkgs.google-chrome #no arm64 package
+    oldPkgs.chromium
+    pkgs.obsidian
     pkgs.baobab
-    pkgs.chromium
+    pkgs.xfce.thunar
+
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    pkgs.fd
+    pkgs.bat
     pkgs.cmus
     pkgs.fzf
     pkgs.git-crypt
     pkgs.htop
-    pkgs.inetutils
     pkgs.jq
     pkgs.jqp
     pkgs.ripgrep
@@ -43,7 +59,20 @@ in {
     pkgs.tree
     pkgs.watch
     pkgs.zathura
-    #pkgs.steam-run
+    pkgs.zip
+    pkgs.unzip
+    pkgs.gcc
+    pkgs.buildkit
+    pkgs.neofetch
+
+   # network
+    pkgs.wget
+    pkgs.speedtest-cli
+    pkgs.nmap
+    pkgs.inetutils
+    pkgs.httpstat
+
+    pkgs.ffmpeg
 
     pkgs.gum
     pkgs.yt-dlp
@@ -54,13 +83,9 @@ in {
     pkgs.nodejs-18_x
     #pkgs.dotnetCorePackages.sdk_6_0
     pkgs.python3Minimal
-
     #pkgs.postgresql_11
 
-    pkgs.xfce.thunar
-    pkgs.redshift
-    pkgs.wget
-    pkgs.nmap
+    #pkgs.redshift
     #pkgs.kubectl
     #pkgs.krew
     #pkgs.terraform
@@ -68,25 +93,16 @@ in {
     #pkgs.awscli2
     #pkgs.azure-cli
     #(pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    pkgs.buildkit
-    pkgs.krew
-    pkgs.nodePackages.pyright
-    pkgs.nodePackages.typescript-language-server
-    pkgs.zip
-    pkgs.obsidian
-    pkgs.httpstat
-
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
-    pkgs.gcc
-    pkgs.unzip
-    pkgs.lazygit
+    #pkgs.krew
 
     #nvim stuff
+    pkgs.nodePackages.pyright
+    pkgs.nodePackages.typescript-language-server
+    pkgs.lazygit
     pkgs.sumneko-lua-language-server
     pkgs.rnix-lsp
     pkgs.stylua
 
-    pkgs.ffmpeg
     #TODO Need to add this to Mason somehow...
     #CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build
     pkgs.rnix-lsp
@@ -116,13 +132,13 @@ in {
   xdg.configFile."aliases".text = builtins.readFile ./aliases;
   xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
 
-  # After defaults repo is pushed; change the rev to commit hash
+  # After defaults repo is pushed; change the rev to commit hash; change char in sha256
   # Then nx-update; Then update sha256 from the failed build
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "a0ca3f5";
-    sha256 = "jE4yYHfJ9pPEcS/NN77TAZCgU5ROG1beMSd9MPeMHao=";
+    rev = "3424eac";
+    sha256 = "/RrySmOPwE2GFSUZNg0gLT500wNQ+wjfptIH5G0EJqE=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
@@ -210,7 +226,7 @@ in {
 
     initExtra = ''
       source $HOME/.config/aliases
-      source $HOME/.config/defaults/basic
+      source $HOME/.config/defaults/basic.sh
       source $HOME/repos/sys/dotenv/shortcuts/work
       source $HOME/.config/shellConfig
       eval "$(direnv hook zsh)"
@@ -409,6 +425,7 @@ in {
     vimAlias = true;
 
     plugins = with pkgs; [
+      pkgs.nil
       #customVim.vim-fugitive
       #customVim.vim-pgsql
       #customVim.AfterColors
