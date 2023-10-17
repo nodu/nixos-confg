@@ -12,6 +12,8 @@ let
     '');
 
     # Note: Nix Search for package, click on platform to find binary build status
+    # Get specific versions of packages here:
+    # https://lazamar.co.uk/nix-versions/
 # To get the sha256 hash:
 # nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
 # or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
