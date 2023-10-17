@@ -13,7 +13,7 @@ alias gotop='cd ~/Code/PPS/'
 #cd ~/Code
 
 #TODO Notes
-alias t='v ~/repos/todo/todo.md'
+alias t='cd ~/repos/todo && v todo.md && cd -'
 alias tdb='v ~/repos/todo/backlog.md'
 
 tda() { # 'ta * new note to add'
