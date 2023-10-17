@@ -4,28 +4,31 @@ let
   inherit (pkgs)
     fetchFromBitbucket
     ;
-    # For our MANPAGER env var
-    # https://github.com/sharkdp/bat/issues/1145
-    # MN - not needed, but keeping in case of future breakage
-    manpager = (pkgs.writeShellScriptBin "manpager" ''
-      col -bx < "$1" | bat --language man -p
-    '');
+  # For our MANPAGER env var
+  # https://github.com/sharkdp/bat/issues/1145
+  # MN - not needed, but keeping in case of future breakage
+  manpager = (pkgs.writeShellScriptBin "manpager" ''
+    col -bx < "$1" | bat --language man -p
+  '');
 
-    # Note: Nix Search for package, click on platform to find binary build status
-    # Get specific versions of packages here:
-    # https://lazamar.co.uk/nix-versions/
-# To get the sha256 hash:
-# nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
-# or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
-#
-    oldPkgs = import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
-        sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
-    }) { system = "aarch64-linux"; };
-# where is system? inspect config...
+  # Note: Nix Search for package, click on platform to find binary build status
+  # Get specific versions of packages here:
+  # https://lazamar.co.uk/nix-versions/
+  # To get the sha256 hash:
+  # nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
+  # or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
+  #
+  oldPkgs = import
+    (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
+      sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
+    })
+    { system = "aarch64-linux"; };
+  # where is system? inspect config...
 
 
-in {
+in
+{
 
   #cat "$1" | col -bx | bat --language man --style plain
   # Home-manager 22.11 requires this be set. We never set it so we have
@@ -67,7 +70,7 @@ in {
     pkgs.buildkit
     pkgs.neofetch
 
-   # network
+    # network
     pkgs.wget
     pkgs.speedtest-cli
     pkgs.nmap
@@ -97,6 +100,10 @@ in {
     #(pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
     #pkgs.krew
 
+    ##try out
+    #pkgs.ChatGPT.nvim
+    pkgs.shell_gpt
+
     #nvim stuff
     pkgs.nodePackages.pyright
     pkgs.nodePackages.typescript-language-server
@@ -104,10 +111,11 @@ in {
     pkgs.sumneko-lua-language-server
     pkgs.rnix-lsp
     pkgs.stylua
+    pkgs.nil
+    pkgs.nixpkgs-fmt
 
     #TODO Need to add this to Mason somehow...
     #CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build
-    pkgs.rnix-lsp
     #pkgs.omnisharp-roslyn
     #pkgs.mono
   ];
@@ -126,7 +134,7 @@ in {
     PAGER = "less -FirSwX";
     MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
   };
-    #MANPAGER = "${manpager}/bin/manpager";
+  #MANPAGER = "${manpager}/bin/manpager";
 
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
@@ -155,7 +163,7 @@ in {
 
   programs.bash = {
     enable = true;
-    shellOptions = [];
+    shellOptions = [ ];
     historyControl = [ "ignoredups" "ignorespace" ];
     initExtra = builtins.readFile ./bashrc;
 
@@ -172,17 +180,17 @@ in {
     };
   };
 
-  programs.direnv= {
+  programs.direnv = {
     enable = true;
 
     config = {
       whitelist = {
-        prefix= [
+        prefix = [
           "$HOME/code/go/src/github.com/hashicorp"
           "$HOME/code/go/src/github.com/mitchellh"
         ];
 
-        exact = ["$HOME/.envrc"];
+        exact = [ "$HOME/.envrc" ];
       };
     };
   };
@@ -192,7 +200,7 @@ in {
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
-    autocd= true;
+    autocd = true;
     history.expireDuplicatesFirst = true;
     history.extended = true;
     #completionInit
@@ -216,7 +224,7 @@ in {
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "z" "fzf" "kubectl" "kube-ps1"];
+      plugins = [ "git" "z" "fzf" "kubectl" "kube-ps1" ];
       theme = "robbyrussell";
     };
 
@@ -327,44 +335,44 @@ in {
 
       # Colors (Solarized Dark)
       # https://github.com/alacritty/alacritty-theme/tree/master/themes
-      colors= {
+      colors = {
         # Default colors
-        primary= {
+        primary = {
           # Dark
           #background= "#011318"; # black
-          background= "0x002b36"; #original
-          foreground= "0x839496";
+          background = "0x002b36"; #original
+          foreground = "0x839496";
 
           # Light
           #background= "0xfdf6e3";
           #foreground= "0x586e75";
         };
         # Cursor colors
-        cursor= {
-          text=   "#002b36"; # base3
-          cursor= "#839496"; # base0
+        cursor = {
+          text = "#002b36"; # base3
+          cursor = "#839496"; # base0
         };
         # Normal colors
-        normal= {
-          black=   "#073642"; # base02
-          red=     "#dc322f"; # red
-          green=   "#859900"; # green
-          yellow=  "#b58900"; # yellow
-          blue=    "#268bd2"; # blue
-          magenta= "#d33682"; # magenta
-          cyan=    "#2aa198"; # cyan
-          white=   "#eee8d5"; # base2
+        normal = {
+          black = "#073642"; # base02
+          red = "#dc322f"; # red
+          green = "#859900"; # green
+          yellow = "#b58900"; # yellow
+          blue = "#268bd2"; # blue
+          magenta = "#d33682"; # magenta
+          cyan = "#2aa198"; # cyan
+          white = "#eee8d5"; # base2
         };
         # Bright colors
-        bright= {
-          black=   "#002b36"; # base03
-          red=     "#cb4b16"; # orange
-          green=   "#586e75"; # base01
-          yellow=  "#657b83"; # base00
-          blue=    "#839496"; # base0
-          magenta= "#6c71c4"; # violet
-          cyan=    "#93a1a1"; # base1
-          white=   "#fdf6e3"; # base3
+        bright = {
+          black = "#002b36"; # base03
+          red = "#cb4b16"; # orange
+          green = "#586e75"; # base01
+          yellow = "#657b83"; # base00
+          blue = "#839496"; # base0
+          magenta = "#6c71c4"; # violet
+          cyan = "#93a1a1"; # base1
+          white = "#fdf6e3"; # base3
         };
       };
     };
@@ -394,8 +402,8 @@ in {
         settings = { format = "󰝲 %1min"; };
       };
       memory = {
-         position = 3;
-         settings.format = "󰍛 F:%free A:%available (U:%used) / T:%total";
+        position = 3;
+        settings.format = "󰍛 F:%free A:%available (U:%used) / T:%total";
       };
       "ethernet _first_" = {
         position = 4;
@@ -427,7 +435,6 @@ in {
     vimAlias = true;
 
     plugins = with pkgs; [
-      pkgs.nil
       #customVim.vim-fugitive
       #customVim.vim-pgsql
       #customVim.AfterColors
