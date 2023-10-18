@@ -142,13 +142,13 @@ in
   xdg.configFile."aliases".text = builtins.readFile ./aliases;
   xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
 
-  # After defaults repo is pushed; change the rev to commit hash; change char in sha256
+  # After defaults repo is pushed; change the rev to commit hash; make sha254 empty string
   # Then nx-update; Then update sha256 from the failed build
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "3424eac";
-    sha256 = "/RrySmOPwE2GFSUZNg0gLT500wNQ+wjfptIH5G0EJqE=";
+    rev = "fba7ff2";
+    sha256 = "u0N0IQO83Mjl+BHw/TyUcZqD77C3xL47iu4Ul5b2+Js=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
