@@ -23,13 +23,14 @@ let
       url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
       sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
     })
-    { system = "aarch64-linux"; };
-  # where is system? inspect config...
+    { system = builtins.trace "aarch64-linux" "aarch64-linux"; };
+  # TODO - where is system arch config var?
+  # { system = builtins.trace config._module.args config._module.args; };
+  # { inherit config; };
 
 
 in
 {
-
   #cat "$1" | col -bx | bat --language man --style plain
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
