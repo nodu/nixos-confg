@@ -105,7 +105,7 @@ in
     #pkgs.ChatGPT.nvim
     pkgs.shell_gpt
 
-    #nvim stuff
+    #nvim LSPs, Linters,
     pkgs.nodePackages.pyright
     pkgs.nodePackages.typescript-language-server
     pkgs.lazygit
@@ -114,6 +114,8 @@ in
     pkgs.stylua
     pkgs.nil
     pkgs.nixpkgs-fmt
+    pkgs.marksman
+    pkgs.nodePackages.markdownlint-cli
 
     #TODO Need to add this to Mason somehow...
     #CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build
