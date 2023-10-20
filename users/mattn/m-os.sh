@@ -181,6 +181,7 @@ alias m.whereami-country='curl ipinfo.io/country'
 alias m.whereami='curl ipinfo.io/json'
 
 alias m.vlcc='vlc -I ncurses'
+alias m.vlcc-brain='vlc -I ncurses "/host/matt/My Drive/Audio/Brain.fm" --random'
 
 alias m.source-alias="source ~/repos/sys/nixos-config/users/mattn/aliases"
 
@@ -209,6 +210,45 @@ function m.ffmpeg-reduce() {
 	ffmpeg -i "$1" -vcodec libx265 -crf 28 "$1_reduced.mp4"
 }
 
+function m.ff() {
+	local file
+	file=$(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
+	if [[ $file ]]; then
+		$EDITOR "$file"
+	else
+		echo "cancelled m.ff"
+	fi
+}
+
+function m.ff-cat() {
+	local file
+	file=$(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
+	if [[ $file ]]; then
+		cat "$file"
+	else
+		echo "cancelled m.ff"
+	fi
+}
+
+function m.ff-cd() {
+	local dir
+	dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
+	ls
+}
+
+function m.kill() {
+	local pid
+	pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+	if [ "x$pid" != "x" ]; then
+		echo "$pid" | xargs kill -"${1:-9}"
+	fi
+}
+function m.env() {
+	local out
+	out=$(env | fzf)
+	echo "$(echo "$out" | cut -d= -f2)"
+}
 alias m.x='xrandr-auto'
 
 function m.list-alias-functions() {
@@ -230,9 +270,20 @@ function m.show-def() {
 	if [ "$itemtype" = "alias" ]; then
 		alias "$1"
 	else
-		m.function-definition "$1"
+		declare -f "$1"
 	fi
 }
+function m() {
+	print -z -- "$(m.list-alias-functions | fzf --preview "source ~/repos/sys/nixos-config/users/mattn/aliases > /dev/null 2>&1; $HOME/.config/fzf-m-os-preview-function.sh {1}")"
+}
 
-alias m='print -z -- $(m.list-alias-functions | fzf --preview "source ~/repos/sys/nixos-config/users/mattn/aliases > /dev/null 2>&1 \
-  ; m.show-def {1}")'
+function m2() {
+	CMD=$(
+		(
+			(alias)
+			(functions | grep "()" | cut -d ' ' -f1 | grep -v "^_")
+		) | fzf | cut -d '=' -f1
+	)
+
+	eval "$CMD"
+}
