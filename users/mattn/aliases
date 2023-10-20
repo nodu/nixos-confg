@@ -12,57 +12,6 @@ alias gotop='cd ~/Code/PPS/'
 # Start in Code
 #cd ~/Code
 
-#TODO Notes
-alias t='cd ~/repos/todo && v todo.md && cd -'
-alias tdb='v ~/repos/todo/backlog.md'
-
-tda() { # 'ta * new note to add'
-	# Add to beginning of file
-	# sed -i "1i$1" ~/repos/todo/todo.md
-	# sed -i -e "$a $1" ~/repos/todo/todo.md
-	echo "- [ ] $1" >>~/repos/todo/backlog.md
-}
-
-tdpull() { # pull todo
-	cd ~/repos/todo
-	git pull
-	cd -
-}
-
-tdpush() { # diff/upload todo.md
-	cd ~/repos/todo
-	git push origin master
-	cd -
-}
-
-tdcommit() { #commit todos
-	cd ~/repos/todo
-	git diff todo.md
-	git add todo.md
-	git commit -m "Update Todo $(date)"
-	cd -
-}
-
-tddiff() { # diff todo.md
-	cd ~/repos/todo
-	git diff todo.md
-	cd -
-}
-
-tdcleanup() {
-	cd ~/repos/todo
-	grep "\- \[x\]" todo.md >>done.md
-	grep "\- \[n\]" todo.md >>no.md
-	sed -i -e '/- \[x]/ d' todo.md
-	sed -i -e '/- \[n]/ d' todo.md
-
-        grep "\- \[x\]" backlog.md >>done.md
-	grep "\- \[n\]" backlog.md >>no.md
-	sed -i -e '/- \[x]/ d' backlog.md
-	sed -i -e '/- \[n]/ d' backlog.md
-	cd -
-}
-
 function pause {
 	printf >/dev/tty '%s' "${*:-Press any key to continue... }"
 	[[ $ZSH_VERSION ]] && read -krs # Use -u0 to read from STDIN
@@ -70,29 +19,6 @@ function pause {
 	printf '\n'
 }
 
-mn-function-definition() {
-	declare -f $1
-}
-
-mn-function-where() {
-	type -a $1
-}
-
-mn-git-quickcommit() {
-	git status
-	git diff
-	git commit -m "Update"
-	git push
-}
-mn-git-quickcommit-all() {
-	git status
-	git diff
-	#pause()
-	#read -p 'Press any key to continue...'
-	git add -A :/
-	git commit -m "Update"
-	git push
-}
 
 # Kubernetes/Azure
 source ~/repos/sys/dotenv/shortcuts/kubernetes
@@ -128,24 +54,8 @@ alias vh='nvimNewSplit "h"'
 alias wakeupbase='ssh duckdns.org -p 1422 /usr/bin/etherwake -D "70:8B:CD:55:FF:7E"'
 alias wakeupbase='ssh routerr /usr/bin/etherwake -D "70:8B:CD:55:FF:7E"'
 
-decodebase64() {
-	echo -n "$1" | base64 -d
-}
-
-encodebase64() {
-	echo -n "$1" | base64
-}
-
 alias ping='ping -c 5'
 alias www='python3 -m http.server'
-
-mn-gpg-encrypt() {
-	gpg -c $1
-}
-
-mn-gpg-decrypt() {
-	gpg $1
-}
 
 # curl -P 104.45.159.118 ftp://40.71.174.122/vsftpd --user 'admin:password' -v
 # tcpdump host 192.168.1.3 -n | grep SOMETHING
@@ -174,16 +84,6 @@ mn-help-byobuKeys() {
 
 alias saveScrollBack='cat $BYOBU_RUN_DIR/printscreen > ~/Code/scrollback-$(date -I)-$(date +%s).txt'
 
-mn-time-global() {
-	echo 'Current:          ' $(date)
-	echo 'UTC:              ' $(date -u)
-	echo '              '
-	echo 'Los Angeles (-7): ' $(TZ='America/Los_Angeles' date)
-	echo 'Chicago: (-5)     ' $(TZ='America/Chicago' date)
-	echo 'London: (+1)      ' $(TZ='Europe/London' date)
-	echo 'Hong Kong: (+8)   ' $(TZ='Asia/Hong_Kong' date)
-}
-
 mn-time-zones-gravity() {
 	overtime show UTC America/Los_Angeles Asia/Hong_Kong Europe/London Europe/Brussels Australia/Melbourne America/Chicago Asia/Kolkata
 }
@@ -199,76 +99,6 @@ mn-time-zones-bod() {
 
 mn-time-zones-game() {
 	overtime show America/Los_Angeles America/New_York Asia/Hong_Kong Asia/Ho_Chi_Minh
-}
-
-alias mn-time-zones='timedatectl list-timezones --no-pager'
-mn-time-meet() {
-	#!/usr/bin/env bash
-	# ./meet.sh || meet.sh 09/22
-	# ig20180122 - displays meeting options in other time zones
-	# ml20220712 - Linux GNU date compatible
-	# https://superuser.com/questions/164339/timezone-conversion-by-command-line
-	# https://stackoverflow.com/questions/53075017/how-can-i-do-bash-arithmetic-with-variables-that-are-numbers-with-leading-zeroes
-	# set the following variable to the start and end of your working day
-	# start and end time, with one space
-	daystart=8
-	dayend=24
-	# set the local TZ
-	myplace='America/Los_Angeles'
-	# set the most common places
-	place[1]='America/Chicago'
-	place[2]='Europe/London'
-	place[3]='Asia/Hong_Kong'
-	place[4]='Asia/Kolkata'
-	# add cities using place[5], etc.
-	# set the date format for search
-	dfmt="%m/%d" # date format for meeting date
-	# New format so It can be used as argument
-	hfmt="+%B %e, %Y" # date format for the header
-	# no need to change onwards
-	format1="%-12s " # Increase if your cities names are long
-	format2="%02d "
-	mdate=$1
-	if [[ "$1" == "" ]]; then mdate=$(date +"$dfmt"); fi
-	# date -j -f "$dfmt" "$hfmt" "$mdate"
-	date -d $mdate "$hfmt"                 # GNU linux compliant
-	here=$(TZ=$myplace date -d $mdate +%z) # Same Here
-	here=$(($(printf "%g" $here) / 100))
-	printf "$format1" ${myplace/*\//} #"Here"
-	printf "$format2" $(seq $daystart $dayend)
-	printf "\n"
-	for i in $(seq 1 "${#place[*]}"); do
-		there=$(TZ=${place[$i]} date -d "$mdate" +%z) # same here
-		there=$(($(printf "%g" $there) / 100))
-		city[$i]=${place[$i]/*\//}
-		tdiff[$i]=$(($there - $here))
-		printf "$format1" ${city[$i]}
-		for j in $(seq $daystart $dayend); do
-			sub=$(($j + ${tdiff[$i]}))
-			if [[ $sub > 24 ]]; then sub="$((sub - 24))"; fi
-			#if [[ 10#$sub > 12 ]]; then sub="$((10#$sub-12))"; fi
-			printf "$format2" $sub
-		done
-		printf "(%+d)\n" ${tdiff[$i]}
-	done
-}
-
-mn-time-overtime() {
-	cd /tmp
-	nix-shell -p nodejs --run "git clone https://github.com/diit/overtime-cli.git; \
-  cd overtime-cli; \
-  npm install; \
-  node index.js show America/Los_Angeles America/Chicago Asia/Hong_Kong Europe/London; \
-  exit; \
-  "
-	cd -
-}
-
-mn-time-time.is() {
-	firefox "https://time.is/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
-}
-mn-time-time.is-table() {
-	firefox "https://time.is/compare/900AM_4_Feb_2023_in_HKT/Kolkata/GMT/London/San_Francisco"
 }
 
 localTimeHK() {
@@ -352,12 +182,6 @@ echo ""
 echo "F motivation and want: discipline"
 
 function dsf() { diff -u $1 $2 | diff-so-fancy; }
-#alias httpstat='python3 /usr/local/bin/httpstat.py'
-
-alias weather-sf='curl wttr.in/sanfrancisco\?u'
-alias weather-chicago='curl wttr.in/chicago\?u'
-alias weather-terralinda='curl wttr.in/94903\?u'
-alias weather='curl wttr.in\?u'
 
 TRANS_USERPASS="user:pass"
 
@@ -378,10 +202,6 @@ function trans-start() {
 function trans-start-all() {
 	docker exec -it transmission transmission-remote -n $TRANS_USERPASS --torrent all --start
 }
-
-alias whereami-latlong='curl ipinfo.io/loc'
-alias whereami-country='curl ipinfo.io/country'
-alias whereami='curl ipinfo.io/json'
 
 alias switch-to-windows='~/dotenv/switch-to-windows.sh'
 #alias aws='docker run --rm -it -v ~/dotenv/aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
@@ -431,8 +251,6 @@ alias syncNotWatched='rsync -rvhP baser:/mnt/disk1/t/complete/NotWatched/ ~/Down
 
 alias moveMKVToReadyToTransfer="find ~/Downloads/complete -type f -name '*.mkv' -exec mv -i {} ~/Downloads/readyToTransfer/ \;"
 
-alias vlcc='vlc -I ncurses'
-
 #Hashicorp Vault
 alias vault-login-matt='vault login -method=userpass username=matt'
 
@@ -451,13 +269,6 @@ function vault-list() {
 	# vault-list production/gravity
 	vault kv list secret/$1
 }
-
-alias mn-source-alias="source ~/repos/sys/nixos-config/users/mattn/aliases"
-
-alias mn-edit-vim="v ~/repos/sys/nixos-config/users/mattn/vim-config.nix"
-alias mn-edit-alias="v ~/repos/sys/nixos-config/users/mattn/aliases"
-alias mn-edit-i3="v ~/repos/sys/nixos-config/users/mattn/i3"
-alias mn-edit-home-manager="nvim ~/repos/sys/nixos-config/users/mattn/home-manager.nix"
 
 alias edit-zsh="v ~/repos/sys/dotenv/.zshrc"
 alias edit-osx-alias="v ~/repos/sys/dotenv/shortcuts/macos_aliases.sh"
@@ -494,16 +305,6 @@ install_spotify() {
 	sudo apt-get install spotify-client
 }
 
-# -a = -rlptgoD; removed -po
-# -p, --perms                 preserve permissions
-# -o, --owner                 preserve owner (super-user only)
-# -n --dry-run
-# -del --delete-excluded
-# --exclude 'file or dir'
-# --info=progress2 try if too verbose also remove -v
-
-alias cp-rsync="rsync --recursive --links --times --devices --specials --partial --human-readable --progress -v"
-alias mv-rsync="rsync --recursive --links --times --devices --specials --partial --human-readable --progress -v --remove-source-files"
 
 alias backup-aws-to-chia="cp-rsync ~/Downloads/aws /Volumes/Chia/"
 alias backup-drive-to-chia="cp-rsync --exclude '.tmp.driveupload' /Users/matt/My\ Drive  /Volumes/Chia/"
@@ -545,42 +346,5 @@ function sleep-schedule() {
   sudo pmset schedule cancel #"
 }
 
-alias mn-git-lpull='git pull'
-alias mn-git-push='git push'
-alias mn-git-uncommit-last='git reset --soft HEAD~1'
-alias mn-git-unstage-file='git reset HEAD'
-
-alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
-
-function mn-list-alias-functions() {
-	# TODO list full definitions, then only paste func name/alias to command line
-	echo
-	echo -e "\033[1;4;32m""Functions:""\033[0;34m"
-	compgen -A function
-	echo
-	echo -e "\033[1;4;32m""Aliases:""\033[0;34m"
-	compgen -A alias
-	echo
-	echo -e "\033[0m"
-}
-
-function mn-show-def() {
-	item=$1
-	itemtype=$(whence -w $item | awk '{ print $2}')
-	echo "Type: $itemtype"
-	if [ "$itemtype" = "alias" ]; then
-		alias "$1"
-	else
-		mn-function-definition "$1"
-	fi
-}
-
-alias a='print -z -- $(mn-list-alias-functions | fzf --preview "source ~/repos/sys/nixos-config/users/mattn/aliases > /dev/null 2>&1 \
-  ; mn-show-def {1}")'
 
 alias mn-source-gcp='source functions_gcp'
-alias x='xrandr-auto'
-
-function ffmpeg-reduce() {
-        ffmpeg -i $1 -vcodec libx265 -crf 28 $1_reduced.mp4
-}
