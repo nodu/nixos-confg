@@ -50,11 +50,11 @@ in
     pkgs.obsidian
     pkgs.baobab
     pkgs.xfce.thunar
+    pkgs.vlc
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     pkgs.fd
     pkgs.bat
-    pkgs.cmus
     pkgs.fzf
     pkgs.git-crypt
     pkgs.htop
@@ -143,6 +143,10 @@ in
   home.file.".inputrc".source = ./inputrc;
 
   xdg.configFile."aliases".text = builtins.readFile ./aliases;
+  xdg.configFile."m-os.sh".text = builtins.readFile ./m-os.sh;
+
+
+  xdg.configFile."fzf-m-os-preview-function.sh".source = config.lib.file.mkOutOfStoreSymlink ./fzf-m-os-preview-function.sh;
   xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
 
   # After defaults repo is pushed; change the rev to commit hash; make sha254 empty string
@@ -150,8 +154,8 @@ in
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "fba7ff2";
-    sha256 = "u0N0IQO83Mjl+BHw/TyUcZqD77C3xL47iu4Ul5b2+Js=";
+    rev = "f0a28f5";
+    sha256 = "kLQv4/MaodWqF4Ez8IQ60A71gqhRWVQ7rSXxmvx/M5s=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
@@ -239,6 +243,7 @@ in
 
     initExtra = ''
       source $HOME/.config/aliases
+      source $HOME/.config/m-os.sh
       source $HOME/.config/defaults/basic.sh
       source $HOME/repos/sys/dotenv/shortcuts/work
       source $HOME/.config/shellConfig
