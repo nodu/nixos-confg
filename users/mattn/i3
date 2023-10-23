@@ -49,7 +49,7 @@ exec --no-startup-id xsetroot -solid "#1D1F21"
 # This is actually $mod + Ctrl + mouse
 floating_modifier $mod
 
-bindsym $mod+o exec rofi -show run
+bindsym $mod+o exec rofi -show combi
 
 # start a terminal
 bindsym $mod+n exec alacritty

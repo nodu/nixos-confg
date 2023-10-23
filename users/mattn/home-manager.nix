@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }:
+# https://mipmip.github.io/home-manager-option-search
 
 let
   inherit (pkgs)
@@ -51,17 +52,17 @@ in
     pkgs.baobab
     pkgs.xfce.thunar
     pkgs.vlc
+    pkgs.pinentry-gtk2
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     pkgs.fd
     pkgs.bat
     pkgs.fzf
     pkgs.git-crypt
-    pkgs.htop
+    pkgs.gotop
     pkgs.jq
     pkgs.jqp
     pkgs.ripgrep
-    pkgs.rofi
     pkgs.tree
     pkgs.watch
     pkgs.zathura
@@ -159,7 +160,7 @@ in
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
-  xdg.configFile."rofi/config.rasi".text = builtins.readFile ./rofi;
+  xdg.configFile."rofi/rofi-theme-deathemonic.rasi".text = builtins.readFile ./rofi-theme-deathemonic.rasi;
   xdg.configFile."devtty/config".text = builtins.readFile ./devtty;
 
   #---------------------------------------------------------------------
@@ -167,6 +168,48 @@ in
   #---------------------------------------------------------------------
 
   programs.gpg.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    # cache the keys forever so we don't get asked for a password
+    defaultCacheTtl = 31536000;
+    maxCacheTtl = 31536000;
+  };
+
+  programs.rofi = {
+    enable = true;
+    # theme = "slate";
+    plugins = [
+      pkgs.rofi-calc
+      pkgs.rofi-emoji
+    ];
+
+    extraConfig = {
+      modes = "combi";
+      modi = "calc,filebrowser,emoji";
+      combi-modes = "window,drun,run";
+      show-icons = true;
+      sort = true;
+      matching = "fuzzy";
+      dpi = 220;
+      font = "FiraCode Nerd Font 10";
+      terminal = "alacritty";
+      sorting-method = "fzf";
+      kb-mode-next = "Tab";
+      kb-mode-previous = "ISO_Left_Tab";
+      kb-element-prev = "";
+      kb-element-next = "";
+      combi-hide-mode-prefix = true;
+      display-combi = "";
+      display-calc = " ";
+      display-drun = "";
+      display-window = "";
+      drun-display-format = "{icon} {name}";
+      disable-history = false;
+      click-to-exit = true;
+    };
+    "theme" = "./rofi-theme-deathemonic.rasi";
+  };
 
   programs.bash = {
     enable = true;
@@ -339,6 +382,7 @@ in
         { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
         { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
         { key = "F"; mods = "Command"; action = "SearchBackward"; }
+        { key = "I"; mods = "Command"; action = "ToggleViMode"; }
       ];
 
       # Colors (Solarized Dark)
@@ -478,15 +522,6 @@ in
       source ~/.config/nvim/bootstrap.init.lua
       source ~/repos/sys/dotenv/nix/vimwip.lua
     '';
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "tty";
-
-    # cache the keys forever so we don't get asked for a password
-    defaultCacheTtl = 31536000;
-    maxCacheTtl = 31536000;
   };
 
   xresources.extraConfig = builtins.readFile ./Xresources;
