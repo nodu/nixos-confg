@@ -75,12 +75,14 @@ m.git-quickcommit-all() {
 	git push
 }
 
-m.gpg-encrypt() {
-	gpg -c "$1"
+m.gpg-encrypt-sign() {
+	gpg --encrypt --sign -r "$1" "$2"
 }
-
+m.gpg-encrypt() {
+	gpg --symmetric "$1"
+}
 m.gpg-decrypt() {
-	gpg "$1"
+	gpg --decrypt "$1"
 }
 
 m.base64-decode() {
@@ -220,7 +222,7 @@ function m.ff() {
 	fi
 }
 
-function m.ff-cat() {
+function m.fc() {
 	local file
 	file=$(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
 	if [[ $file ]]; then
@@ -230,7 +232,7 @@ function m.ff-cat() {
 	fi
 }
 
-function m.ff-cd() {
+function m.fd() {
 	local dir
 	dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
 	ls
@@ -250,6 +252,7 @@ function m.env() {
 	echo "$(echo "$out" | cut -d= -f2)"
 }
 alias m.x='xrandr-auto'
+alias sgpt='OPENAI_API_KEY=$(gpg --decrypt $HOME/.chatgpt-secret.txt.gpg 2>/dev/null) sgpt'
 
 function m.list-alias-functions() {
 	# TODO list full definitions, then only paste func name/alias to command line

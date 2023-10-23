@@ -7,8 +7,6 @@ alias azd="docker run -it mcr.microsoft.com/azure-cli az"
 alias tunnel='ssh -D 8080 -C -N pi@me -v; echo "Change location to Tunnel SOCKS 8080"'
 # took out option -q, quiet mode and -f background mode.  -D port, -N do not execute remote command, -C compression
 
-alias gotop='cd ~/Code/PPS/'
-
 # Start in Code
 #cd ~/Code
 
