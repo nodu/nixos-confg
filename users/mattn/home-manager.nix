@@ -78,6 +78,7 @@ in
     pkgs.nmap
     pkgs.inetutils
     pkgs.httpstat
+    pkgs.tshark
 
     pkgs.ffmpeg
 
@@ -155,8 +156,8 @@ in
   xdg.configFile."defaults".source = fetchFromBitbucket {
     owner = "nodu";
     repo = "defaults";
-    rev = "f0a28f5";
-    sha256 = "kLQv4/MaodWqF4Ez8IQ60A71gqhRWVQ7rSXxmvx/M5s=";
+    rev = "6481752";
+    sha256 = "ho+/UrZROa+mm17FbJv3SjP3lYKPjI7yprFetYnAZz0=";
   };
 
   xdg.configFile."i3/config".text = builtins.readFile ./i3;
