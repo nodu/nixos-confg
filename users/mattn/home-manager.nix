@@ -187,8 +187,8 @@ in
 
     extraConfig = {
       modes = "combi";
-      modi = "calc,filebrowser,emoji";
-      combi-modes = "window,drun,run";
+      modi = "calc,run,filebrowser,emoji";
+      combi-modes = "window,drun";
       show-icons = true;
       sort = true;
       matching = "fuzzy";
