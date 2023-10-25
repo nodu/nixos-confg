@@ -29,9 +29,13 @@ let
   # { system = builtins.trace config._module.args config._module.args; };
   # { inherit config; };
 
-
 in
 {
+  imports = [
+    ./sway/sway.nix
+    # ./hyprland/hyprland.nix
+  ];
+
   #cat "$1" | col -bx | bat --language man --style plain
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -52,9 +56,9 @@ in
     pkgs.baobab
     pkgs.xfce.thunar
     pkgs.vlc
-    pkgs.pinentry-gtk2
+    pkgs.pinentry-rofi
 
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" ]; })
     pkgs.fd
     pkgs.bat
     pkgs.fzf
@@ -71,6 +75,7 @@ in
     pkgs.gcc
     pkgs.buildkit
     pkgs.neofetch
+
 
     # network
     pkgs.wget
@@ -130,7 +135,6 @@ in
   #---------------------------------------------------------------------
   # Env vars and dotfiles
   #---------------------------------------------------------------------
-
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
@@ -264,8 +268,8 @@ in
       # that I'm just going to keep it consistent.
       pbcopy = "xclip";
       pbpaste = "xclip -o";
-      nx-update = "cd ~/repos/sys/nixos-config/ && make switch && cd -";
-      nx-update-flake = "cd ~/repos/sys/nixos-config/ && nix flake update && cd -";
+      nx-update = "cd ~/repos/sys/nixos-config/ && make switch; cd -";
+      nx-update-flake = "cd ~/repos/sys/nixos-config/ && nix flake update; cd -";
       nx-search = "nix search nixpkgs";
     };
 

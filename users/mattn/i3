@@ -12,7 +12,7 @@ new_window pixel 2
 new_float pixel 2
 floating_minimum_size 400 x 300
 floating_maximum_size -1 x -1
-focus_follows_mouse yes
+focus_follows_mouse no
 
 # Reading colors from resources
 set_from_resource $back			i3wm.background #1D1F21
@@ -55,9 +55,6 @@ bindsym $mod+o exec rofi -show combi
 bindsym $mod+n exec alacritty
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
-
-# temp, hacking on a tty
-bindsym $mod+Shift+n exec /home/mattn/bin/devtty --config-file=/home/mattn/.config/devtty/config
 
 # kill focused window
 bindsym $mod+Shift+q kill
