@@ -2,7 +2,8 @@
 
 {
   # https://github.com/nix-community/home-manager/pull/2408
-  environment.pathsToLink = [ "/share/fish" "/libexec" "/share/zsh" ];
+  environment.pathsToLink = [ "/libexec" "/share/zsh" ];
+  environment.localBinInPath = true;
 
   programs.zsh.enable = true;
 
