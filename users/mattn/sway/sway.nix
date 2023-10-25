@@ -7,7 +7,7 @@
   xdg.configFile."sway/config".source = lib.mkForce ./sway.config;
 
   xdg.configFile."sway/screenshot.sh".source = ./sway-screenshot.sh;
-  xdg.configFile."sway/wallpaper.png".source = ./sway-wallpaper.png;
+  xdg.configFile."sway/wallpaper.jpg".source = ./sway-wallpaper.jpg;
   xdg.configFile."waybar/config".source = ./waybar-config.json;
 
   wayland.windowManager.sway = {

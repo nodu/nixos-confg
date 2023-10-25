@@ -56,7 +56,8 @@ in
     pkgs.baobab
     pkgs.xfce.thunar
     pkgs.vlc
-    pkgs.pinentry-rofi
+    pkgs.jellyfin-media-player
+    # pkgs.spotify #no arm64 package
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" ]; })
     pkgs.fd
@@ -76,7 +77,6 @@ in
     pkgs.buildkit
     pkgs.neofetch
 
-
     # network
     pkgs.wget
     pkgs.speedtest-cli
@@ -84,6 +84,7 @@ in
     pkgs.inetutils
     pkgs.httpstat
     pkgs.tshark
+    pkgs.sshfs
 
     pkgs.ffmpeg
 
@@ -179,6 +180,7 @@ in
     # cache the keys forever so we don't get asked for a password
     defaultCacheTtl = 31536000;
     maxCacheTtl = 31536000;
+    pinentryFlavor = "gtk2";
   };
 
   programs.rofi = {
@@ -377,9 +379,9 @@ in
       #padding.y = 27;
 
       key_bindings = [
-        { key = "K"; mods = "Command"; chars = "ClearHistory"; }
-        { key = "V"; mods = "Command"; action = "Paste"; }
-        { key = "C"; mods = "Command"; action = "Copy"; }
+        { key = "K"; mods = "Command"; chars = "ClearHistory"; } #remap
+        # { key = "V"; mods = "Command"; action = "Paste"; } #no more command for  copy paste
+        # { key = "C"; mods = "Command"; action = "Copy"; } #cmd is system wide ctrl shift c/v
         { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
         { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
         { key = "Plus"; mods = "Command"; action = "IncreaseFontSize"; }
