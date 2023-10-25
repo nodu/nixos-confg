@@ -60,9 +60,9 @@ cache:
 vm/bootstrap0:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
 		parted /dev/sda -- mklabel gpt; \
-		parted /dev/sda -- mkpart primary 512MiB -8GiB; \
-		parted /dev/sda -- mkpart primary linux-swap -8GiB 100\%; \
-		parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB; \
+		parted /dev/sda -- mkpart primary 512MB -8GB; \
+		parted /dev/sda -- mkpart primary linux-swap -8GB 100\%; \
+		parted /dev/sda -- mkpart ESP fat32 1MB 512MB; \
 		parted /dev/sda -- set 3 esp on; \
 		sleep 1; \
 		mkfs.ext4 -L nixos /dev/sda1; \
@@ -76,11 +76,11 @@ vm/bootstrap0:
 		sed --in-place '/system\.stateVersion = .*/a \
 			nix.package = pkgs.nixUnstable;\n \
 			nix.extraOptions = \"experimental-features = nix-command flakes\";\n \
-			nix.binaryCaches = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
-			nix.binaryCachePublicKeys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
+			nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
+			nix.settings.trusted-public-keys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
   			services.openssh.enable = true;\n \
-			services.openssh.passwordAuthentication = true;\n \
-			services.openssh.permitRootLogin = \"yes\";\n \
+			services.openssh.settings.PasswordAuthentication = true;\n \
+			services.openssh.settings.PermitRootLogin = \"yes\";\n \
 			users.users.root.initialPassword = \"root\";\n \
 		' /mnt/etc/nixos/configuration.nix; \
                 nixos-install --no-root-passwd && reboot; \
