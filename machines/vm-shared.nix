@@ -1,5 +1,7 @@
 { config, pkgs, lib, currentSystem, currentSystemName, ... }:
-
+let
+  #TODO? Add var and if flags for i3 or wayland
+in
 {
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -93,9 +95,6 @@
     /export 192.168.179.0/24(rw,fsid=0,no_subtree_check,insecure,anonuid=1000,anongid=100,crossmnt,all_squash)
   '';
 
-  # Enable flatpak. We try not to use this (we prefer to use Nix!) but
-  # some software its useful to use this and we also use it for dev tools.
-  services.flatpak.enable = true;
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
