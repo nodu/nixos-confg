@@ -191,6 +191,7 @@ alias m.edit-vim="v ~/repos/sys/nixos-config/users/mattn/vim-config.nix"
 alias m.edit-alias="v ~/repos/sys/nixos-config/users/mattn/aliases"
 alias m.edit-i3="v ~/repos/sys/nixos-config/users/mattn/i3"
 alias m.edit-home-manager="nvim ~/repos/sys/nixos-config/users/mattn/home-manager.nix"
+alias m.speedtest="speedtest-cli"
 
 # -a = -rlptgoD; removed -po
 # -p, --perms                 preserve permissions
