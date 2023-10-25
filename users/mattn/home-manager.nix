@@ -149,25 +149,23 @@ in
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
 
-  xdg.configFile."aliases".text = builtins.readFile ./aliases;
-  xdg.configFile."m-os.sh".text = builtins.readFile ./m-os.sh;
-
-
-  xdg.configFile."fzf-m-os-preview-function.sh".source = config.lib.file.mkOutOfStoreSymlink ./fzf-m-os-preview-function.sh;
-  xdg.configFile."shellConfig".text = builtins.readFile ./shellConfig;
-
-  # After defaults repo is pushed; change the rev to commit hash; make sha254 empty string
-  # Then nx-update; Then update sha256 from the failed build
-  xdg.configFile."defaults".source = fetchFromBitbucket {
-    owner = "nodu";
-    repo = "defaults";
-    rev = "6481752";
-    sha256 = "ho+/UrZROa+mm17FbJv3SjP3lYKPjI7yprFetYnAZz0=";
+  xdg.configFile = {
+    "aliases".text = builtins.readFile ./aliases;
+    "m-os.sh".text = builtins.readFile ./m-os.sh;
+    "shellConfig".text = builtins.readFile ./shellConfig;
+    "i3/config".text = builtins.readFile ./i3;
+    "fzf-m-os-preview-function.sh".source = config.lib.file.mkOutOfStoreSymlink ./fzf-m-os-preview-function.sh;
+    "rofi/rofi-theme-deathemonic.rasi".text = builtins.readFile ./rofi-theme-deathemonic.rasi;
+    # After defaults repo is pushed; change the rev to commit hash; make sha254 empty string
+    # Then nx-update; Then update sha256 from the failed build
+    "defaults".source = fetchFromBitbucket {
+      owner = "nodu";
+      repo = "defaults";
+      rev = "6481752";
+      sha256 = "ho+/UrZROa+mm17FbJv3SjP3lYKPjI7yprFetYnAZz0=";
+    };
   };
 
-  xdg.configFile."i3/config".text = builtins.readFile ./i3;
-  xdg.configFile."rofi/rofi-theme-deathemonic.rasi".text = builtins.readFile ./rofi-theme-deathemonic.rasi;
-  xdg.configFile."devtty/config".text = builtins.readFile ./devtty;
 
   #---------------------------------------------------------------------
   # Programs
