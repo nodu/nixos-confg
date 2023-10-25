@@ -67,9 +67,9 @@
     # };
     #
     displayManager = {
-      defaultSession = "none+i3";
-      # lightdm.enable = true;
+      defaultSession = "sway";
       sddm.enable = true;
+      sddm.enableHidpi = true;
       sessionPackages = with pkgs; [ sway ];
 
       # AARCH64: For now, on Apple Silicon, we must manually set the
