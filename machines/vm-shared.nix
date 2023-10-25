@@ -56,31 +56,33 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Setup i3wm
-  # services.xserver = {
-  #   enable = true;
-  #   layout = "us";
-  #   dpi = 220;
-  #
-  #   desktopManager = {
-  #     xterm.enable = false;
-  #     wallpaper.mode = "fill";
-  #   };
-  #
-  #   displayManager = {
-  #     defaultSession = "none+i3";
-  #     lightdm.enable = true;
-  #
-  #     # AARCH64: For now, on Apple Silicon, we must manually set the
-  #     # display resolution. This is a known issue with VMware Fusion.
-  #     sessionCommands = ''
-  #       ${pkgs.xorg.xset}/bin/xset r rate 200 40
-  #     '';
-  #   };
-  #
-  #   windowManager = {
-  #     i3.enable = true;
-  #   };
-  # };
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    dpi = 220;
+
+    # desktopManager = {
+    #   xterm.enable = false;
+    #   wallpaper.mode = "fill";
+    # };
+    #
+    displayManager = {
+      defaultSession = "none+i3";
+      # lightdm.enable = true;
+      sddm.enable = true;
+      sessionPackages = with pkgs; [ sway ];
+
+      # AARCH64: For now, on Apple Silicon, we must manually set the
+      # display resolution. This is a known issue with VMware Fusion.
+      # sessionCommands = ''
+      #   ${pkgs.xorg.xset}/bin/xset r rate 200 40
+      # '';
+    };
+
+    windowManager = {
+      i3.enable = true;
+    };
+  };
 
   #Wayland requirements
   security.polkit.enable = true;
