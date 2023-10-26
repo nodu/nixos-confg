@@ -1,3 +1,4 @@
+{ inputs, ... }:
 { config, lib, pkgs, ... }:
 # https://mipmip.github.io/home-manager-option-search
 

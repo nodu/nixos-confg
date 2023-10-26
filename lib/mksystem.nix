@@ -1,13 +1,22 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-name: { nixpkgs
-      , home-manager
-      , system
-      , user
-      , overlays
-      }:
+{ nixpkgs, overlays, inputs }:
 
-nixpkgs.lib.nixosSystem rec {
+name:
+{ system
+, user
+}:
+
+let
+  # The config files for this system.
+  machineConfig = ../machines/${name}.nix;
+  userOSConfig = ../users/${user}/nixos.nix;
+  userHMConfig = ../users/${user}/home-manager.nix;
+
+  systemFunc = nixpkgs.lib.nixosSystem;
+  home-manager = inputs.home-manager.nixosModules;
+in
+systemFunc rec {
   inherit system;
 
   modules = [
@@ -16,21 +25,26 @@ nixpkgs.lib.nixosSystem rec {
     # the overlays are available globally.
     { nixpkgs.overlays = overlays; }
 
-    ../machines/${name}.nix
-    ../users/${user}/nixos.nix
-    home-manager.nixosModules.home-manager
+    machineConfig
+    userOSConfig
+    home-manager.home-manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.${user} = import ../users/${user}/home-manager.nix;
+      home-manager.users.${user} = import userHMConfig
+        {
+          inputs = inputs;
+        };
     }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {
       config._module.args = {
-        currentSystemName = name;
         currentSystem = system;
+        currentSystemName = name;
+        currentSystemUser = user;
+        inputs = inputs;
       };
     }
   ];
