@@ -31,7 +31,7 @@
     in
     {
       nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
-        inherit nixpkgs home-manager inputs;
+        inherit nixpkgs home-manager;
         system = "aarch64-linux";
         user = "mattn";
 
@@ -44,19 +44,19 @@
       };
 
       nixosConfigurations.vm-aarch64-prl = mkSystem "vm-aarch64-prl" rec {
-        inherit overlays nixpkgs home-manager inputs;
+        inherit overlays nixpkgs home-manager;
         system = "aarch64-linux";
         user = "mattn";
       };
 
       nixosConfigurations.vm-aarch64-utm = mkSystem "vm-aarch64-utm" rec {
-        inherit overlays nixpkgs home-manager inputs;
+        inherit overlays nixpkgs home-manager;
         system = "aarch64-linux";
         user = "mattn";
       };
 
       nixosConfigurations.vm-intel = mkSystem "vm-intel" rec {
-        inherit overlays nixpkgs home-manager inputs;
+        inherit overlays nixpkgs home-manager;
         system = "x86_64-linux";
         user = "mattn";
       };

@@ -5,7 +5,6 @@ name: { nixpkgs
       , system
       , user
       , overlays
-      , inputs
       }:
 
 nixpkgs.lib.nixosSystem rec {
@@ -32,7 +31,6 @@ nixpkgs.lib.nixosSystem rec {
       config._module.args = {
         currentSystemName = name;
         currentSystem = system;
-        inputs = inputs;
       };
     }
   ];
