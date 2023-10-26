@@ -147,7 +147,6 @@ in
   };
   #MANPAGER = "${manpager}/bin/manpager";
 
-  home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
 
   xdg.configFile = {
@@ -242,8 +241,7 @@ in
     config = {
       whitelist = {
         prefix = [
-          "$HOME/code/go/src/github.com/hashicorp"
-          "$HOME/code/go/src/github.com/mitchellh"
+          "$HOME/code/go/src/github.com/mattn"
         ];
 
         exact = [ "$HOME/.envrc" ];
@@ -332,29 +330,6 @@ in
         };
       };
     };
-  };
-
-  programs.go = {
-    enable = true;
-    goPath = "code/go";
-    goPrivate = [ "github.com/mitchellh" "github.com/hashicorp" "rfc822.mx" ];
-  };
-
-  programs.tmux = {
-    enable = true;
-    terminal = "xterm-256color";
-    shortcut = "l";
-    secureSocket = false;
-
-    extraConfig = ''
-      set -ga terminal-overrides ",*256col*:Tc"
-
-      set -g @dracula-show-battery false
-      set -g @dracula-show-network false
-      set -g @dracula-show-weather false
-
-      bind -n C-k send-keys "clear"\; send-keys "Enter"
-    '';
   };
 
   programs.alacritty = {
@@ -493,34 +468,6 @@ in
     vimAlias = true;
 
     plugins = with pkgs; [
-      #customVim.vim-fugitive
-      #customVim.vim-pgsql
-      #customVim.AfterColors
-
-      #customVim.nvim-comment
-      #customVim.nvim-lspconfig
-      #customVim.nvim-plenary # required for telescope
-      #customVim.nvim-telescope
-      #customVim.nvim-treesitter
-      #customVim.nvim-treesitter-playground
-      #customVim.nvim-treesitter-textobjects
-
-      #vimPlugins.vim-airline
-      #vimPlugins.vim-airline-themes
-      #vimPlugins.vim-eunuch
-      #vimPlugins.vim-gitgutter
-
-      #vimPlugins.vim-markdown
-      #vimPlugins.vim-nix
-      #vimPlugins.typescript-vim
-      #vimPlugins.vim-visual-multi
-      #vimPlugins.vim-surround
-      #vimPlugins.NeoSolarized
-      #vimPlugins.sonokai
-      #vimPlugins.edge
-      #vimPlugins.gruvbox-material
-      #vimPlugins.nvim-cmp
-      #vimPlugins.cmp-nvim-lsp
     ];
 
     #extraConfig = (import ./vim-config.nix) { inherit sources; };

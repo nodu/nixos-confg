@@ -3,7 +3,7 @@
   # Start with sway at command line
   # # https://github.com/ziap/dotfiles
 
-  # Override the bulled in sway config
+  # Override the pulled in sway config
   xdg.configFile."sway/config".source = lib.mkForce ./sway.config;
 
   xdg.configFile."sway/screenshot.sh".source = ./sway-screenshot.sh;

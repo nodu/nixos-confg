@@ -11,7 +11,6 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
-
       # We want home-manager to use the same set of nixpkgs as our system.
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -33,18 +32,6 @@
     in
     {
       nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
-
-        system = "aarch64-linux";
-        user = "mattn";
-
-      };
-
-      nixosConfigurations.vm-aarch64-prl = mkSystem "vm-aarch64-prl" rec {
-        system = "aarch64-linux";
-        user = "mattn";
-      };
-
-      nixosConfigurations.vm-aarch64-utm = mkSystem "vm-aarch64-utm" rec {
         system = "aarch64-linux";
         user = "mattn";
       };
