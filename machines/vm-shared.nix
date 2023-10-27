@@ -1,3 +1,4 @@
+#Order 3-3
 { config, pkgs, lib, currentSystem, currentSystemName, ... }:
 let
   #TODO? Add var and if flags for i3 or wayland
@@ -57,7 +58,8 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Setup i3wm
+
+  # Setup i3wm/sddm
   services.xserver = {
     enable = true;
     layout = "us";
@@ -76,9 +78,9 @@ in
 
       # AARCH64: For now, on Apple Silicon, we must manually set the
       # display resolution. This is a known issue with VMware Fusion.
-      # sessionCommands = ''
-      #   ${pkgs.xorg.xset}/bin/xset r rate 200 40
-      # '';
+      sessionCommands = ''
+        ${pkgs.xorg.xset}/bin/xset r rate 200 40
+      '';
     };
 
     windowManager = {
