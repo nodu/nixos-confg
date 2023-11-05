@@ -15,15 +15,12 @@ in
       keep-outputs = true
       keep-derivations = true
     '';
-
-    # public binary cache that I use for all my derivations. You can keep
-    # this, use your own, or toss it. Its typically safe to use a binary cache
-    # since the data inside is checksummed.
-    settings = {
-      substituters = [ "https://mitchellh-nixos-config.cachix.org" ];
-      trusted-public-keys = [ "mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=" ];
-    };
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    #add due to failing update
+    "electron-24.8.6"
+  ];
 
   # enable pulseaudio
   hardware.pulseaudio.enable = true;
@@ -58,7 +55,7 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-
+  # services.spotifyd.enable = true;
   # Setup i3wm/sddm
   services.xserver = {
     enable = true;
