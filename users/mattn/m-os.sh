@@ -291,3 +291,10 @@ function m2() {
 
 	eval "$CMD"
 }
+
+function open() {
+	xdg-open $1
+}
+function o() {
+	xdg-open $1
+}
