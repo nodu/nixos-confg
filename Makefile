@@ -41,15 +41,6 @@ switch-to-boot-to-clean-boot-partition:
 set-current:
 	sudo nix-env -p /nix/var/nix/profiles/system --switch-generation $(gen)
 
-# This builds the given NixOS configuration and pushes the results to the
-# cache. This does not alter the current running system. This requires
-# cachix authentication to be configured out of band.
-cache:
-	nix build '.#nixosConfigurations.$(NIXNAME).config.system.build.toplevel' --json \
-		| jq -r '.[].outputs | to_entries[].value' \
-		| cachix push mitchellh-nixos-config
-		#| cachix push os
-
 # bootstrap a brand new VM. The VM should have NixOS ISO on the CD drive
 # and just set the password of the root user to "root". This will install
 # NixOS. After installing NixOS, you must reboot and set the root password
@@ -76,8 +67,6 @@ vm/bootstrap0:
 		sed --in-place '/system\.stateVersion = .*/a \
 			nix.package = pkgs.nixUnstable;\n \
 			nix.extraOptions = \"experimental-features = nix-command flakes\";\n \
-			nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
-			nix.settings.trusted-public-keys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
   			services.openssh.enable = true;\n \
 			services.openssh.settings.PasswordAuthentication = true;\n \
 			services.openssh.settings.PermitRootLogin = \"yes\";\n \
@@ -85,13 +74,6 @@ vm/bootstrap0:
 		' /mnt/etc/nixos/configuration.nix; \
                 nixos-install --no-root-passwd && reboot; \
 	"
-			# Maybe needed on fresh build:
-			# nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
-			# nix.settings.trusted-public-keys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
-
-	# nix.binaryCaches = [\"https://os.cachix.org\"];\n \
-	# 	nix.binaryCachePublicKeys = [\"os.cachix.org-1:RlKUKtqxLUZK10qAltMfjGrHw7ZkRMK/UOwvZ4Lsnrg=\"];\n \
-
 # after bootstrap0, run this to finalize. After this, do everything else
 # in the VM unless secrets change.
 vm/bootstrap:
