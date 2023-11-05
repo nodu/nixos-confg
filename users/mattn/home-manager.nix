@@ -60,6 +60,8 @@ in
     pkgs.vlc
     pkgs.jellyfin-media-player
     # pkgs.spotify #no arm64 package
+    pkgs.rclone
+    pkgs.rclone-browser
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" ]; })
     pkgs.fd
@@ -80,6 +82,10 @@ in
     pkgs.neofetch
 
     # network
+    (pkgs.callPackage
+      ./nordvpn.nix
+      { })
+    pkgs.sddm
     pkgs.wget
     pkgs.speedtest-cli
     pkgs.nmap
@@ -92,6 +98,7 @@ in
 
     pkgs.gum
     pkgs.yt-dlp
+    pkgs.ytfzf
     pkgs.tealdeer
 
     pkgs.go
