@@ -25,6 +25,7 @@
       # Overlays is the list of overlays we want to apply from flake inputs.
       overlays = [
         inputs.neovim-nightly-overlay.overlay
+        (import ./overlays/sddm.nix)
       ];
 
       mkSystem = import ./lib/mksystem.nix {
@@ -32,6 +33,7 @@
       };
     in
     {
+      # x86_64-linux
       nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
         system = "aarch64-linux";
         user = "mattn";
