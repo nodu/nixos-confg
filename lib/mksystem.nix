@@ -25,6 +25,8 @@ systemFunc rec {
     # to go through and apply our system type. We do this first so
     # the overlays are available globally.
     { nixpkgs.overlays = overlays; }
+    # TODO: Figure out how to apply overlays...
+    # { nixpkgs.overlays = [ (import ../overlays) ]; }
 
     machineConfig
     userOSConfig
