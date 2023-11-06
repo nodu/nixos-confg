@@ -20,7 +20,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
       # Overlays is the list of overlays we want to apply from flake inputs.
       overlays = [
@@ -29,7 +29,7 @@
       ];
 
       mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs overlays inputs;
+        inherit nixpkgs nixpkgs-unstable overlays inputs;
       };
     in
     {

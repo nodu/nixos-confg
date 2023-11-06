@@ -1,7 +1,7 @@
 #Order 2
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-{ nixpkgs, overlays, inputs }:
+{ nixpkgs, nixpkgs-unstable, overlays, inputs }:
 
 name:
 { system
@@ -16,6 +16,8 @@ let
 
   systemFunc = nixpkgs.lib.nixosSystem;
   home-manager = inputs.home-manager.nixosModules;
+  pkgs = import nixpkgs { inherit system; };
+  unstable = import nixpkgs-unstable { inherit system; };
 in
 systemFunc rec {
   inherit system;
@@ -34,6 +36,7 @@ systemFunc rec {
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = { inherit unstable; };
       home-manager.users.${user} = import userHMConfig
         {
           inputs = inputs;

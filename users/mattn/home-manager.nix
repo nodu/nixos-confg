@@ -1,12 +1,13 @@
 # Order 5
 { inputs, ... }:
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 # https://mipmip.github.io/home-manager-option-search
 
 let
   inherit (pkgs)
     fetchFromBitbucket
     ;
+
   # For our MANPAGER env var
   # https://github.com/sharkdp/bat/issues/1145
   # MN - not needed, but keeping in case of future breakage
@@ -20,7 +21,7 @@ let
   # To get the sha256 hash:
   # nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
   # or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
-  #
+
   oldPkgs = import
     (builtins.fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
@@ -191,6 +192,7 @@ in
 
   programs.rofi = {
     enable = true;
+    package = unstable.rofi-wayland;
     # theme = "slate";
     plugins = [
       pkgs.rofi-calc
