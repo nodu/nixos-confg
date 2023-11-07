@@ -6,6 +6,8 @@
 
   virtualisation.vmware.guest.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   # Interface is this on Intel Fusion
   networking.interfaces.ens33.useDHCP = true;
 

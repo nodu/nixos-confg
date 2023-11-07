@@ -9,8 +9,7 @@ MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
 # MRNOTE not vm-intel, fully arm
-#NIXNAME ?= vm-intel
-NIXNAME ?= vm-aarch64
+NIXNAME ?= vm-intel
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
@@ -104,8 +103,6 @@ vm/copy:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXPORT)' \
 		--exclude='vendor/' \
 		--exclude='.git/' \
-		--exclude='.git-crypt/' \
-		--exclude='iso/' \
 		--rsync-path="sudo rsync" \
 		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nix-config
 

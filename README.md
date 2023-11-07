@@ -106,7 +106,7 @@ $ passwd
 # change to root
 ```
 
-At this point, verify `/dev/sda` exists. This is the expected block device
+At this point, verify `/dev/sda` exists. `ls /dev/sd*` This is the expected block device
 where the Makefile will install the OS. If you setup your VM to use SATA,
 this should exist. If `/dev/nvme` or `/dev/vda` exists instead, you didn't
 configure the disk properly. Note, these other block device types work fine,
