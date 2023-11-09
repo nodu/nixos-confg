@@ -50,6 +50,7 @@ exec --no-startup-id xsetroot -solid "#1D1F21"
 floating_modifier $mod
 
 bindsym $mod+o exec rofi -show combi
+bindsym Mod1+Tab exec rofi -show window
 
 # start a terminal
 bindsym $mod+n exec alacritty
