@@ -1,7 +1,8 @@
 # Connectivity info for Linux VM
 #export NIXADDR=192.168.0.175
-NIXADDR ?= unset
-NIXPORT ?= 22
+# NIXADDR ?= unset
+NIXADDR ?= localhost
+NIXPORT ?= 2222
 NIXUSER ?= mattn
 
 # Get the path to this Makefile and directory
@@ -94,7 +95,7 @@ vm/secrets:
 	# SSH keys
 	# MRNOTE Added L as currently they're symlinks
 	#rsync -avL -e 'ssh $(SSH_OPTIONS)' \
-	rsync -av -e 'ssh $(SSH_OPTIONS)' \
+	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXPORT)' \
 		--exclude='environment' \
 		$(HOME)/.ssh/ $(NIXUSER)@$(NIXADDR):~/.ssh
 
