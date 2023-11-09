@@ -185,12 +185,12 @@ alias m.whereami='curl ipinfo.io/json'
 alias m.vlcc='vlc -I ncurses'
 alias m.vlcc-brain='vlc -I ncurses "/host/matt/My Drive/Audio/Brain.fm" --random'
 
-alias m.source-alias="source ~/repos/sys/nixos-config/users/mattn/aliases"
+alias m.source-alias="source ~/repos/nixos-config/users/mattn/aliases"
 
-alias m.edit-vim="v ~/repos/sys/nixos-config/users/mattn/vim-config.nix"
-alias m.edit-alias="v ~/repos/sys/nixos-config/users/mattn/aliases"
-alias m.edit-i3="v ~/repos/sys/nixos-config/users/mattn/i3"
-alias m.edit-home-manager="nvim ~/repos/sys/nixos-config/users/mattn/home-manager.nix"
+alias m.edit-vim="v ~/repos/nixos-config/users/mattn/vim-config.nix"
+alias m.edit-alias="v ~/repos/nixos-config/users/mattn/aliases"
+alias m.edit-i3="v ~/repos/nixos-config/users/mattn/i3"
+alias m.edit-home-manager="nvim ~/repos/nixos-config/users/mattn/home-manager.nix"
 alias m.speedtest="speedtest-cli"
 
 # -a = -rlptgoD; removed -po
@@ -278,7 +278,7 @@ function m.show-def() {
 	fi
 }
 function m() {
-	print -z -- "$(m.list-alias-functions | fzf --preview "source ~/repos/sys/nixos-config/users/mattn/aliases > /dev/null 2>&1; $HOME/.config/fzf-m-os-preview-function.sh {1}")"
+	print -z -- "$(m.list-alias-functions | fzf --preview "source ~/repos/nixos-config/users/mattn/aliases > /dev/null 2>&1; $HOME/.config/fzf-m-os-preview-function.sh {1}")"
 }
 
 function m2() {

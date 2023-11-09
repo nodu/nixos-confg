@@ -19,14 +19,14 @@ function pause {
 
 
 # Kubernetes/Azure
-source ~/repos/sys/dotenv/shortcuts/kubernetes
+# source ~/repos/dotenv/shortcuts/kubernetes
 
-alias k='kubectl'
-alias kub='kubectl'
-alias kube='kubectl'
-
-# Load kubectl completions
-if [ /usr/local/bin/kubectl ] || [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
+# alias k='kubectl'
+# alias kub='kubectl'
+# alias kube='kubectl'
+#
+# # Load kubectl completions
+# if [ /usr/local/bin/kubectl ] || [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
 #-------- Color Manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blinking
@@ -155,8 +155,8 @@ nvimNewSplit() {
 #motivate
 cd ~/repos/notes && echo "" && echo "Notes Repo" && git status && cd -
 cd ~/repos/todo && echo "" && echo "todo Repo" && git status && cd -
-cd ~/repos/sys/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
-cd ~/repos/sys/nixos-config && echo "" && echo "nixos-config Repo" && git status && cd -
+cd ~/repos/dotenv && echo "" && echo "dotenv Repo" && git status && cd -
+cd ~/repos/nixos-config && echo "" && echo "nixos-config Repo" && git status && cd -
 cd ~/.config/nvim/ && echo "" && echo "nvim Repo" && git status && cd -
 
 mn-help-myHelpers() {
@@ -268,14 +268,14 @@ function vault-list() {
 	vault kv list secret/$1
 }
 
-alias edit-zsh="v ~/repos/sys/dotenv/.zshrc"
-alias edit-osx-alias="v ~/repos/sys/dotenv/shortcuts/macos_aliases.sh"
+alias edit-zsh="v ~/repos/dotenv/.zshrc"
+alias edit-osx-alias="v ~/repos/dotenv/shortcuts/macos_aliases.sh"
 
 #TODO - Move all cheatsheets to notes repo
-alias edit-vimCheatSheet="nvim ~/repos/sys/dotenv/shortcuts/vimCheatSheet"
+alias edit-vimCheatSheet="nvim ~/repos/dotenv/shortcuts/vimCheatSheet"
 
 mn-help-vimCheatSheet() {
-	cat ~/repos/sys/dotenv/shortcuts/vimCheatSheet
+	cat ~/repos/dotenv/shortcuts/vimCheatSheet
 }
 
 alias spud-start='az vm start --resource-group Matt --name SPUD'
