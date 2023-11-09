@@ -4,9 +4,6 @@ let
   #TODO? Add var and if flags for i3 or wayland
 in
 {
-  # Be careful updating this.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   nix = {
     # use unstable nix so we can access flakes
     package = pkgs.nixUnstable;
@@ -47,7 +44,7 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
 
-  networking.enableIPv6  = false;
+  networking.enableIPv6 = false;
 
   # Don't require password for sudo
   security.sudo.wheelNeedsPassword = false;
@@ -89,8 +86,8 @@ in
       i3.enable = true;
     };
   };
-# services.xserver.videoDrivers = ["amdgpu"];
-# boot.initrd.kernelModules = ["amdgpu"];
+  # services.xserver.videoDrivers = ["amdgpu"];
+  # boot.initrd.kernelModules = ["amdgpu"];
   #Wayland requirements
   security.polkit.enable = true;
   hardware.opengl.enable = true;
