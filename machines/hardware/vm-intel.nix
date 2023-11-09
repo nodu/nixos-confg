@@ -8,6 +8,7 @@
   imports = [ ];
 
   # x86/amd new vmware
+  #MRN, try to increase compatibility
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   boot.initrd.availableKernelModules = [
