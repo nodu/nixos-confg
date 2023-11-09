@@ -13,4 +13,5 @@ rm -rf ~/.cache/nvim
 git clone git@github:nodu/lazystuff.git ~/.config/nvim/
 nvim
 
-ln -s /host/matt/Downloads ~/Downloads
+# ln -s /host/matt/Downloads ~/Downloads
+ln -s ~/repos/nixos-config/nixos-ssh-config ~/.ssh/config
