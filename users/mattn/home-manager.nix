@@ -5,7 +5,7 @@
 
 let
   inherit (pkgs)
-    fetchFromBitbucket
+    fetchFromGitHub
     ;
 
   # For our MANPAGER env var
@@ -22,12 +22,12 @@ let
   # nix-prefetch-url --unpack https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz
   # or use an empty sha256 = ""; string, it'll show the hash; prefetch is safer
 
-  oldPkgs = import
-    (builtins.fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
-      sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
-    })
-    { system = builtins.trace "aarch64-linux" "aarch64-linux"; };
+  # oldPkgs = import
+  #   (builtins.fetchTarball {
+  #     url = "https://github.com/NixOS/nixpkgs/archive/e49c28b3baa3a93bdadb8966dd128f9985ea0a09.tar.gz";
+  #     sha256 = "14xrf5kny4k32fns9q9vfixpb8mxfdv2fi4i9kiwaq1yzcj1bnx2";
+  #   })
+  #   { system = builtins.trace "aarch64-linux" "aarch64-linux"; };
   # TODO - where is system arch config var?
   # { system = builtins.trace config._module.args config._module.args; };
   # { inherit config; };
@@ -51,94 +51,95 @@ in
   #---------------------------------------------------------------------
 
   home.packages = [
-    #GUI Apps
+    #   #GUI Apps
     pkgs.authy
-    #pkgs.google-chrome #no arm64 package
-    oldPkgs.chromium
-    pkgs.obsidian
-    pkgs.baobab
-    pkgs.xfce.thunar
-    pkgs.vlc
-    pkgs.jellyfin-media-player
-    # pkgs.spotify #no arm64 package
-    pkgs.rclone
-    pkgs.rclone-browser
+    pkgs.google-chrome
+    #   oldPkgs.chromium
+    #   pkgs.obsidian
+    ##   pkgs.baobab
+    #   pkgs.xfce.thunar
+    #   pkgs.vlc
+    #   pkgs.jellyfin-media-player
+    #   # pkgs.spotify #no arm64 package
+    #   pkgs.rclone
+    #   pkgs.rclone-browser
 
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" ]; })
     pkgs.fd
     pkgs.bat
     pkgs.fzf
-    pkgs.git-crypt
     pkgs.gotop
-    pkgs.jq
-    pkgs.jqp
+    #    pkgs.jq
+    #    pkgs.jqp
     pkgs.ripgrep
-    pkgs.tree
-    pkgs.watch
-    pkgs.zathura
+    #    pkgs.tree
+    #    pkgs.watch
+    #    pkgs.zathura
     pkgs.zip
     pkgs.unzip
     pkgs.gcc
-    pkgs.buildkit
-    pkgs.neofetch
-
-    # network
-    (pkgs.callPackage
-      ./nordvpn.nix
-      { })
-    pkgs.sddm
+    #    pkgs.buildkit
+    #    pkgs.neofetch
+    #
+    pkgs.lshw
+    #    # network
+    #    (pkgs.callPackage
+    #      ./nordvpn.nix
+    #      { })
     pkgs.wget
-    pkgs.speedtest-cli
-    pkgs.nmap
-    pkgs.inetutils
-    pkgs.httpstat
-    pkgs.tshark
-    pkgs.sshfs
-
-    pkgs.ffmpeg
-
-    pkgs.gum
+    #    pkgs.speedtest-cli
+    #    pkgs.nmap
+    #    pkgs.inetutils
+    #    pkgs.httpstat
+    #    pkgs.tshark
+    #    pkgs.sshfs
+    #
+    #    pkgs.ffmpeg
+    #
+    #    pkgs.gum
     pkgs.yt-dlp
-    pkgs.ytfzf
-    pkgs.tealdeer
-
+    #    pkgs.ytfzf
+    #    pkgs.tealdeer
+    #
     pkgs.go
-    pkgs.gopls
     pkgs.nodejs-18_x
-    #pkgs.dotnetCorePackages.sdk_6_0
-    pkgs.python3Minimal
-    #pkgs.postgresql_11
+    #    pkgs.python3Minimal
+    #    #pkgs.postgresql_11
 
-    #pkgs.redshift
-    #pkgs.kubectl
-    #pkgs.krew
-    #pkgs.terraform
-    #pkgs.vault
-    #pkgs.awscli2
-    #pkgs.azure-cli
-    #(pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    #pkgs.krew
+    #    #pkgs.redshift
+    #    #pkgs.kubectl
+    #    #pkgs.krew
+    #    #pkgs.terraform
+    #    #pkgs.vault
+    #    #pkgs.awscli2
+    #    #pkgs.azure-cli
+    #    #(pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    #    #pkgs.krew
 
-    ##try out
-    #pkgs.ChatGPT.nvim
-    pkgs.shell_gpt
+    #    ##try out
+    #    #pkgs.ChatGPT.nvim
+    #    pkgs.shell_gpt
 
-    #nvim LSPs, Linters,
-    pkgs.nodePackages.pyright
-    pkgs.nodePackages.typescript-language-server
-    pkgs.lazygit
-    pkgs.sumneko-lua-language-server
-    pkgs.rnix-lsp
-    pkgs.stylua
+    # nvim LSPs
+    pkgs.lua-language-server
     pkgs.nil
-    pkgs.nixpkgs-fmt
     pkgs.marksman
+    pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.nodePackages.typescript-language-server
+    pkgs.nodePackages.pyright
+    pkgs.nodePackages.bash-language-server
+    pkgs.nodePackages.vscode-json-languageserver
+    pkgs.nodePackages.dockerfile-language-server-nodejs
+    # pkgs.gopls
+
+    # nvim Linters
+    pkgs.stylua
+    pkgs.nixpkgs-fmt
     pkgs.nodePackages.markdownlint-cli
 
-    #TODO Need to add this to Mason somehow...
-    #CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build
-    #pkgs.omnisharp-roslyn
-    #pkgs.mono
+    # TODO not quite working:
+    pkgs.emacsPackages.lsp-tailwindcss
+    unstable.docker-compose-language-service
   ];
 
   fonts.fontconfig.enable = true;
@@ -165,9 +166,10 @@ in
     "i3/config".text = builtins.readFile ./i3;
     "fzf-m-os-preview-function.sh".source = config.lib.file.mkOutOfStoreSymlink ./fzf-m-os-preview-function.sh;
     "rofi/rofi-theme-deathemonic.rasi".text = builtins.readFile ./rofi-theme-deathemonic.rasi;
+
     # After defaults repo is pushed; change the rev to commit hash; make sha254 empty string
     # Then nx-update; Then update sha256 from the failed build
-    "defaults".source = fetchFromBitbucket {
+    "defaults".source = fetchFromGitHub {
       owner = "nodu";
       repo = "defaults";
       rev = "6481752";
@@ -175,12 +177,12 @@ in
     };
   };
 
-
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
 
   programs.gpg.enable = true;
+  programs.gh.enable = true;
 
   services.gpg-agent = {
     enable = true;
@@ -277,8 +279,8 @@ in
       # that I'm just going to keep it consistent.
       pbcopy = "xclip";
       pbpaste = "xclip -o";
-      nx-update = "cd ~/repos/sys/nixos-config/ && make switch; cd -";
-      nx-update-flake = "cd ~/repos/sys/nixos-config/ && nix flake update; cd -";
+      nx-update = "cd ~/repos/nixos-config/ && make switch; cd -";
+      nx-update-flake = "cd ~/repos/nixos-config/ && nix flake update; cd -";
       nx-search = "nix search nixpkgs";
     };
 
@@ -302,7 +304,6 @@ in
       source $HOME/.config/aliases
       source $HOME/.config/m-os.sh
       source $HOME/.config/defaults/basic.sh
-      source $HOME/repos/sys/dotenv/shortcuts/work
       source $HOME/.config/shellConfig
       eval "$(direnv hook zsh)"
     '';
@@ -435,7 +436,7 @@ in
     modules = {
       ipv6.enable = false;
       "wireless _first_".enable = false;
-      "battery all".enable = false;
+      "battery all".enable = true;
       "disk /" = {
         position = 1;
         settings = { format = "󰨣 %free (%avail)/ %total"; };
@@ -451,7 +452,7 @@ in
       "ethernet _first_" = {
         position = 4;
         settings = {
-          format_up = "E: %ip (%speed)";
+          format_up = "E: %ip"; #
           format_down = "E: down";
         };
       };
@@ -477,13 +478,11 @@ in
     viAlias = true;
     vimAlias = true;
 
-    plugins = with pkgs; [
+    plugins = [
     ];
 
-    #extraConfig = (import ./vim-config.nix) { inherit sources; };
     extraConfig = ''
       source ~/.config/nvim/bootstrap.init.lua
-      source ~/repos/sys/dotenv/nix/vimwip.lua
     '';
   };
 
