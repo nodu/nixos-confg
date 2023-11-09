@@ -99,7 +99,7 @@ in
     #    pkgs.gum
     pkgs.yt-dlp
     #    pkgs.ytfzf
-    #    pkgs.tealdeer
+    pkgs.tealdeer
     #
     pkgs.go
     pkgs.nodejs-18_x
@@ -119,6 +119,9 @@ in
     #    ##try out
     #    #pkgs.ChatGPT.nvim
     #    pkgs.shell_gpt
+
+    pkgs.playerctl
+    # pkgs.xorg.xbacklight
 
     # nvim LSPs
     pkgs.lua-language-server
