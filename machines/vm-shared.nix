@@ -47,6 +47,8 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
 
+  networking.enableIPv6  = false;
+
   # Don't require password for sudo
   security.sudo.wheelNeedsPassword = false;
 
@@ -56,12 +58,14 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  console.useXkbConfig = true;
   # services.spotifyd.enable = true;
   # Setup i3wm/sddm
   services.xserver = {
     enable = true;
     layout = "us";
-    dpi = 220;
+    # dpi = 220;
+    xkbOptions = "ctrl:nocaps";
 
     # desktopManager = {
     #   xterm.enable = false;
@@ -71,9 +75,8 @@ in
     displayManager = {
       defaultSession = "sway";
       sddm.enable = true;
-      sddm.enableHidpi = true;
+      # sddm.enableHidpi = true;
       sessionPackages = with pkgs; [ sway ];
-
       # AARCH64: For now, on Apple Silicon, we must manually set the
       # display resolution. This is a known issue with VMware Fusion.
       # commented out for x86
@@ -86,7 +89,8 @@ in
       i3.enable = true;
     };
   };
-
+# services.xserver.videoDrivers = ["amdgpu"];
+# boot.initrd.kernelModules = ["amdgpu"];
   #Wayland requirements
   security.polkit.enable = true;
   hardware.opengl.enable = true;
@@ -118,7 +122,6 @@ in
     cachix
     gnumake
     killall
-    rxvt_unicode
     xclip
 
     # For hypervisors that support auto-resizing, this script forces it.
