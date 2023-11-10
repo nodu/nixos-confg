@@ -180,6 +180,18 @@ in
     };
   };
 
+  xdg.desktopEntries =
+    {
+      gotop = {
+        type = "Application";
+        name = "Activity Monitor (goTop)";
+        exec = "gotop";
+        terminal = true;
+        categories = [ "Application" "Network" "WebBrowser" ];
+        mimeType = [ "text/html" "text/xml" ];
+      };
+    };
+
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
