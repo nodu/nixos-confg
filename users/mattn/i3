@@ -1,4 +1,5 @@
-set $mod Mod4
+# set $mod Mod4
+set $mod Mod1
 
 #----------------------------------------------------------------------
 # Look & Feel
@@ -232,7 +233,7 @@ set $mode_system System (e) logout, (r) reboot, (Ctrl+s) shutdown
 
 mode "$mode_system" {
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Ctrl+r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     # back to normal: Enter or Escape
@@ -248,7 +249,7 @@ bar {
     position top
     status_command i3status
 
-    font pango:Fira Code 14
+    font pango:Fira Code 12
     colors {
         background $back
     }
