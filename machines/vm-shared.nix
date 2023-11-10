@@ -70,6 +70,11 @@ in
     # };
     #
     displayManager = {
+      setupCommands = ''
+        ${pkgs.xorg.xrandr}/bin/xrandr --newmode "2256x1504_60.00"  287.00  2256 2424 2664 3072  1504 1507 1517 1559 -hsync +vsync
+        ${pkgs.xorg.xrandr}/bin/xrandr --addmode Virtual1 2256x1504_60.00
+        ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual1 --mode 2256x1504_60.00
+      '';
       defaultSession = "sway";
       sddm.enable = true;
       # sddm.enableHidpi = true;
