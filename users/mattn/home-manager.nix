@@ -379,17 +379,17 @@ in
       #padding.y = 27;
 
       key_bindings = [
-        { key = "K"; mods = "Command"; chars = "ClearHistory"; } #remap
-        # { key = "V"; mods = "Command"; action = "Paste"; } #no more command for  copy paste
-        # { key = "C"; mods = "Command"; action = "Copy"; } #cmd is system wide ctrl shift c/v
-        { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
-        { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Plus"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "NumpadAdd"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
-        { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
-        { key = "F"; mods = "Command"; action = "SearchBackward"; }
-        { key = "I"; mods = "Command"; action = "ToggleViMode"; }
+        { key = "K"; mods = "Alt"; chars = "ClearHistory"; } #remap
+        # { key = "V"; mods = "Alt"; action = "Paste"; } #no more command for  copy paste
+        # { key = "C"; mods = "Alt"; action = "Copy"; } #cmd is system wide ctrl shift c/v
+        { key = "Key0"; mods = "Alt"; action = "ResetFontSize"; }
+        { key = "Equals"; mods = "Alt"; action = "IncreaseFontSize"; }
+        { key = "Plus"; mods = "Alt"; action = "IncreaseFontSize"; }
+        { key = "NumpadAdd"; mods = "Alt"; action = "IncreaseFontSize"; }
+        { key = "Minus"; mods = "Alt"; action = "DecreaseFontSize"; }
+        { key = "NumpadSubtract"; mods = "Alt"; action = "DecreaseFontSize"; }
+        { key = "F"; mods = "Alt"; action = "SearchBackward"; }
+        { key = "I"; mods = "Alt"; action = "ToggleViMode"; }
       ];
 
       # Colors (Solarized Dark)
